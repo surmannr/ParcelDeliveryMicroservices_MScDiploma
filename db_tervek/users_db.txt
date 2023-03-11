@@ -1,0 +1,61 @@
+
+
+Table parcelDelivery.user {
+  id string
+  firstname string
+  lastname string
+  nameprefix string
+  email string
+  roleId int
+  birthdate date
+  address Address
+}
+
+Table parcelDelivery.timesheet {
+  id int
+  userId string
+  date date
+  workingHours double
+  workingCategoryId int
+  detailsOfWork string
+}
+
+Table parcelDelivery.workingCategory{
+  id int
+  name string
+  parentWorkingCategoryId int
+}
+
+Table parcelDelivery.holiday {
+  id int
+  startDate datetime
+  endDate datetime
+  reason string
+  isApproved bool
+  userId string
+}
+
+Table parcelDelivery.application {
+  id string
+  candidateName string
+  CVname string
+  applyingDate date
+  applyingRoleId int
+  mobileNumber string
+  comment string
+  hr_comment string
+  email string
+  salaryClaim int
+  applicationStatus ApplicationStatus
+}
+
+Table parcelDelivery.role {
+  id int
+  name string
+}
+
+Ref: parcelDelivery.user.id < parcelDelivery.timesheet.userId
+Ref: parcelDelivery.user.id < parcelDelivery.holiday.userId
+Ref: parcelDelivery.role.id < parcelDelivery.user.roleId
+Ref: parcelDelivery.role.id < parcelDelivery.application.applyingRoleId
+Ref: parcelDelivery.workingCategory.id < parcelDelivery.timesheet.workingCategoryId

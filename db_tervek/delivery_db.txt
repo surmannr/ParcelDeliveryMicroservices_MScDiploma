@@ -1,0 +1,51 @@
+Table parcelDelivery.package {
+  id string
+  userId string
+  size string
+  isFragile bool
+  weight double
+  shippingRequestId string
+}
+
+Table parcelDelivery.shippingRequest {
+  id string
+  userId string
+  addressFrom Address
+  addressTo Address
+  isExpress bool
+  shippingOptionId int
+  billingId string
+  paymentOptionId int
+  courierId string
+}
+
+Table parcelDelivery.shippingOption {
+  id int
+  name string
+  price double
+}
+
+Table parcelDelivery.paymentOption {
+  id int
+  name string
+}
+
+Table parcelDelivery.billing {
+  id string
+  userId string
+  shippingRequestId string
+  totalDistance double
+  totalAmount double
+  currencyId int
+}
+
+Table parcelDelivery.currency {
+  id int
+  name string
+}
+
+Ref: parcelDelivery.shippingRequest.id < parcelDelivery.package.shippingRequestId
+Ref: parcelDelivery.paymentOption.id < parcelDelivery.shippingRequest.paymentOptionId
+Ref: parcelDelivery.shippingOption.id < parcelDelivery.shippingRequest.shippingOptionId
+Ref: parcelDelivery.shippingRequest.billingId > parcelDelivery.billing.id
+Ref: parcelDelivery.currency.id < parcelDelivery.billing.currencyId

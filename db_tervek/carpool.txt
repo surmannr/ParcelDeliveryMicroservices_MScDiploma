@@ -1,0 +1,31 @@
+Table parcelDelivery.vehicle {
+  id int
+  registrationNumber string
+  type string
+  year int
+  technicalInspectionExpirationData date
+  seatingCapacity int
+  maxPackageSizeXYZ string
+}
+
+Table parcelDelivery.reservation {
+  id string
+  vehicleId int
+  reason string
+  reservationStartDate date
+  reservationEndDate date
+  userId string
+  reservationStatus ReservationStatus
+}
+
+Table parcelDelivery.loggedRoute {
+  id string
+  reservationId string
+  distanceTravelled double
+  fuelConsumption double
+  note string
+  dateOfReturn date
+}
+
+Ref: parcelDelivery.reservation.vehicleId > parcelDelivery.vehicle.id
+Ref: parcelDelivery.loggedRoute.reservationId > parcelDelivery.reservation.id
