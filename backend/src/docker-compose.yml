@@ -1,0 +1,58 @@
+version: '3.4'
+
+services:
+  packagedelivery.mongodb:
+    image: mongo
+
+  packagetracking.redisdb:
+    image: redis:alpine
+
+  packagesending.postgresql:
+    image: postgres
+
+  users.mssqldb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  portainer:
+    image: portainer/portainer-ce
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+  packagedelivery.api:
+    image: ${DOCKER_REGISTRY-}packagedeliveryapi
+    build:
+      context: .
+      dockerfile: Microservices/PackageDelivery/PackageDelivery.API/Dockerfile
+
+  packagetracking.api:
+    image: ${DOCKER_REGISTRY-}packagetrackingapi
+    build:
+      context: .
+      dockerfile: Microservices/PackageTracking/PackageTracking.API/Dockerfile
+
+  packagesending.api:
+    image: ${DOCKER_REGISTRY-}packagesendingapi
+    build:
+      context: .
+      dockerfile: Microservices/PackageSending/PackageSending.API/Dockerfile
+
+  employees.api:
+    image: ${DOCKER_REGISTRY-}employeesapi
+    build:
+      context: .
+      dockerfile: Microservices/Employees/Employees.API/Dockerfile
+
+  customers.api:
+    image: ${DOCKER_REGISTRY-}customersapi
+    build:
+      context: .
+      dockerfile: Microservices/Customers/Customers.API/Dockerfile
+
+volumes:
+  mongo_data: 
+  portainer_data:
+  postgres_data:
+  pgadmin_data:
+
+

@@ -1,0 +1,147 @@
+version: '3.4'
+
+services:
+  packagedelivery.mongodb:
+    container_name: packagedelivery_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  packagetracking.redisdb:
+    container_name: packagetracking_redisdb
+    restart: always
+    ports:
+      - "6379:6379"
+
+  packagesending.postgresql:
+    container_name: packagesending_postgresql
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_DB=PackageSendingDb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  users.mssqldb:
+    container_name: users_mssqldb
+    restart: always
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Password?123@"
+      ACCEPT_EULA: "Y"
+
+  portainer:
+    container_name: portainer
+    restart: always
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+  pgadmin:
+    container_name: pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@pda.hu
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
+    ports:
+      - "5050:80"
+      - "5051:443"
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+
+  packagedelivery.api:
+    container_name: packagedelivery.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - DatabaseSettings:ConnectionString=mongodb://packagedelivery_mongodb:27017
+    depends_on:
+      - packagedelivery.mongodb
+    ports:
+      - "7179:443"
+      - "5160:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.aspnet/https:/https:ro
+  
+  packagetracking.api:
+    container_name: packagetracking.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - CacheSettings:ConnectionString=packagetracking_redisdb:6379
+    depends_on:
+      - packagetracking.redisdb
+    ports:
+      - "5094:80"
+      - "7232:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.aspnet/https:/https:ro
+
+  packagesending.api:
+    container_name: packagesending.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ConnectionStrings:DefaultConnection=Server=packagesending_postgresql;Port=5432;Database=PackageSendingDb;User Id=admin;Password=admin1234;
+    depends_on:
+      - packagesending.postgresql
+    ports:
+      - "5064:80"
+      - "7128:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.aspnet/https:/https:ro
+
+  employees.api:
+    container_name: employees.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ConnectionStrings:DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_EmployeesDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
+    depends_on:
+      - users.mssqldb
+    ports:
+      - "5001:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.aspnet/https:/https:ro
+
+  customers.api:
+    container_name: customers.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ConnectionStrings:DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_CustomersDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
+    depends_on:
+      - users.mssqldb
+    ports:
+      - "5002:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.aspnet/https:/https:ro
