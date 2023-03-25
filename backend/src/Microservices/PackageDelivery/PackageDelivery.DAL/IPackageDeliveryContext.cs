@@ -12,5 +12,6 @@ namespace PackageDelivery.DAL
     {
         IMongoCollection<AcceptedShippingRequest> AcceptedShippingRequests { get; }
         IMongoCollection<VehicleUsage> VehicleUsages { get; }
+        IMongoCollection<Vehicle> Vehicles { get; }
     }
 }

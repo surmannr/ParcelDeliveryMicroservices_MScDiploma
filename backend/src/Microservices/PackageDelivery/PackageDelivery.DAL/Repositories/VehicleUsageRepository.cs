@@ -25,6 +25,14 @@ namespace PackageDelivery.DAL.Repositories
                             .FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<VehicleUsage>> GetVehicleUsageByEmployeeId(string employeeid)
+        {
+            return await _context
+                            .VehicleUsages
+                            .Find(s => s.EmployeeId == employeeid)
+                            .ToListAsync();
+        }
+
         public async Task<IEnumerable<VehicleUsage>> GetVehicleUsages()
         {
             return await _context
@@ -33,9 +41,11 @@ namespace PackageDelivery.DAL.Repositories
                             .ToListAsync();
         }
 
-        public async Task CreateVehicleUsage(VehicleUsage vehicleUsage)
+        public async Task<string> CreateVehicleUsage(VehicleUsage vehicleUsage)
         {
             await _context.VehicleUsages.InsertOneAsync(vehicleUsage);
+
+            return vehicleUsage.Id;
         }
 
         public async Task<bool> DeleteVehicleUsage(string id)

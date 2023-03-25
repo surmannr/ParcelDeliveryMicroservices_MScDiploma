@@ -1,5 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using FluentValidation;
+using MediatR;
+using PackageDelivery.BL.Extensions.CQRS;
 using PackageDelivery.BL.Extensions.Identity;
 using PackageDelivery.BL.Extensions.Mapper;
 using PackageDelivery.BL.Features._VehicleUsage.Queries;
@@ -28,10 +31,14 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped<IPackageDeliveryContext, PackageDeliveryContext>();
 builder.Services.AddScoped<IAcceptedShippingRequestRepository, AcceptedShippingRequestRepository>();
 builder.Services.AddScoped<IVehicleUsageRepository, VehicleUsageRepository>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 #endregion
 
 #region Business logic services (CQRS)
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllVehicleUsages).Assembly));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IIdentityService, IdentityService>();
@@ -68,6 +75,8 @@ app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

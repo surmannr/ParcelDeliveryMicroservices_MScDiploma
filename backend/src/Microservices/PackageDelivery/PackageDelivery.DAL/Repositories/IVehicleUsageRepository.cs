@@ -11,8 +11,9 @@ namespace PackageDelivery.DAL.Repositories
     {
         Task<IEnumerable<VehicleUsage>> GetVehicleUsages();
         Task<VehicleUsage> GetVehicleUsageById(string id);
+        Task<IEnumerable<VehicleUsage>> GetVehicleUsageByEmployeeId(string employeeid);
 
-        Task CreateVehicleUsage(VehicleUsage vehicleUsage);
+        Task<string> CreateVehicleUsage(VehicleUsage vehicleUsage);
         Task<bool> UpdateVehicleUsage(VehicleUsage vehicleUsage);
         Task<bool> DeleteVehicleUsage(string id);
     }

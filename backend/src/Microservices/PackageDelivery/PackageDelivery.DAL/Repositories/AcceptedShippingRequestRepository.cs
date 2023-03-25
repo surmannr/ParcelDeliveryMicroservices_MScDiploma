@@ -1,10 +1,5 @@
 ﻿using MongoDB.Driver;
 using PackageDelivery.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PackageDelivery.DAL.Repositories
 {
@@ -33,9 +28,19 @@ namespace PackageDelivery.DAL.Repositories
                             .ToListAsync();
         }
 
-        public async Task CreateAcceptedShippingRequest(AcceptedShippingRequest shipping)
+        public async Task<IEnumerable<AcceptedShippingRequest>> GetAcceptedShippingRequestsByEmployeeId(string employeeId)
+        {
+            return await _context
+                            .AcceptedShippingRequests
+                            .Find(s => s.EmployeeId == employeeId)
+                            .ToListAsync();
+        }
+
+        public async Task<string> CreateAcceptedShippingRequest(AcceptedShippingRequest shipping)
         {
             await _context.AcceptedShippingRequests.InsertOneAsync(shipping);
+
+            return shipping.Id;
         }
 
         public async Task<bool> DeleteAcceptedShippingRequest(string id)

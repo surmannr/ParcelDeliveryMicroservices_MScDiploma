@@ -8,7 +8,7 @@ namespace PackageDelivery.BL.Dto
 {
     public class VehicleDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string RegistrationNumber { get; set; }
         public string Type { get; set; }
         public int Year { get; set; }

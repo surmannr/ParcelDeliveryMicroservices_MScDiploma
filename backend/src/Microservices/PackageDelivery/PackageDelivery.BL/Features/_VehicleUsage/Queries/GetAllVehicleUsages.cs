@@ -37,13 +37,5 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Queries
                     .ToList();
             }
         }
-
-        public class QueryValidator : AbstractValidator<Query>
-        {
-            public QueryValidator()
-            {
-
-            }
-        }
     }
 }

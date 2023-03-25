@@ -58,6 +58,21 @@ services:
     volumes:
       - pgadmin_data:/root/.pgadmin
 
+  mongo-gui:
+    container_name: "mongo-gui"
+    restart: always
+    ports:
+      - "4321:4321"
+    environment:
+      - MONGO_URL=mongodb://packagedelivery_mongodb:27017
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
   packagedelivery.api:
     container_name: packagedelivery.api
     environment:
@@ -69,7 +84,7 @@ services:
     depends_on:
       - packagedelivery.mongodb
     ports:
-      - "7179:443"
+      - "42010:443"
       - "5160:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
@@ -88,7 +103,7 @@ services:
       - packagetracking.redisdb
     ports:
       - "5094:80"
-      - "7232:443"
+      - "42011:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

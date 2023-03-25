@@ -10,9 +10,10 @@ namespace PackageDelivery.DAL.Repositories
     public interface IAcceptedShippingRequestRepository
     {
         Task<IEnumerable<AcceptedShippingRequest>> GetAcceptedShippingRequests();
+        Task<IEnumerable<AcceptedShippingRequest>> GetAcceptedShippingRequestsByEmployeeId(string employeeId);
         Task<AcceptedShippingRequest> GetAcceptedShippingRequestById(string id);
 
-        Task CreateAcceptedShippingRequest(AcceptedShippingRequest shipping);
+        Task<string> CreateAcceptedShippingRequest(AcceptedShippingRequest shipping);
         Task<bool> UpdateAcceptedShippingRequest(AcceptedShippingRequest shipping);
         Task<bool> DeleteAcceptedShippingRequest(string id);
     }

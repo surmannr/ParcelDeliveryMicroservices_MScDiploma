@@ -18,10 +18,13 @@ namespace PackageDelivery.DAL
 
             AcceptedShippingRequests = database.GetCollection<AcceptedShippingRequest>(configuration["DatabaseSettings:CollectionName:AcceptedShippingRequest"]);
             VehicleUsages = database.GetCollection<VehicleUsage>(configuration["DatabaseSettings:CollectionName:VehicleUsage"]);
+            Vehicles = database.GetCollection<Vehicle>(configuration["DatabaseSettings:CollectionName:Vehicle"]);
         }
 
         public IMongoCollection<AcceptedShippingRequest> AcceptedShippingRequests { get; }
 
         public IMongoCollection<VehicleUsage> VehicleUsages { get; }
+
+        public IMongoCollection<Vehicle> Vehicles { get; }
     }
 }

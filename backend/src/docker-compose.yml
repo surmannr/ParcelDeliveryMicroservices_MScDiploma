@@ -19,6 +19,12 @@ services:
   pgadmin:
     image: dpage/pgadmin4
 
+  mongo-gui:
+    image: ugleiton/mongo-gui
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
   packagedelivery.api:
     image: ${DOCKER_REGISTRY-}packagedeliveryapi
     build:
