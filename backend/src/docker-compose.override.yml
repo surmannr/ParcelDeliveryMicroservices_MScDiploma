@@ -61,6 +61,8 @@ services:
   mongo-gui:
     container_name: "mongo-gui"
     restart: always
+    depends_on:
+      - packagedelivery.mongodb
     ports:
       - "4321:4321"
     environment:
@@ -121,7 +123,7 @@ services:
       - packagesending.postgresql
     ports:
       - "5064:80"
-      - "7128:443"
+      - "42012:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
