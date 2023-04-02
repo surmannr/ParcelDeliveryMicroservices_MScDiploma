@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +23,6 @@ namespace PackageSending.DAL.Entities
         public PaymentOption PaymentOption { get; set; }
         public ShippingOption ShippingOption { get; set; }
         public Billing Billing { get; set; }
+        public List<Package> Packages { get; set; }
     }
 }

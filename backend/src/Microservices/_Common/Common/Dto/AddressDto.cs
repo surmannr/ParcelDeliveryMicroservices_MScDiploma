@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PackageTracking.DAL.Entities
+namespace Common.Dto
 {
-    public class Address
+    public class AddressDto
     {
         public string Street { get; set; }
         public string City { get; set; }

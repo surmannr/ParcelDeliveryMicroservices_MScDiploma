@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Common.Dto;
+using Common.Entity;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Microservices/PackageDelivery/PackageDelivery.API/PackageDelivery.API.csproj", "Microservices/PackageDelivery/PackageDelivery.API/"]
+COPY ["BuildingBlocks/EventBus.Messages/EventBus.Messages.csproj", "BuildingBlocks/EventBus.Messages/"]
 COPY ["Microservices/PackageDelivery/PackageDelivery.BL/PackageDelivery.BL.csproj", "Microservices/PackageDelivery/PackageDelivery.BL/"]
 COPY ["Microservices/PackageDelivery/PackageDelivery.DAL/PackageDelivery.DAL.csproj", "Microservices/PackageDelivery/PackageDelivery.DAL/"]
 RUN dotnet restore "Microservices/PackageDelivery/PackageDelivery.API/PackageDelivery.API.csproj"

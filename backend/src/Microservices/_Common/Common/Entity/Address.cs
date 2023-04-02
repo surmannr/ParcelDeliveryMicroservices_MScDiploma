@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PackageSending.BL.Dto
+namespace Common.Entity
 {
-    public class AddressDto
+    public class Address
     {
         public string Street { get; set; }
         public string City { get; set; }

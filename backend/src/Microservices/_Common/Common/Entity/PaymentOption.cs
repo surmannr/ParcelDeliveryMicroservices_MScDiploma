@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PackageSending.DAL.Entities
+namespace Common.Entity
 {
     public class PaymentOption
     {

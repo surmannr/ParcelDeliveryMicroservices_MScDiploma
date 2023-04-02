@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Entity;
+using Microsoft.EntityFrameworkCore;
 using PackageSending.DAL.Entities;
 using System;
 using System.Collections.Generic;

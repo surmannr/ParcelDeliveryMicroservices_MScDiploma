@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Common.Dto;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Dto;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +23,6 @@ namespace PackageSending.BL.Dto
         public PaymentOptionDto PaymentOption { get; set; }
         public ShippingOptionDto ShippingOption { get; set; }
         public BillingDto Billing { get; set; }
+        public List<PackageDto> Packages { get; set; }
     }
 }

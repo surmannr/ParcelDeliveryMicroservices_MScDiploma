@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PackageSending.DAL.Entities
+namespace EventBus.Messages.EventObjects
 {
-    public class Address
+    public class AddressEO
     {
         public string Street { get; set; }
         public string City { get; set; }

@@ -8,7 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Microservices/PackageTracking/PackageTracking.API/PackageTracking.API.csproj", "Microservices/PackageTracking/PackageTracking.API/"]
+COPY ["BuildingBlocks/EventBus.Messages/EventBus.Messages.csproj", "BuildingBlocks/EventBus.Messages/"]
 COPY ["Microservices/PackageTracking/PackageTracking.DAL/PackageTracking.DAL.csproj", "Microservices/PackageTracking/PackageTracking.DAL/"]
+COPY ["Microservices/_Common/Common/Common.csproj", "Microservices/_Common/Common/"]
 RUN dotnet restore "Microservices/PackageTracking/PackageTracking.API/PackageTracking.API.csproj"
 COPY . .
 WORKDIR "/src/Microservices/PackageTracking/PackageTracking.API"

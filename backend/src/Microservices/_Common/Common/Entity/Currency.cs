@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PackageSending.BL.Dto
+namespace Common.Entity
 {
-    public class CurrencyDto
+    public class Currency
     {
         public int Id { get; set; }
         public string Name { get; set; }

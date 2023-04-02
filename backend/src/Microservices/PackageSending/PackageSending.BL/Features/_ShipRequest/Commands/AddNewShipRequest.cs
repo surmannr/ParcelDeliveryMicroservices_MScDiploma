@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using EventBus.Messages.Events;
 using FluentValidation;
+using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PackageSending.BL.Dto;
@@ -27,11 +29,13 @@ namespace PackageSending.BL.Features._ShipRequest.Commands
         {
             private readonly IMapper _mapper;
             private readonly PackageSendingDbContext _dbContext;
+            private readonly IPublishEndpoint _publishEndpoint;
 
-            public Handler(IMapper mapper, PackageSendingDbContext dbContext)
+            public Handler(IMapper mapper, PackageSendingDbContext dbContext, IPublishEndpoint publishEndpoint)
             {
                 _mapper = mapper;
                 _dbContext = dbContext;
+                _publishEndpoint = publishEndpoint;
             }
 
             public async Task<string> Handle(Command request, CancellationToken cancellationToken)
@@ -56,6 +60,11 @@ namespace PackageSending.BL.Features._ShipRequest.Commands
 
                 var result = _dbContext.ShippingRequests.Add(newShipRequest);
                 await _dbContext.SaveChangesAsync();
+
+                // Event
+                var eventMessage = _mapper.Map<SendingPackageEvent>(result.Entity);
+                eventMessage.ShippingRequestId = result.Entity.Id;
+                await _publishEndpoint.Publish(eventMessage);
 
                 return result.Entity.Id;
             }

@@ -1,6 +1,8 @@
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using FluentValidation;
+using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -50,6 +52,16 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
         .AsImplementedInterfaces()
         .InstancePerDependency();
 
+});
+#endregion
+
+#region MassTransit
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+    });
 });
 #endregion
 

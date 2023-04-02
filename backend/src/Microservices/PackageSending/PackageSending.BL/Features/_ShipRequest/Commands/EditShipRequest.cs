@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Entity;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

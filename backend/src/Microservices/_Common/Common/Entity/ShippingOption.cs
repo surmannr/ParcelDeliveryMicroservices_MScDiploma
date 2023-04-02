@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PackageSending.BL.Dto
+namespace Common.Entity
 {
-    public class PaymentOptionDto
+    public class ShippingOption
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public double Price { get; set; }
     }
 }
