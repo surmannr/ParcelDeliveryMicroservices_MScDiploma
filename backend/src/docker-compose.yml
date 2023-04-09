@@ -55,10 +55,17 @@ services:
       context: .
       dockerfile: Microservices/Customers/Customers.API/Dockerfile
 
+  ocelotapigateway:
+    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    build:
+      context: .
+      dockerfile: ApiGateways/OcelotApiGateway/Dockerfile
+
 volumes:
   mongo_data: 
   portainer_data:
   postgres_data:
   pgadmin_data:
+
 
 

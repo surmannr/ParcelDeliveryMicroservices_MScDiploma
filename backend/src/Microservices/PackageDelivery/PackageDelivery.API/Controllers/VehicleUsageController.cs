@@ -27,7 +27,7 @@ namespace PackageDelivery.API.Controllers
             return Ok(vehicleUsages);
         }
      
-        [HttpGet("{employeeid}", Name = "GetVehicleUsageByEmployeeId")]
+        [HttpGet("employee/{employeeid}", Name = "GetVehicleUsageByEmployeeId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(VehicleUsageDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<VehicleUsageDto>>> GetVehicleUsageByEmployeeId(string employeeid)

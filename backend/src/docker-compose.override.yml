@@ -169,3 +169,24 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ~/.aspnet/https:/https:ro
+
+  ocelotapigateway:
+    container_name: ocelotapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    depends_on:
+      - packagesending.api
+      - packagetracking.api
+      - packagedelivery.api
+      - employees.api
+      - customers.api
+    ports:
+      - "5072:80"
+      - "42024:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.aspnet/https:/https:ro

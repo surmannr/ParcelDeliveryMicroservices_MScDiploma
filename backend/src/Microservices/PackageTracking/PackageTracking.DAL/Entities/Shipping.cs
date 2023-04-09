@@ -16,6 +16,7 @@ namespace PackageTracking.DAL.Entities
         public Address AddressTo { get; set; }
         public string PaymentOptionName { get; set; }
         public string ShippingOptionName { get; set; }
+        public string Status { get; set; }
         public double ShippingOptionPrice { get; set; }
         public bool IsExpress { get; set; }
         public bool IsFinished { get; set; }

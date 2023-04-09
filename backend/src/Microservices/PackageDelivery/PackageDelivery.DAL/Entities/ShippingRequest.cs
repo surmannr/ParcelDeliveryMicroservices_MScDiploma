@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace PackageDelivery.DAL.Entities
         public bool IsExpress { get; set; }
         public string PaymentOption { get; set; }
         public string ShippingOption { get; set; }
+        public Status Status { get; set; }
         public int Price { get; set; }
         public ICollection<Package> Packages { get; set; }
     }

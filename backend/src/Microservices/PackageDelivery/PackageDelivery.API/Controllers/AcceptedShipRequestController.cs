@@ -36,7 +36,7 @@ namespace PackageDelivery.API.Controllers
             return Ok(acceptedShippingRequest);
         }
 
-        [HttpGet("{employeeid}", Name = "GetAcceptedShipRequestByEmployeeId")]
+        [HttpGet("employee/{employeeid}", Name = "GetAcceptedShipRequestByEmployeeId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(AcceptedShippingRequestDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<AcceptedShippingRequestDto>>> GetAcceptedShipRequestByEmployeeId(string employeeid)

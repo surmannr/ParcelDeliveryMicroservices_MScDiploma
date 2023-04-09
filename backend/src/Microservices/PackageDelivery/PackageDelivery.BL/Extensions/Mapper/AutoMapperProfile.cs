@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
+using Common.Extension;
 using PackageDelivery.BL.Dto;
 using PackageDelivery.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PackageDelivery.BL.Extensions.Mapper
 {
@@ -16,7 +12,9 @@ namespace PackageDelivery.BL.Extensions.Mapper
             CreateMap<Package, PackageDto>().ReverseMap();
             CreateMap<Vehicle, VehicleDto>().ReverseMap();
             CreateMap<VehicleUsage, VehicleUsageDto>().ReverseMap();
-            CreateMap<ShippingRequest, ShippingRequestDto>().ReverseMap();
+            CreateMap<ShippingRequest, ShippingRequestDto>()
+                .ForMember(x => x.Status, y => y.MapFrom(yd => yd.Status.GetDisplayName()))
+                .ReverseMap();
             CreateMap<AcceptedShippingRequest, AcceptedShippingRequestDto>().ReverseMap();
         }
     }

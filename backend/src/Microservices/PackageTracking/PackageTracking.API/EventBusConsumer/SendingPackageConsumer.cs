@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Common.Entity;
+using Common.Extension;
 using EventBus.Messages.Events;
 using MassTransit;
 using PackageTracking.DAL.Entities;
@@ -27,6 +29,7 @@ namespace PackageTracking.API.EventBusConsumer
             shipping.PaymentOptionName = context.Message.PaymentOption.Name;
             shipping.ShippingOptionName = context.Message.ShippingOption.Name;
             shipping.ShippingOptionPrice = context.Message.ShippingOption.Price;
+            shipping.Status = Status.Processing.GetDisplayName();
             await _repository.UpdateShipping(shipping);
         }
     }

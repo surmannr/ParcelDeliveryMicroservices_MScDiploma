@@ -14,6 +14,7 @@ namespace PackageDelivery.BL.Dto
         public bool IsExpress { get; set; }
         public string PaymentOption { get; set; }
         public string ShippingOption { get; set; }
+        public string Status { get; set; }
         public int Price { get; set; }
         public ICollection<PackageDto> Packages { get; set; }
     }
