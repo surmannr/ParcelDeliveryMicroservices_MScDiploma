@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AddWorkingDaysComponent } from './pages/working/add-working-days/add-working-days.component';
 import { HeaderMenuComponent } from './components/frame/header-menu/header-menu.component';
 import { FooterComponent } from './components/frame/footer/footer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FooterComponent } from './components/frame/footer/footer.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NgbModule,
     AppRoutingModule,
     FieldsetModule,
     MegaMenuModule,
