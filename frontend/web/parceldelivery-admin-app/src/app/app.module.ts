@@ -7,25 +7,25 @@ import { FieldsetModule } from 'primeng/fieldset';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddWorkingDaysComponent } from './components/working/add-working-days/add-working-days.component';
-import { HeaderMenuComponent } from './components/basepage/header-menu/header-menu.component';
-import { FooterComponent } from './components/basepage/footer/footer.component';
+import { AddWorkingDaysComponent } from './pages/working/add-working-days/add-working-days.component';
+import { HeaderMenuComponent } from './components/frame/header-menu/header-menu.component';
+import { FooterComponent } from './components/frame/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddWorkingDaysComponent,
     HeaderMenuComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FieldsetModule,
-    MegaMenuModule
+    MegaMenuModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
