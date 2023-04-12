@@ -1,7 +1,11 @@
 <div class="nav d-inline">
-  <p-megaMenu
+  <p-menubar
     styleClass="my-menu"
     [model]="menuItems"
     [ngStyle]="{ backgroundColor: 'var(--teal-500)' }"
-  ></p-megaMenu>
+  >
+    <ng-template pTemplate="start">
+      <img src="assets/logo.png" height="40" class="mr-2" routerLink="/" />
+    </ng-template>
+  </p-menubar>
 </div>

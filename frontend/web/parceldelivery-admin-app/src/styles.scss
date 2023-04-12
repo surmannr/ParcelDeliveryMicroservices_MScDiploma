@@ -19,6 +19,7 @@ body {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    height: 85%;
 }
 
 @media (min-width: 768px) {
@@ -37,4 +38,13 @@ body {
     .container {
         width: 1170px;
     }
+}
+
+.p-fieldset {
+    height: 100% !important;
+}
+
+.my-background {
+    background: var(--teal-700) !important;
+    color: white !important;
 }

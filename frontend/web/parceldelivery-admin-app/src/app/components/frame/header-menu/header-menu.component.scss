@@ -1,30 +1,31 @@
-:host ::ng-deep .p-megamenu {
+:host ::ng-deep .p-menubar {
+    background: var(--teal-700) !important;
+    display: flex;
+}
+
+:host ::ng-deep .p-menubar .p-menubar-root-list>.p-menuitem.p-menuitem-active>.p-menuitem-link,
+.p-menubar .p-menubar-root-list>.p-menuitem.p-menuitem-active>.p-menuitem-link:not(.p-disabled):hover {
     background: var(--teal-700) !important;
 }
 
-:host ::ng-deep .p-megamenu .p-megamenu-root-list>.p-menuitem.p-menuitem-active>.p-menuitem-link,
-.p-megamenu .p-megamenu-root-list>.p-menuitem.p-menuitem-active>.p-menuitem-link:not(.p-disabled):hover {
+:host ::ng-deep .p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-link:not(.p-disabled):hover {
     background: var(--teal-700) !important;
 }
 
-:host ::ng-deep .p-megamenu .p-megamenu-root-list>.p-menuitem>.p-menuitem-link:not(.p-disabled):hover {
-    background: var(--teal-700) !important;
-}
-
-:host ::ng-deep .p-megamenu .p-megamenu-root-list>.p-menuitem>.p-menuitem-link .p-menuitem-icon {
+:host ::ng-deep .p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-link .p-menuitem-icon {
     color: #fff !important;
 }
 
-:host ::ng-deep .p-megamenu .p-megamenu-root-list>.p-menuitem>.p-menuitem-link .p-menuitem-text {
+:host ::ng-deep .p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-link .p-menuitem-text {
     color: #fff !important;
 }
 
-:host ::ng-deep .p-megamenu .p-megamenu-root-list>.p-menuitem>.p-menuitem-link .p-submenu-icon {
+:host ::ng-deep .p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-link .p-submenu-icon {
     color: #fff !important;
 }
 
-:host ::ng-deep .p-megamenu .p-menuitem-link:focus,
-.p-megamenu .p-menuitem-link:active,
-.p-megamenu .p-menuitem-link:hover {
+:host ::ng-deep .p-menubar .p-menuitem-link:focus,
+.p-menubar .p-menuitem-link:active,
+.p-menubar .p-menuitem-link:hover {
     box-shadow: inset 0 0 0 0.15rem var(--teal-700) !important;
 }
