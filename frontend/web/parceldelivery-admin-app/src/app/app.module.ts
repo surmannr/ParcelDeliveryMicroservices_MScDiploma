@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { MenubarModule } from 'primeng/menubar';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -12,6 +14,12 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ImageModule } from 'primeng/image';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputMaskModule } from 'primeng/inputmask';
+import { CalendarModule } from 'primeng/calendar';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { CardModule } from 'primeng/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +31,11 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { HomeComponent } from './pages/home/home.component';
 import { TimesheetComponent } from './pages/working/timesheet/timesheet.component';
 import { DaysFromIntArrayPipe } from './pipes/days-from-int-array.pipe';
+import { AddNewVehicleComponent } from './pages/vehicle/add-new-vehicle/add-new-vehicle.component';
+import { VehicleListComponent } from './pages/vehicle/vehicle-list/vehicle-list.component';
+import { VehicleUsageListComponent } from './pages/vehicle/vehicle-usage-list/vehicle-usage-list.component';
+import { ShippingRequestListComponent } from './pages/shipping-request/shipping-request-list/shipping-request-list.component';
+import { AcceptedShippingRequestListComponent } from './pages/shipping-request/accepted-shipping-request-list/accepted-shipping-request-list.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +46,17 @@ import { DaysFromIntArrayPipe } from './pipes/days-from-int-array.pipe';
     HomeComponent,
     TimesheetComponent,
     DaysFromIntArrayPipe,
+    AddNewVehicleComponent,
+    VehicleListComponent,
+    VehicleUsageListComponent,
+    ShippingRequestListComponent,
+    AcceptedShippingRequestListComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
+    FormsModule,
     NgbModule,
     AppRoutingModule,
     FieldsetModule,
@@ -49,6 +69,12 @@ import { DaysFromIntArrayPipe } from './pipes/days-from-int-array.pipe';
     ImageModule,
     TableModule,
     InputTextModule,
+    CheckboxModule,
+    RadioButtonModule,
+    InputMaskModule,
+    CalendarModule,
+    ToggleButtonModule,
+    CardModule,
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],

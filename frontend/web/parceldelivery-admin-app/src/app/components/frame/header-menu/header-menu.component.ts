@@ -27,6 +27,43 @@ export class HeaderMenuComponent implements OnInit {
           },
         ],
       },
+      {
+        label: 'Jármű',
+        icon: 'pi pi-fw pi-file',
+        items: [
+          {
+            label: 'Új jármű',
+            icon: 'pi pi-fw pi-plus',
+            routerLink: 'add-new-vehicle',
+          },
+          {
+            label: 'Járművek',
+            icon: 'pi pi-fw pi-list',
+            routerLink: 'vehicles',
+          },
+          {
+            label: 'Járműhasználat',
+            icon: 'pi pi-fw pi-list',
+            routerLink: 'vehicleUsages',
+          },
+        ],
+      },
+      {
+        label: 'Csomagok',
+        icon: 'pi pi-fw pi-file',
+        items: [
+          {
+            label: 'Feladott csomagok',
+            icon: 'pi pi-fw pi-list',
+            routerLink: 'shipping-requests',
+          },
+          {
+            label: 'Futárok nyomonkövetése',
+            icon: 'pi pi-fw pi-list',
+            routerLink: 'accepted-shipping-requests',
+          },
+        ],
+      },
     ];
   }
 }

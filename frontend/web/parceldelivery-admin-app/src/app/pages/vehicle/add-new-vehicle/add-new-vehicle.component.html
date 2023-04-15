@@ -1,0 +1,103 @@
+<p-fieldset legend="Új jármű felvétele" styleClass="fieldset">
+  <div class="grid mt-2 w-100 justify-content-center">
+    <p-image src="assets/autok.webp" alt="Image" height="200px"></p-image>
+  </div>
+
+  <div class="grid mt-5 w-100">
+    <div
+      class="col-12 md:col-6 flex align-items-center justify-content-between column-gap-8 row-gap-8"
+    >
+      <div class="flex align-items-center gap-4 mt-5">
+        <p-checkbox
+          [(ngModel)]="isNewRegistrationNumber"
+          [binary]="true"
+          inputId="newRegistrationNumber"
+        ></p-checkbox>
+        <label for="newRegistrationNumber">Új fajta rendszám?</label>
+      </div>
+      <div *ngIf="!isNewRegistrationNumber">
+        <span class="font-bold block mb-2">Rendszám</span>
+        <p-inputMask mask="a**-999" placeholder="Rendszám"></p-inputMask>
+      </div>
+      <div *ngIf="isNewRegistrationNumber">
+        <span class="font-bold block mb-2">Rendszám</span>
+        <p-inputMask mask="aa aa-999" placeholder="Rendszám"></p-inputMask>
+      </div>
+    </div>
+    <div
+      class="col-12 md:col-6 flex align-items-center column-gap-8 row-gap-8 pl-8"
+    >
+      <div>
+        <span class="font-bold block mb-2">Típus</span>
+        <input type="text" pInputText placeholder="Típus" />
+      </div>
+    </div>
+  </div>
+  <div class="grid mt-5 w-100">
+    <div class="col-12 md:col-6 flex align-items-center justify-content-end">
+      <div>
+        <span class="font-bold block mb-2">Évjárat</span>
+        <input type="number" pInputText placeholder="Évjárat" />
+      </div>
+    </div>
+    <div class="col-12 md:col-6 flex align-items-center pl-8">
+      <div>
+        <span class="font-bold block mb-2"
+          >Műszaki vizsga érvényesség vége</span
+        >
+        <p-calendar
+          dateFormat="dd.mm.yy"
+          placeholder="Érvényesség vége"
+        ></p-calendar>
+      </div>
+    </div>
+  </div>
+  <div class="grid mt-5 w-100">
+    <div class="field col-12 md:col-3">
+      <label for="seating" class="font-bold">Ülések száma</label>
+      <div id="seating" class="p-inputgroup">
+        <input type="number" pInputText placeholder="Ülések száma" />
+        <span class="p-inputgroup-addon">db</span>
+      </div>
+    </div>
+    <div class="field col-12 md:col-3">
+      <label for="sizeX" class="font-bold">Jármű méret (X, szélesség)</label>
+      <div id="sizeX" class="p-inputgroup">
+        <input type="number" pInputText placeholder="Szélesség" />
+        <span class="p-inputgroup-addon">m</span>
+      </div>
+    </div>
+    <div class="field col-12 md:col-3">
+      <label for="sizeY" class="font-bold">Jármű méret (Y, magasság)</label>
+      <div id="sizeY" class="p-inputgroup">
+        <input type="number" pInputText placeholder="Magasság" />
+        <span class="p-inputgroup-addon">m</span>
+      </div>
+    </div>
+    <div class="field col-12 md:col-3">
+      <label for="sizeZ" class="font-bold">Jármű méret (Z, mélység)</label>
+      <div id="sizeZ" class="p-inputgroup">
+        <input type="number" pInputText placeholder="Mélység" />
+        <span class="p-inputgroup-addon">m</span>
+      </div>
+    </div>
+  </div>
+  <div class="row flex gap-3 mt-5 justify-content-center">
+    <div>
+      <p-toast></p-toast>
+      <p-confirmPopup></p-confirmPopup>
+      <p-button
+        styleClass="my-background"
+        (click)="save($event)"
+        icon="pi pi-check"
+        label="Mentés"
+      ></p-button>
+    </div>
+
+    <p-button
+      label="Vissza"
+      icon="pi pi-times"
+      styleClass="my-background"
+    ></p-button>
+  </div>
+</p-fieldset>

@@ -1,0 +1,136 @@
+<p class="text-4xl my-3">Járművek</p>
+
+<p-table
+  #dt1
+  [value]="vehicleUsages"
+  [scrollable]="true"
+  scrollDirection="horizontal"
+  styleClass="p-datatable-gridlines p-datatable-striped"
+  responsiveLayout="stack"
+  dataKey="name"
+  [paginator]="true"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="{first} - {last} rekord a {totalRecords} összes rekordból."
+  [globalFilterFields]="[
+    'employeeName',
+    'vehicle.type',
+    'vehicle.year',
+    'vehicle.registrationNumber'
+  ]"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <button
+        pButton
+        label="Szűrők törlése"
+        class="p-button-outlined"
+        icon="pi pi-filter-slash"
+        (click)="clear(dt1)"
+      ></button>
+      <span class="p-input-icon-left ml-auto">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Keresés..."
+        />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 5rem"></th>
+      <th pSortableColumn="dateFrom">
+        Mettől <p-sortIcon field="dateFrom"></p-sortIcon>
+        <p-columnFilter
+          type="date"
+          field="dateFrom"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="dateTo">
+        Meddig <p-sortIcon field="dateTo"></p-sortIcon>
+        <p-columnFilter
+          type="date"
+          field="dateTo"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="employeeName">
+        Dolgozó neve <p-sortIcon field="employeeName"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="employeeName"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="note">
+        Megjegyzés <p-sortIcon field="note"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="note"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-vehicleUsage let-expanded="expanded">
+    <tr>
+      <td>
+        <button
+          type="button"
+          pButton
+          pRipple
+          [pRowToggler]="vehicleUsage"
+          class="p-button-text p-button-rounded p-button-plain"
+          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+        ></button>
+      </td>
+      <td>{{ vehicleUsage.dateFrom | date : "yyyy.MM.dd." }}</td>
+      <td>{{ vehicleUsage.dateTo | date : "yyyy.MM.dd." }}</td>
+      <td>{{ vehicleUsage.employeeName }}</td>
+      <td>{{ vehicleUsage.note }}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="7">Nincsenek felvett járművek.</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-vehicleUsage>
+    <tr>
+      <td colspan="5">
+        <p-card header="Jármű adatok">
+          <div class="grid px-1">
+            <p class="text-3xl">
+              {{ vehicleUsage.vehicle.registrationNumber }}
+            </p>
+          </div>
+
+          <div class="grid justify-content-start gap-5 px-1">
+            <p class="text-lg">Típus: {{ vehicleUsage.vehicle.type }}</p>
+            <p class="text-lg">Évjárat: {{ vehicleUsage.vehicle.year }}</p>
+            <p class="text-lg">
+              Műszaki vizsga lejárata:
+              {{
+                vehicleUsage.vehicle.technicalInspectionExpirationDate
+                  | date : "yyyy.MM.dd."
+              }}
+            </p>
+          </div>
+
+          <div class="grid px-1 justify-content-start gap-5">
+            <p>Ülések száma: {{ vehicleUsage.vehicle.seatingCapacity }} db</p>
+            <p>
+              Méret: {{ vehicleUsage.vehicle.maxInternalSpaceX }} x
+              {{ vehicleUsage.vehicle.maxInternalSpaceY }} x
+              {{ vehicleUsage.vehicle.maxInternalSpaceZ }} m
+            </p>
+          </div>
+        </p-card>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
