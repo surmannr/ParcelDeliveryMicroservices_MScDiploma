@@ -20,6 +20,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { CalendarModule } from 'primeng/calendar';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +37,7 @@ import { VehicleListComponent } from './pages/vehicle/vehicle-list/vehicle-list.
 import { VehicleUsageListComponent } from './pages/vehicle/vehicle-usage-list/vehicle-usage-list.component';
 import { ShippingRequestListComponent } from './pages/shipping-request/shipping-request-list/shipping-request-list.component';
 import { AcceptedShippingRequestListComponent } from './pages/shipping-request/accepted-shipping-request-list/accepted-shipping-request-list.component';
+import { PackagesComponent } from './components/dialog/packages/packages.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { AcceptedShippingRequestListComponent } from './pages/shipping-request/a
     VehicleUsageListComponent,
     ShippingRequestListComponent,
     AcceptedShippingRequestListComponent,
+    PackagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +78,7 @@ import { AcceptedShippingRequestListComponent } from './pages/shipping-request/a
     CalendarModule,
     ToggleButtonModule,
     CardModule,
+    DialogModule,
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
