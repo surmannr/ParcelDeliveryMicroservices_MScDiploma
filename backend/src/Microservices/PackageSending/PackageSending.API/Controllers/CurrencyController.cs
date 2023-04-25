@@ -1,13 +1,8 @@
 ﻿using Common.Dto;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PackageSending.BL.Dto;
 using PackageSending.BL.Features._Currency.Commands;
 using PackageSending.BL.Features._Currency.Queries;
-using PackageSending.DAL;
-using PackageSending.DAL.Entities;
 
 namespace PackageSending.API.Controllers
 {

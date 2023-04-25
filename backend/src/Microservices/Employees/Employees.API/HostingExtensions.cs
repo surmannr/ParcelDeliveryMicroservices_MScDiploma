@@ -18,7 +18,8 @@ namespace Employees.API
 
             builder.Services.AddIdentity<Employee, IdentityRole>()
                 .AddEntityFrameworkStores<EmployeesDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddClaimsPrincipalFactory<MyClaimsPrincipalFactory>();
 
             builder.Services
                 .AddIdentityServer(options =>
@@ -34,7 +35,8 @@ namespace Employees.API
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes(builder.Configuration))
                 .AddInMemoryClients(Config.Clients(builder.Configuration))
-                .AddAspNetIdentity<Employee>();
+                .AddAspNetIdentity<Employee>()
+                .AddProfileService<ProfileService>();
 
             builder.Services.AddAuthentication()
                 .AddGoogle(options =>

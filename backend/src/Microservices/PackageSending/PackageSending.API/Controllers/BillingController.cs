@@ -1,11 +1,10 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Common.Dto;
+using Common.Paging;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Dto;
 using PackageSending.BL.Features._Billing.Commands;
 using PackageSending.BL.Features._Billing.Queries;
-using PackageSending.BL.Features._Currency.Commands;
-using PackageSending.BL.Features._Currency.Queries;
 
 namespace PackageSending.API.Controllers
 {
@@ -21,9 +20,13 @@ namespace PackageSending.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BillingDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<BillingDto>>> GetBillings()
+        public async Task<ActionResult<IEnumerable<BillingDto>>> GetBillings([FromQuery] PagingParameter parameter)
         {
-            var billings = await _mediator.Send(new GetAllBillings.Query());
+            var billings = await _mediator.Send(new GetAllBillings.Query()
+            {
+                PageSize = parameter.PageSize,
+                PageNumber = parameter.PageNumber,
+            });
             return Ok(billings);
         }
 
@@ -41,9 +44,14 @@ namespace PackageSending.API.Controllers
 
         [HttpGet("user/{id}")]
         [ProducesResponseType(typeof(IEnumerable<BillingDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<BillingDto>>> GetBillingsByUserId(string id)
+        public async Task<ActionResult<IEnumerable<BillingDto>>> GetBillingsByUserId(string id, [FromQuery] PagingParameter parameter)
         {
-            var billings = await _mediator.Send(new GetAllBillingsByUserId.Query() { UserId = id });
+            var billings = await _mediator.Send(new GetAllBillingsByUserId.Query() 
+            { 
+                UserId = id,
+                PageNumber = parameter.PageNumber,
+                PageSize = parameter.PageSize,
+            });
             return Ok(billings);
         }
 

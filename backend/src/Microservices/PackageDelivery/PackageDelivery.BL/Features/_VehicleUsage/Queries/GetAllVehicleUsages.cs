@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common.Paging;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
@@ -15,9 +16,9 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Queries
 {
     public static class GetAllVehicleUsages
     {
-        public class Query : IRequest<ICollection<VehicleUsageDto>> { }
+        public class Query : PagingParameter, IRequest<PagedResponse<VehicleUsageDto>> { }
 
-        public class Handler : IRequestHandler<Query, ICollection<VehicleUsageDto>>
+        public class Handler : IRequestHandler<Query, PagedResponse<VehicleUsageDto>>
         {
             private readonly IMapper _mapper;
             private readonly IVehicleUsageRepository _vehicleUsage;
@@ -28,13 +29,13 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Queries
                 _mapper = mapper;
             }
 
-            public async Task<ICollection<VehicleUsageDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<PagedResponse<VehicleUsageDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var vehicleUsages = await _vehicleUsage.GetVehicleUsages();
                 return vehicleUsages
                     .AsQueryable()
                     .ProjectTo<VehicleUsageDto>(_mapper.ConfigurationProvider)
-                    .ToList();
+                    .ToPagedList(request);
             }
         }
     }

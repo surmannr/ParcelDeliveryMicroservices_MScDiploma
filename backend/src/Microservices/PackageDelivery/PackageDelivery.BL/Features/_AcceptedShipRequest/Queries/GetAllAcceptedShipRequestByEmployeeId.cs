@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Common.Paging;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
@@ -15,12 +17,12 @@ namespace PackageDelivery.BL.Features._AcceptedShipRequest.Queries
 {
     public static class GetAllAcceptedShipRequestByEmployeeId
     {
-        public class Query : IRequest<ICollection<AcceptedShippingRequestDto>>
+        public class Query : PagingParameter, IRequest<PagedResponse<AcceptedShippingRequestDto>>
         {
             public string EmployeeId { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, ICollection<AcceptedShippingRequestDto>>
+        public class Handler : IRequestHandler<Query, PagedResponse<AcceptedShippingRequestDto>>
         {
             private readonly IMapper _mapper;
             private readonly IAcceptedShippingRequestRepository _acceptedShipping;
@@ -31,12 +33,15 @@ namespace PackageDelivery.BL.Features._AcceptedShipRequest.Queries
                 _acceptedShipping = acceptedShipping;
             }
 
-            public async Task<ICollection<AcceptedShippingRequestDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<PagedResponse<AcceptedShippingRequestDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var vehicleUsage = await _acceptedShipping
+                var acceptedShippings = await _acceptedShipping
                     .GetAcceptedShippingRequestsByEmployeeId(request.EmployeeId);
 
-                return _mapper.Map<List<AcceptedShippingRequestDto>>(vehicleUsage);
+                return acceptedShippings
+                    .AsQueryable()
+                    .ProjectTo<AcceptedShippingRequestDto>(_mapper.ConfigurationProvider)
+                    .ToPagedList(request);
             }
         }
 

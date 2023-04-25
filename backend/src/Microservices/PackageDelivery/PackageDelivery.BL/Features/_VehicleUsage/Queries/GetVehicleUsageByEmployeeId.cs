@@ -1,20 +1,23 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Common.Paging;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
 using PackageDelivery.BL.Exceptions;
+using PackageDelivery.DAL.Entities;
 using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.BL.Features._VehicleUsage.Queries
 {
     public static class GetVehicleUsagesByEmployeeId
     {
-        public class Query : IRequest<ICollection<VehicleUsageDto>>
+        public class Query : PagingParameter, IRequest<PagedResponse<VehicleUsageDto>>
         {
             public string EmployeeId { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, ICollection<VehicleUsageDto>>
+        public class Handler : IRequestHandler<Query, PagedResponse<VehicleUsageDto>>
         {
             private readonly IMapper _mapper;
             private readonly IVehicleUsageRepository _vehicleUsage;
@@ -25,12 +28,15 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Queries
                 _mapper = mapper;
             }
 
-            public async Task<ICollection<VehicleUsageDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<PagedResponse<VehicleUsageDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var vehicleUsage = await _vehicleUsage
+                var vehicleUsages = await _vehicleUsage
                     .GetVehicleUsageByEmployeeId(request.EmployeeId);
 
-                return _mapper.Map<List<VehicleUsageDto>>(vehicleUsage);
+                return vehicleUsages
+                    .AsQueryable()
+                    .ProjectTo<VehicleUsageDto>(_mapper.ConfigurationProvider)
+                    .ToPagedList(request);
             }
         }
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using PackageSending.BL.Exceptions;
+using System.Net.NetworkInformation;
+using Common.Paging;
 using System.Text.Json;
 
 namespace PackageSending.BL.Extensions.CQRS
@@ -39,6 +41,7 @@ namespace PackageSending.BL.Extensions.CQRS
             exception switch
             {
                 BadRequestException => StatusCodes.Status400BadRequest,
+                PagingException => StatusCodes.Status406NotAcceptable,
                 NotFoundException => StatusCodes.Status404NotFound,
                 FluentValidationException => StatusCodes.Status422UnprocessableEntity,
                 _ => StatusCodes.Status500InternalServerError

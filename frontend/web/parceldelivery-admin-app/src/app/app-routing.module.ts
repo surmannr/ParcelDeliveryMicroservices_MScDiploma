@@ -8,10 +8,15 @@ import { AddNewVehicleComponent } from './pages/vehicle/add-new-vehicle/add-new-
 import { VehicleUsageListComponent } from './pages/vehicle/vehicle-usage-list/vehicle-usage-list.component';
 import { ShippingRequestListComponent } from './pages/shipping-request/shipping-request-list/shipping-request-list.component';
 import { AcceptedShippingRequestListComponent } from './pages/shipping-request/accepted-shipping-request-list/accepted-shipping-request-list.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'add-working-days', component: AddWorkingDaysComponent },
+  {
+    path: 'add-working-days',
+    component: AddWorkingDaysComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'timesheet', component: TimesheetComponent },
   { path: 'vehicles', component: VehicleListComponent },
   { path: 'add-new-vehicle', component: AddNewVehicleComponent },

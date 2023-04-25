@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Common.Dto;
+using Common.Paging;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Dto;
@@ -21,9 +23,13 @@ namespace PackageSending.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PackageDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PackageDto>>> GetPackages()
+        public async Task<ActionResult<IEnumerable<PackageDto>>> GetPackages([FromQuery] PagingParameter parameter)
         {
-            var packages = await _mediator.Send(new GetAllPackages.Query());
+            var packages = await _mediator.Send(new GetAllPackages.Query()
+            {
+                PageSize = parameter.PageSize,
+                PageNumber = parameter.PageNumber,
+            });
             return Ok(packages);
         }
 
@@ -41,9 +47,14 @@ namespace PackageSending.API.Controllers
 
         [HttpGet("shipreq-{id}")]
         [ProducesResponseType(typeof(IEnumerable<PackageDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PackageDto>>> GetPackagesByShipRequestId(string id)
+        public async Task<ActionResult<IEnumerable<PackageDto>>> GetPackagesByShipRequestId(string id, [FromQuery] PagingParameter parameter)
         {
-            var packages = await _mediator.Send(new GetAllPackagesByShipReqId.Query() { ShipReqId = id });
+            var packages = await _mediator.Send(new GetAllPackagesByShipReqId.Query()
+            { 
+                ShipReqId = id,
+                PageSize = parameter.PageSize,
+                PageNumber = parameter.PageNumber,
+            });
             return Ok(packages);
         }
 

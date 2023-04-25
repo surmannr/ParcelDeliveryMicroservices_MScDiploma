@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Common.Dto;
 using Microsoft.AspNetCore.Mvc;
-using PackageTracking.DAL.Entities;
 using PackageTracking.DAL.Repositories;
 
 namespace PackageTracking.API.Controllers
@@ -17,16 +16,16 @@ namespace PackageTracking.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetShipping")]
-        [ProducesResponseType(typeof(Shipping), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Shipping>> GetShipping(string id)
+        [ProducesResponseType(typeof(ShippingRequestDto), StatusCodes.Status200OK)]
+        public async Task<ActionResult<ShippingRequestDto>> GetShipping(string id)
         {
             var shipping = await _repository.GetShipping(id);
             return Ok(shipping);
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Shipping), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Shipping>> UpdateShipping([FromBody] Shipping shipping)
+        [ProducesResponseType(typeof(ShippingRequestDto), StatusCodes.Status200OK)]
+        public async Task<ActionResult<ShippingRequestDto>> UpdateShipping([FromBody] ShippingRequestDto shipping)
         {
             var updatedShipping = await _repository.UpdateShipping(shipping);
             return Ok(updatedShipping);

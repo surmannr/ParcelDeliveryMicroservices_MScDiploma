@@ -1,10 +1,9 @@
-﻿using MediatR;
+﻿using Common.Paging;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PackageDelivery.BL.Dto;
 using PackageDelivery.BL.Features._Vehicle.Commands;
 using PackageDelivery.BL.Features._Vehicle.Queries;
-using PackageDelivery.BL.Features._VehicleUsage.Commands;
-using PackageDelivery.BL.Features._VehicleUsage.Queries;
 
 namespace PackageDelivery.API.Controllers
 {
@@ -20,9 +19,13 @@ namespace PackageDelivery.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<VehicleDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<VehicleDto>>> GetVehicles()
+        public async Task<ActionResult<IEnumerable<VehicleDto>>> GetVehicles([FromQuery] PagingParameter parameter)
         {
-            var vehicles = await _mediator.Send(new GetAllVehicles.Query());
+            var vehicles = await _mediator.Send(new GetAllVehicles.Query()
+            {
+                PageNumber = parameter.PageNumber,
+                PageSize = parameter.PageSize,
+            });
             return Ok(vehicles);
         }
 

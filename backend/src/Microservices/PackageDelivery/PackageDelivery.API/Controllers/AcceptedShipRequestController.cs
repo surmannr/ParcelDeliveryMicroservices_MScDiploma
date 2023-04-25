@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Common.Paging;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PackageDelivery.BL.Dto;
 using PackageDelivery.BL.Features._AcceptedShipRequest.Commands;
@@ -18,9 +19,13 @@ namespace PackageDelivery.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<AcceptedShippingRequestDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<AcceptedShippingRequestDto>>> GetAccceptedShipRequests()
+        public async Task<ActionResult<IEnumerable<AcceptedShippingRequestDto>>> GetAccceptedShipRequests([FromQuery] PagingParameter parameter)
         {
-            var acceptedShippingRequests = await _mediator.Send(new GetAllAcceptedShipRequests.Query());
+            var acceptedShippingRequests = await _mediator.Send(new GetAllAcceptedShipRequests.Query()
+            {
+                PageSize = parameter.PageSize,
+                PageNumber = parameter.PageNumber,
+            });
             return Ok(acceptedShippingRequests);
         }
 
@@ -39,11 +44,13 @@ namespace PackageDelivery.API.Controllers
         [HttpGet("employee/{employeeid}", Name = "GetAcceptedShipRequestByEmployeeId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(AcceptedShippingRequestDto), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<AcceptedShippingRequestDto>>> GetAcceptedShipRequestByEmployeeId(string employeeid)
+        public async Task<ActionResult<List<AcceptedShippingRequestDto>>> GetAcceptedShipRequestByEmployeeId(string employeeid, [FromQuery] PagingParameter parameter)
         {
             var acceptedShippingRequests = await _mediator.Send(new GetAllAcceptedShipRequestByEmployeeId.Query()
             {
-                EmployeeId = employeeid
+                EmployeeId = employeeid,
+                PageNumber = parameter.PageNumber,
+                PageSize = parameter.PageSize,
             });
             return Ok(acceptedShippingRequests);
         }

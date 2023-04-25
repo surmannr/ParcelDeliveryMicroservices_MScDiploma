@@ -1,4 +1,4 @@
-﻿using PackageTracking.DAL.Entities;
+﻿using Common.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +9,8 @@ namespace PackageTracking.DAL.Repositories
 {
     public interface IPackageTrackingRepository
     {
-        Task<Shipping> GetShipping(string id);
-        Task<Shipping> UpdateShipping(Shipping shipping);
+        Task<ShippingRequestDto> GetShipping(string id);
+        Task<ShippingRequestDto> UpdateShipping(ShippingRequestDto shipping);
         Task DeleteShipping(string id);
     }
 }

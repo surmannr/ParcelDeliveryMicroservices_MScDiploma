@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Common.Dto;
+using Common.Paging;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Dto;
@@ -21,9 +23,13 @@ namespace PackageSending.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ShippingRequestDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequests()
+        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequests([FromQuery] PagingParameter parameter)
         {
-            var shippingRequests = await _mediator.Send(new GetAllShipRequests.Query());
+            var shippingRequests = await _mediator.Send(new GetAllShipRequests.Query()
+            {
+                PageNumber = parameter.PageNumber,
+                PageSize = parameter.PageSize,
+            });
             return Ok(shippingRequests);
         }
 
@@ -41,9 +47,14 @@ namespace PackageSending.API.Controllers
 
         [HttpGet("user/{id}")]
         [ProducesResponseType(typeof(IEnumerable<ShippingRequestDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequestsByUserId(string id)
+        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequestsByUserId(string id, [FromQuery] PagingParameter parameter)
         {
-            var shippingRequests = await _mediator.Send(new GetAllShipRequestsByUserId.Query() { UserId = id });
+            var shippingRequests = await _mediator.Send(new GetAllShipRequestsByUserId.Query()
+            {
+                UserId = id,
+                PageNumber = parameter.PageNumber,
+                PageSize = parameter.PageSize,
+            });
             return Ok(shippingRequests);
         }
 

@@ -1,5 +1,28 @@
 <div class="row flex flex-column justify-content-center align-items-center">
-  <p class="text-5xl text-center">Üdvözlünk a kezelőfelületen!</p>
+  <div class="row flex gap-3 mt-5 justify-content-center" *ngIf="givenName">
+    <p class="text-5xl text-center">
+      Üdvözlünk a kezelőfelületen {{ givenName }}!!
+    </p>
+    <div>
+      <p-button
+        styleClass="my-background"
+        (click)="logout()"
+        icon="pi pi-check"
+        label="Kijelentkezés"
+      ></p-button>
+    </div>
+  </div>
+
+  <div class="row flex gap-3 mt-5 justify-content-center">
+    <div>
+      <p-button
+        styleClass="my-background"
+        (click)="login()"
+        icon="pi pi-check"
+        label="Bejelentkezés"
+      ></p-button>
+    </div>
+  </div>
 
   <p-image
     src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg"

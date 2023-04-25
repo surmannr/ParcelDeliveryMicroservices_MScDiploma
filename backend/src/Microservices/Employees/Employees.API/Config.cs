@@ -1,5 +1,7 @@
 ﻿using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
+using IdentityModel;
+using System.Collections.Generic;
 
 namespace Employees.API
 {
@@ -15,7 +17,18 @@ namespace Employees.API
         public static IEnumerable<ApiScope> ApiScopes(IConfiguration configuration) =>
             new ApiScope[]
             {
-                new ApiScope(name: configuration["Identity:ApiScope:ApiScopeName"], displayName: configuration["Identity:ApiScope:ApiScopeDisplayName"])
+                new ApiScope(
+                    name: configuration["Identity:ApiScope:ApiScopeName"],
+                    displayName: configuration["Identity:ApiScope:ApiScopeDisplayName"],
+                    userClaims: new List<string>()
+                        {
+                                JwtClaimTypes.Name,
+                                JwtClaimTypes.Email,
+                                JwtClaimTypes.GivenName,
+                                JwtClaimTypes.FamilyName,
+                                JwtClaimTypes.PreferredUserName
+                        }
+                    )
             };
 
         public static IEnumerable<Client> Clients(IConfiguration configuration) =>
@@ -51,7 +64,7 @@ namespace Employees.API
                 new Client
                     {
                         ClientId = configuration["Identity:ClientIds:SPA"],
-                        ClientSecrets = { new Secret("511536ef-f270-4058-80ca-1c89c192f69a".Sha256()) }, //TODO ne itt legyen
+                        RequireClientSecret = false,
 
                         AllowedGrantTypes = GrantTypes.Code,
                     
@@ -61,7 +74,7 @@ namespace Employees.API
                         // where to redirect to after logout
                         PostLogoutRedirectUris = { configuration["Identity:PostLogoutRedirectUris:SPA"]  },
 
-                        AllowOfflineAccess = true,
+                        RequirePkce = true,
 
                         AllowedScopes = new List<string>
                         {

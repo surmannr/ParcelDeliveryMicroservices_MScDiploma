@@ -1,5 +1,8 @@
 ﻿using Employees.API;
 using Employees.API.Data;
+using Employees.API.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -18,6 +21,9 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
 
+    builder.Services.AddScoped<IUserClaimsPrincipalFactory<Employee>, MyClaimsPrincipalFactory>();
+    builder.Services.AddScoped<IClaimsTransformation, MyClaimTransformation>();
+
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
@@ -27,6 +33,7 @@ try
         var dataContext = scope.ServiceProvider.GetRequiredService<EmployeesDbContext>();
         dataContext.Database.Migrate();
     }
+
     // this seeding is only for the template to bootstrap the DB and users.
     // in production you will likely want a different approach.
     Log.Information("Seeding database...");

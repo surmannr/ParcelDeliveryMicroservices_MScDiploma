@@ -1,18 +1,12 @@
 ﻿using AutoMapper;
+using Common.Dto;
+using Common.Entity;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PackageSending.BL.Dto;
 using PackageSending.BL.Exceptions;
 using PackageSending.BL.Extensions.CQRS;
 using PackageSending.DAL;
-using PackageSending.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PackageSending.BL.Features._Package.Commands
 {
@@ -70,19 +64,19 @@ namespace PackageSending.BL.Features._Package.Commands
                     .NotEmpty()
                     .NotNull()
                     .GreaterThanOrEqualTo(0)
-                    .WithMessage("A méret (X) nem lehet üres és nagyobbnak kell lennie 0-nál.");
+                    .WithMessage("A magasság nem lehet üres és nagyobbnak kell lennie 0-nál.");
 
                 RuleFor(x => x.NewPackage.SizeY)
                     .NotEmpty()
                     .NotNull()
                     .GreaterThanOrEqualTo(0)
-                    .WithMessage("A méret (Y) nem lehet üres és nagyobbnak kell lennie 0-nál.");
+                    .WithMessage("A szélesség nem lehet üres és nagyobbnak kell lennie 0-nál.");
 
                 RuleFor(x => x.NewPackage.SizeZ)
                     .NotEmpty()
                     .NotNull()
                     .GreaterThanOrEqualTo(0)
-                    .WithMessage("A méret (Z) nem lehet üres és nagyobbnak kell lennie 0-nál.");
+                    .WithMessage("A mélység nem lehet üres és nagyobbnak kell lennie 0-nál.");
             }
         }
     }

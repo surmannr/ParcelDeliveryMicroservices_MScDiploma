@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Common.Paging;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PackageDelivery.BL.Dto;
@@ -21,20 +22,26 @@ namespace PackageDelivery.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<VehicleUsageDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<VehicleUsageDto>>> GetVehicleUsages()
+        public async Task<ActionResult<IEnumerable<VehicleUsageDto>>> GetVehicleUsages([FromQuery] PagingParameter parameter)
         {
-            var vehicleUsages = await _mediator.Send(new GetAllVehicleUsages.Query());
+            var vehicleUsages = await _mediator.Send(new GetAllVehicleUsages.Query()
+            {
+                PageSize = parameter.PageSize,
+                PageNumber = parameter.PageNumber,
+            });
             return Ok(vehicleUsages);
         }
      
         [HttpGet("employee/{employeeid}", Name = "GetVehicleUsageByEmployeeId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(VehicleUsageDto), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<VehicleUsageDto>>> GetVehicleUsageByEmployeeId(string employeeid)
+        public async Task<ActionResult<List<VehicleUsageDto>>> GetVehicleUsageByEmployeeId(string employeeid, [FromQuery] PagingParameter parameter)
         {
             var vehicleUsages = await _mediator.Send(new GetVehicleUsagesByEmployeeId.Query()
             {
-                EmployeeId = employeeid
+                EmployeeId = employeeid,
+                PageNumber = parameter.PageNumber,
+                PageSize = parameter.PageSize
             });
             return Ok(vehicleUsages);
         }

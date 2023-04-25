@@ -4,7 +4,6 @@ using Common.Entity;
 using EventBus.Messages.EventObjects;
 using EventBus.Messages.Events;
 using PackageSending.BL.Dto;
-using PackageSending.DAL.Entities;
 
 namespace PackageSending.BL.Extensions.Mapper
 {

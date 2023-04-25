@@ -1,27 +1,21 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common.Dto;
+using Common.Paging;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using PackageSending.BL.Dto;
 using PackageSending.DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PackageSending.BL.Features._ShipRequest.Queries
 {
     public static class GetAllShipRequestsByUserId
     {
-        public class Query : IRequest<List<ShippingRequestDto>> 
+        public class Query : PagingParameter, IRequest<PagedResponse<ShippingRequestDto>> 
         {
             public string UserId { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, List<ShippingRequestDto>>
+        public class Handler : IRequestHandler<Query, PagedResponse<ShippingRequestDto>>
         {
             private readonly IMapper _mapper;
             private readonly PackageSendingDbContext _dbContext;
@@ -32,12 +26,12 @@ namespace PackageSending.BL.Features._ShipRequest.Queries
                 _dbContext = dbContext;
             }
 
-            public async Task<List<ShippingRequestDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<PagedResponse<ShippingRequestDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 return await _dbContext.ShippingRequests
                     .Where(x => x.UserId == request.UserId)
                     .ProjectTo<ShippingRequestDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync();
+                    .ToPagedListAsync(request);
             }
         }
 

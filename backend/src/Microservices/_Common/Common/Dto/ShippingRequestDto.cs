@@ -1,11 +1,11 @@
-﻿using Common.Dto;
+﻿using Common.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PackageSending.BL.Dto
+namespace Common.Dto
 {
     public class ShippingRequestDto
     {
@@ -15,14 +15,13 @@ namespace PackageSending.BL.Dto
         public AddressDto AddressFrom { get; set; }
         public AddressDto AddressTo { get; set; }
         public bool IsExpress { get; set; }
-        public int ShippingOptionId { get; set; }
-        public int PaymentOptionId { get; set; }
-        public string BillingId { get; set; }
         public bool IsFinished { get; set; }
+        public Status Status { get; set; }
 
         public PaymentOptionDto PaymentOption { get; set; }
         public ShippingOptionDto ShippingOption { get; set; }
         public BillingDto Billing { get; set; }
+
         public List<PackageDto> Packages { get; set; }
     }
 }

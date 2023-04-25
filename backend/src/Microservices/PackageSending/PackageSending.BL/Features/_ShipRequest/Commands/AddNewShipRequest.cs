@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Entity;
 using EventBus.Messages.Events;
 using FluentValidation;
 using MassTransit;
@@ -8,13 +9,6 @@ using PackageSending.BL.Dto;
 using PackageSending.BL.Exceptions;
 using PackageSending.BL.Extensions.CQRS;
 using PackageSending.DAL;
-using PackageSending.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PackageSending.BL.Features._ShipRequest.Commands
 {

@@ -1,24 +1,18 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using FluentValidation;
+using Common.Dto;
+using Common.Paging;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PackageSending.BL.Dto;
 using PackageSending.DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PackageSending.BL.Features._Package.Queries
 {
     public static class GetAllPackages
     {
-        public class Query : IRequest<List<PackageDto>> { }
+        public class Query : PagingParameter, IRequest<PagedResponse<PackageDto>> { }
 
-        public class Handler : IRequestHandler<Query, List<PackageDto>>
+        public class Handler : IRequestHandler<Query, PagedResponse<PackageDto>>
         {
             private readonly IMapper _mapper;
             private readonly PackageSendingDbContext _dbContext;
@@ -29,11 +23,11 @@ namespace PackageSending.BL.Features._Package.Queries
                 _dbContext = dbContext;
             }
 
-            public async Task<List<PackageDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<PagedResponse<PackageDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 return await _dbContext.Packages
                     .ProjectTo<PackageDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync();
+                    .ToPagedListAsync(request);
             }
         }
     }

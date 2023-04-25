@@ -1,11 +1,6 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using Common.Dto;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
-using PackageTracking.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PackageTracking.DAL.Repositories
 {
@@ -18,7 +13,7 @@ namespace PackageTracking.DAL.Repositories
             _redisCache = redisCache;
         }
 
-        public async Task<Shipping> GetShipping(string id)
+        public async Task<ShippingRequestDto> GetShipping(string id)
         {
             var shipping = await _redisCache.GetStringAsync(id);
             
@@ -27,10 +22,10 @@ namespace PackageTracking.DAL.Repositories
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<Shipping>(shipping);
+            return JsonConvert.DeserializeObject<ShippingRequestDto>(shipping);
         }
 
-        public async Task<Shipping> UpdateShipping(Shipping shipping)
+        public async Task<ShippingRequestDto> UpdateShipping(ShippingRequestDto shipping)
         {
             var shippingJson = JsonConvert.SerializeObject(shipping);
 
