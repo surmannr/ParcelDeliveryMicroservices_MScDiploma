@@ -1,7 +1,18 @@
 <div class="nav d-inline">
   <p-menubar
+    *ngIf="this.oauthService.hasValidAccessToken()"
     styleClass="my-menu"
-    [model]="menuItems"
+    [model]="menuItemsLoggedIn"
+    [ngStyle]="{ backgroundColor: 'var(--teal-500)' }"
+  >
+    <ng-template pTemplate="start">
+      <img src="assets/logo.png" height="40" class="mr-2" routerLink="/" />
+    </ng-template>
+  </p-menubar>
+  <p-menubar
+    *ngIf="!this.oauthService.hasValidAccessToken()"
+    styleClass="my-menu"
+    [model]="menuItemsLoggedOut"
     [ngStyle]="{ backgroundColor: 'var(--teal-500)' }"
   >
     <ng-template pTemplate="start">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -7,10 +8,21 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./header-menu.component.scss'],
 })
 export class HeaderMenuComponent implements OnInit {
-  menuItems: MenuItem[] = [];
+  constructor(public oauthService: OAuthService) {}
+
+  login() {
+    this.oauthService.initCodeFlow();
+  }
+
+  logout() {
+    this.oauthService.logOut();
+  }
+
+  menuItemsLoggedIn: MenuItem[] = [];
+  menuItemsLoggedOut: MenuItem[] = [];
 
   ngOnInit() {
-    this.menuItems = [
+    this.menuItemsLoggedIn = [
       {
         label: 'Munka',
         icon: 'pi pi-fw pi-file',
@@ -63,6 +75,19 @@ export class HeaderMenuComponent implements OnInit {
             routerLink: 'accepted-shipping-requests',
           },
         ],
+      },
+      {
+        label: 'Kijelentkezés',
+        icon: 'pi pi-fw pi-sign-out',
+        command: () => this.logout(),
+      },
+    ];
+
+    this.menuItemsLoggedOut = [
+      {
+        label: 'Bejelentkezés',
+        icon: 'pi pi-fw pi-sign-in',
+        command: () => this.login(),
       },
     ];
   }

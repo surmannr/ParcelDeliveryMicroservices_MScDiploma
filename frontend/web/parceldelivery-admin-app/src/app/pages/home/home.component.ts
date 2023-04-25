@@ -19,10 +19,12 @@ export class HomeComponent {
   }
 
   get givenName() {
-    const claims: any = jwt_decode(this.oauthService.getAccessToken());
-    if (!claims) {
-      return null;
+    if (this.oauthService.hasValidAccessToken()) {
+      const claims: any = jwt_decode(this.oauthService.getAccessToken());
+      if (!claims) {
+        return null;
+      }
+      return claims['name'];
     }
-    return claims['name'];
   }
 }
