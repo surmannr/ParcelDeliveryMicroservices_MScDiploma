@@ -6,6 +6,7 @@ namespace Employees.API.Data
 {
     public class EmployeesDbContext : IdentityDbContext<Employee>
     {
+        public DbSet<Timesheet> Timesheets { get; set; }
         public EmployeesDbContext(DbContextOptions<EmployeesDbContext> options)
             : base(options)
         {

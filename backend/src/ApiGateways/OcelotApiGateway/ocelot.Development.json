@@ -434,6 +434,41 @@
       "DangerousAcceptAnyServerCertificateValidator": true,
       "UpstreamPathTemplate": "/PackageTracking/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE", "PUT" ]
+    },
+    // Employee - Timesheet
+    {
+      "DownstreamPathTemplate": "/api/Timesheet",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "employees.api",
+          "Port": 443
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "",
+        "AllowedScopes": []
+      },
+      "DangerousAcceptAnyServerCertificateValidator": true,
+      "UpstreamPathTemplate": "/Timesheet",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Timesheet/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "employees.api",
+          "Port": 443
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "",
+        "AllowedScopes": []
+      },
+      "DangerousAcceptAnyServerCertificateValidator": true,
+      "UpstreamPathTemplate": "/Timesheet/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PUT" ]
     }
   ],
   "GlobalConfiguration": {

@@ -14,5 +14,7 @@ namespace Employees.API.Models
         public string NamePrefix { get; set; }
         public DateTime BirthDate { get; set; }
         public Address Address { get; set; }
+
+        public ICollection<Timesheet> Timesheets { get; set; }
     }
 }

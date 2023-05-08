@@ -24,6 +24,8 @@ export class HomeComponent {
       if (!claims) {
         return null;
       }
+      console.log(this.oauthService.getAccessToken());
+      console.log(claims['name']);
       return claims['name'];
     }
   }

@@ -309,6 +309,31 @@
       ],
       "UpstreamPathTemplate": "/PackageTracking/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE", "PUT" ]
+    },
+    // Employee - Timesheet
+    {
+      "DownstreamPathTemplate": "/api/Timesheet",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/Timesheet",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Timesheet/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/Timesheet/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ],
   "GlobalConfiguration": {
