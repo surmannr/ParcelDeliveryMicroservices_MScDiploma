@@ -4,14 +4,11 @@
 @import "primeicons/primeicons.css";
 @import 'primeflex/primeflex.scss';
 
-html,
 body {
-    height: 100%;
-}
-
-body {
-    margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {

@@ -1,15 +1,30 @@
-<p class="text-4xl my-3">Futárok nyomonkövetése</p>
+<div class="flex align-items-center justify-content-between gap-4 mt-5">
+  <p class="text-4xl my-3">Futárok nyomonkövetése</p>
+  <div class="flex align-items-center gap-4">
+    <p-checkbox
+      [(ngModel)]="byEmployeeId"
+      [binary]="true"
+      inputId="byEmployeeId"
+      (onChange)="load()"
+    ></p-checkbox>
+    <label for="byEmployeeId">Saját elfogadások mutatása</label>
+  </div>
+</div>
 
 <p-table
+  *ngIf="acceptedShippingRequests"
   #dt1
-  [value]="acceptedShippingRequests"
+  [value]="acceptedShippingRequests!.data"
+  [lazy]="true"
   [scrollable]="true"
+  [paginator]="true"
+  [rows]="acceptedShippingRequests!.pageSize"
+  [totalRecords]="acceptedShippingRequests!.totalCount"
+  [loading]="this.packageService.loading"
+  (onPage)="paging($event)"
   scrollDirection="horizontal"
   styleClass="p-datatable-gridlines p-datatable-striped"
   responsiveLayout="stack"
-  [paginator]="true"
-  [rows]="10"
-  [showCurrentPageReport]="true"
   currentPageReportTemplate="{first} - {last} rekord a {totalRecords} összes rekordból."
 >
   <ng-template pTemplate="caption">

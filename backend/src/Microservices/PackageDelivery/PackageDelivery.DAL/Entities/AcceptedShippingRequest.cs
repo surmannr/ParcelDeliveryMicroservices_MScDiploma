@@ -14,6 +14,7 @@ namespace PackageDelivery.DAL.Entities
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id { get; set; }
         public string EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
         public ShippingRequest Shipping { get; set; }
         public bool IsAllPackageTaken { get; set; }
         public string[] ReadPackageIds { get; set; }

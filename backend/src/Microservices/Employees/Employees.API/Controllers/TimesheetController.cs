@@ -1,4 +1,5 @@
-﻿using Employees.API.Data;
+﻿using Common.Paging;
+using Employees.API.Data;
 using Employees.API.Dto;
 using Employees.API.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace Employees.API.Controllers
         }
 
         [HttpGet]
-        public async Task<List<TimesheetDto>> Get([FromQuery] string userId)
+        public async Task<PagedResponse<TimesheetDto>> Get([FromQuery] string userId, [FromQuery] PagingParameter pagingParameter)
         {
             return await dbContext.Timesheets
                 .Where(x => x.UserId == userId)
@@ -33,19 +34,29 @@ namespace Employees.API.Controllers
                     Days = x.DaysArray,
                     Note = x.Note,
                 })
-                .ToListAsync();
+                .ToPagedListAsync(pagingParameter);
         }
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] TimesheetDto timesheet)
         {
+            if (timesheet == null)
+            {
+                return BadRequest("Nem lehet null.");
+            }
+
+            if (timesheet.Days.Length == 0)
+            {
+                return BadRequest("Minimum 1 napot ki kell választani.");
+            }
+
             var newTimesheet = new Timesheet()
             {
                 Id = Guid.NewGuid().ToString(),
                 UserId = timesheet.UserId,
                 DateFrom = timesheet.DateFrom,
                 DateTo = timesheet.DateTo,
-                Days = String.Join(";", timesheet.Days.Select(p => p.ToString()).ToArray()),
+                Days = String.Join(";", timesheet.Days.Select(p => p.ToString() ?? "").ToArray()) ?? "",
                 Note = timesheet.Note,
             };
             dbContext.Timesheets.Add(newTimesheet);
@@ -57,7 +68,7 @@ namespace Employees.API.Controllers
         public async Task<ActionResult> Delete(string id)
         {
             var timesheet = await dbContext.Timesheets.FirstOrDefaultAsync(x => x.Id == id);
-            if (timesheet == null)
+            if (timesheet != null)
             {
                 dbContext.Timesheets.Remove(timesheet);
                 await dbContext.SaveChangesAsync();

@@ -1,14 +1,19 @@
 <p class="text-4xl my-3">Csomagfeladások</p>
 
 <p-table
+  *ngIf="shippingRequests"
   #dt1
-  [value]="shippingRequests"
+  [value]="shippingRequests!.data"
+  [lazy]="true"
   [scrollable]="true"
+  [paginator]="true"
+  [rows]="shippingRequests!.pageSize"
+  [totalRecords]="shippingRequests!.totalCount"
+  [loading]="this.packageService.loading"
+  (onPage)="paging($event)"
   scrollDirection="horizontal"
   styleClass="p-datatable-gridlines p-datatable-striped"
   responsiveLayout="stack"
-  [paginator]="true"
-  [rows]="10"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first} - {last} rekord a {totalRecords} összes rekordból."
 >

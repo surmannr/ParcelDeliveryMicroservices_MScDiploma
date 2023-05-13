@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
+import { PagedResult } from 'src/app/models/PagedResult';
 import { ShippingRequest } from 'src/app/models/ShippingRequest';
+import { PackageService } from 'src/app/services/api/package.service';
 
 @Component({
   selector: 'app-shipping-request-list',
@@ -8,9 +10,37 @@ import { ShippingRequest } from 'src/app/models/ShippingRequest';
   styleUrls: ['./shipping-request-list.component.scss'],
 })
 export class ShippingRequestListComponent implements OnInit {
-  shippingRequests: ShippingRequest[] = [];
+  constructor(public packageService: PackageService) {}
+
+  shippingRequests: PagedResult<ShippingRequest> | undefined;
   dialogVisible: boolean = false;
-  selectedShippingRequest: ShippingRequest | null = null;
+  selectedShippingRequest: ShippingRequest | undefined;
+
+  pageSize: number = 10;
+  pageNumber: number = 1;
+
+  ngOnInit(): void {
+    this.load();
+  }
+  paging(event: any) {
+    this.pageSize = event.rows;
+    this.pageNumber = event.first / this.pageSize + 1;
+    this.load();
+  }
+
+  load() {
+    this.packageService.loading = true;
+    this.packageService
+      .getShippingRequests(this.pageSize, this.pageNumber)
+      .subscribe({
+        next: (data: PagedResult<ShippingRequest>) =>
+          (this.shippingRequests = data),
+        error: (err) => console.error(err),
+        complete: () => {
+          this.packageService.loading = false;
+        },
+      });
+  }
 
   clear(table: Table) {
     table.clear();
@@ -18,68 +48,12 @@ export class ShippingRequestListComponent implements OnInit {
 
   showDialog(id: string) {
     this.dialogVisible = true;
-    this.selectedShippingRequest = this.shippingRequests.filter(
+    this.selectedShippingRequest = this.shippingRequests?.data.filter(
       (x) => x.id === id
     )[0];
   }
 
   onDialog(open: boolean) {
     this.dialogVisible = open;
-  }
-
-  ngOnInit(): void {
-    this.shippingRequests = [
-      {
-        id: 'sid',
-        userId: 'me',
-        courierId: 'notme',
-        addressFrom: {
-          street: 'Hős utca',
-          city: 'Budapest',
-          zipCode: 1081,
-          country: 'Magyarország',
-        },
-        addressTo: {
-          street: 'Hős utca',
-          city: 'Budapest',
-          zipCode: 1081,
-          country: 'Magyarország',
-        },
-        isExpress: true,
-        isFinished: false,
-        paymentOption: {
-          id: 1,
-          name: 'Készpénz',
-        },
-        shippingOption: {
-          id: 1,
-          name: 'Drón',
-          price: 2200,
-        },
-        billing: {
-          id: 'bid',
-          userId: 'me',
-          name: 'Rudii Da',
-          totalAmount: 23000,
-          totalDistance: 200,
-          currency: {
-            id: 1,
-            name: 'Ft',
-          },
-        },
-        packages: [
-          {
-            id: 'pid',
-            userId: 'me',
-            ShippingRequestId: 'sid',
-            sizeX: 2.2,
-            sizeY: 1.1,
-            sizeZ: 0.3,
-            weight: 23,
-            isFragile: true,
-          },
-        ],
-      },
-    ];
   }
 }

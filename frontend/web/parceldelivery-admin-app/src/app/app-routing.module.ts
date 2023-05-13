@@ -17,7 +17,11 @@ const routes: Routes = [
     component: AddWorkingDaysComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'timesheet', component: TimesheetComponent },
+  {
+    path: 'timesheet',
+    component: TimesheetComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'vehicles', component: VehicleListComponent },
   { path: 'add-new-vehicle', component: AddNewVehicleComponent },
   { path: 'vehicleUsages', component: VehicleUsageListComponent },

@@ -1,16 +1,21 @@
 <p class="text-4xl my-3">Munkanapló</p>
 
 <p-table
+  *ngIf="timesheets"
   #dt1
-  [value]="timesheets"
+  [value]="timesheets!.data"
+  [lazy]="true"
   styleClass="p-datatable-gridlines p-datatable-striped"
   responsiveLayout="stack"
   [paginator]="true"
-  [rows]="10"
+  [rows]="timesheets!.pageSize"
   [showCurrentPageReport]="true"
+  [totalRecords]="timesheets!.totalCount"
+  [loading]="this.employeeService.loading"
   [tableStyle]="{ 'min-width': '50rem' }"
   currentPageReportTemplate="{first} - {last} rekord a {totalRecords} összes rekordból."
   [globalFilterFields]="['dateTo', 'dateFrom', 'note']"
+  (onPage)="paging($event)"
 >
   <ng-template pTemplate="caption">
     <div class="flex">
@@ -59,6 +64,7 @@
           display="menu"
         ></p-columnFilter>
       </th>
+      <th style="width: 20%"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-timesheet>
@@ -67,6 +73,18 @@
       <td>{{ timesheet.dateTo | date : "yyyy.MM.dd." }}</td>
       <td>{{ timesheet.days | daysFromIntArray }}</td>
       <td>{{ timesheet.note }}</td>
+      <td>
+        <div class="flex align-items-center justify-content-center gap-2">
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-trash"
+            (click)="onDelete(timesheet.id)"
+            class="p-button-rounded p-button-text p-button-danger"
+          ></button>
+        </div>
+      </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="emptymessage">

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { AcceptedShippingRequest } from 'src/app/models/AcceptedShippingRequest';
+import { PagedResult } from 'src/app/models/PagedResult';
 import { ShippingRequest } from 'src/app/models/ShippingRequest';
+import { PackageService } from 'src/app/services/api/package.service';
 
 @Component({
   selector: 'app-accepted-shipping-request-list',
@@ -9,9 +11,42 @@ import { ShippingRequest } from 'src/app/models/ShippingRequest';
   styleUrls: ['./accepted-shipping-request-list.component.scss'],
 })
 export class AcceptedShippingRequestListComponent implements OnInit {
-  acceptedShippingRequests: AcceptedShippingRequest[] = [];
+  constructor(public packageService: PackageService) {}
+
+  acceptedShippingRequests: PagedResult<AcceptedShippingRequest> | undefined;
   dialogVisible: boolean = false;
-  selectedShippingRequest: ShippingRequest | null = null;
+  selectedShippingRequest: ShippingRequest | undefined;
+
+  pageSize: number = 10;
+  pageNumber: number = 1;
+  byEmployeeId: boolean = false;
+
+  ngOnInit(): void {
+    this.load();
+  }
+  paging(event: any) {
+    this.pageSize = event.rows;
+    this.pageNumber = event.first / this.pageSize + 1;
+    this.load();
+  }
+
+  load() {
+    this.packageService.loading = true;
+    this.packageService
+      .getAcceptedShippingRequests(
+        this.pageSize,
+        this.pageNumber,
+        this.byEmployeeId
+      )
+      .subscribe({
+        next: (data: PagedResult<AcceptedShippingRequest>) =>
+          (this.acceptedShippingRequests = data),
+        error: (err) => console.error(err),
+        complete: () => {
+          this.packageService.loading = false;
+        },
+      });
+  }
 
   clear(table: Table) {
     table.clear();
@@ -19,75 +54,12 @@ export class AcceptedShippingRequestListComponent implements OnInit {
 
   showDialog(id: string) {
     this.dialogVisible = true;
-    this.selectedShippingRequest = this.acceptedShippingRequests.filter(
+    this.selectedShippingRequest = this.acceptedShippingRequests?.data.filter(
       (x) => x.id === id
     )[0].shipping;
   }
 
   onDialog(open: boolean) {
     this.dialogVisible = open;
-  }
-
-  ngOnInit(): void {
-    this.acceptedShippingRequests = [
-      {
-        id: 'asrid',
-        employeeId: 'me',
-        employeeName: 'Futár Ferdinánd',
-        isAllPackageTaken: false,
-        readPackageIds: [],
-        shipping: {
-          id: 'sid',
-          userId: 'me',
-          courierId: 'notme',
-          addressFrom: {
-            street: 'Hős utca',
-            city: 'Budapest',
-            zipCode: 1081,
-            country: 'Magyarország',
-          },
-          addressTo: {
-            street: 'Hős utca',
-            city: 'Budapest',
-            zipCode: 1081,
-            country: 'Magyarország',
-          },
-          isExpress: true,
-          isFinished: false,
-          paymentOption: {
-            id: 1,
-            name: 'Készpénz',
-          },
-          shippingOption: {
-            id: 1,
-            name: 'Drón',
-            price: 2200,
-          },
-          billing: {
-            id: 'bid',
-            userId: 'me',
-            name: 'Rudii Da',
-            totalAmount: 23000,
-            totalDistance: 200,
-            currency: {
-              id: 1,
-              name: 'Ft',
-            },
-          },
-          packages: [
-            {
-              id: 'pid',
-              userId: 'me',
-              ShippingRequestId: 'sid',
-              sizeX: 2.2,
-              sizeY: 1.1,
-              sizeZ: 0.3,
-              weight: 23,
-              isFragile: true,
-            },
-          ],
-        },
-      },
-    ];
   }
 }

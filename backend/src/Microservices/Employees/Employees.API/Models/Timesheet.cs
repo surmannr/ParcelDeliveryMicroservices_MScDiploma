@@ -15,11 +15,15 @@ namespace Employees.API.Models
         {
             get
             {
-                return Array.ConvertAll(Days.Split(';'), int.Parse);
+                if (string.IsNullOrEmpty(Days))
+                {
+                    return new int[] { } ;
+                }
+                return Array.ConvertAll(Days.Split(';') ?? new string[0], int.Parse);
             }
             set
             {
-                Days = String.Join(";", value.Select(p => p.ToString()).ToArray());
+                Days = String.Join(";", value.Select(p => p.ToString() ?? "").ToArray()) ?? "";
             }
         }
         public string Note { get; set; }

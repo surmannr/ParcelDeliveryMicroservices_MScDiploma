@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
+import { PagedResult } from 'src/app/models/PagedResult';
 import { VehicleUsage } from 'src/app/models/VehicleUsage';
+import { VehicleService } from 'src/app/services/api/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-usage-list',
@@ -8,33 +10,36 @@ import { VehicleUsage } from 'src/app/models/VehicleUsage';
   styleUrls: ['./vehicle-usage-list.component.scss'],
 })
 export class VehicleUsageListComponent implements OnInit {
-  vehicleUsages: VehicleUsage[] = [];
+  constructor(public vehicleService: VehicleService) {}
+
+  vehicleUsages: PagedResult<VehicleUsage> | undefined;
 
   clear(table: Table) {
     table.clear();
   }
 
+  pageSize: number = 10;
+  pageNumber: number = 1;
+
   ngOnInit(): void {
-    this.vehicleUsages = [
-      {
-        id: 'hee',
-        dateFrom: new Date(2023, 3, 14),
-        dateTo: new Date(2023, 3, 21),
-        employeeId: 'vid',
-        employeeName: 'Futár Ferdinánd',
-        note: 'nooote',
-        vehicle: {
-          id: 'hee',
-          registrationNumber: 'ABC-123',
-          type: 'Suzuki',
-          year: 2014,
-          technicalInspectionExpirationDate: new Date(),
-          seatingCapacity: 5,
-          maxInternalSpaceX: 2.2,
-          maxInternalSpaceY: 3.5,
-          maxInternalSpaceZ: 6.3,
+    this.load();
+  }
+  paging(event: any) {
+    this.pageSize = event.rows;
+    this.pageNumber = event.first / this.pageSize + 1;
+    this.load();
+  }
+
+  load() {
+    this.vehicleService.loading = true;
+    this.vehicleService
+      .getVehicleUsages(this.pageSize, this.pageNumber)
+      .subscribe({
+        next: (data: PagedResult<VehicleUsage>) => (this.vehicleUsages = data),
+        error: (err) => console.error(err),
+        complete: () => {
+          this.vehicleService.loading = false;
         },
-      },
-    ];
+      });
   }
 }

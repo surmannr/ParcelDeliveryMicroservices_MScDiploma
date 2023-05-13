@@ -37,6 +37,31 @@
       "UpstreamPathTemplate": "/AcceptedShipRequest/employee/{id}",
       "UpstreamHttpMethod": [ "GET" ]
     },
+    // PackageDelivery - ShippingRequest
+    {
+      "DownstreamPathTemplate": "/api/ShippingRequest",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 42010
+        }
+      ],
+      "UpstreamPathTemplate": "/ShippingRequestDelivery",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ShippingRequest/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 42010
+        }
+      ],
+      "UpstreamPathTemplate": "/ShippingRequestDelivery/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
     // PackageDelivery - Vehicle
     {
       "DownstreamPathTemplate": "/api/Vehicle",

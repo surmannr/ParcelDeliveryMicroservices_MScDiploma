@@ -1,16 +1,21 @@
 <p class="text-4xl my-3">Járművek</p>
 
 <p-table
+  *ngIf="vehicles"
   #dt1
-  [value]="vehicles"
+  [value]="vehicles!.data"
+  [lazy]="true"
   [scrollable]="true"
   scrollDirection="horizontal"
   styleClass="p-datatable-gridlines p-datatable-striped"
   responsiveLayout="stack"
   [paginator]="true"
-  [rows]="10"
+  [rows]="vehicles!.pageSize"
   [showCurrentPageReport]="true"
+  [totalRecords]="vehicles!.totalCount"
+  [loading]="this.vehicleService.loading"
   currentPageReportTemplate="{first} - {last} rekord a {totalRecords} összes rekordból."
+  (onPage)="paging($event)"
   [globalFilterFields]="[
     'registrationNumber',
     'type',
@@ -111,6 +116,7 @@
           display="menu"
         ></p-columnFilter>
       </th>
+      <th style="width: 20%"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-vehicle>
@@ -125,6 +131,18 @@
       <td>{{ vehicle.maxInternalSpaceX }} m</td>
       <td>{{ vehicle.maxInternalSpaceY }} m</td>
       <td>{{ vehicle.maxInternalSpaceZ }} m</td>
+      <td>
+        <div class="flex align-items-center justify-content-center gap-2">
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-trash"
+            (click)="onDelete(vehicle.id)"
+            class="p-button-rounded p-button-text p-button-danger"
+          ></button>
+        </div>
+      </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="emptymessage">

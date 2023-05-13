@@ -1,15 +1,20 @@
 <p class="text-4xl my-3">Járművek</p>
 
 <p-table
+  *ngIf="vehicleUsages"
   #dt1
-  [value]="vehicleUsages"
+  [value]="vehicleUsages!.data"
+  [lazy]="true"
   [scrollable]="true"
+  [paginator]="true"
+  [rows]="vehicleUsages!.pageSize"
+  [totalRecords]="vehicleUsages!.totalCount"
+  [loading]="this.vehicleService.loading"
+  (onPage)="paging($event)"
   scrollDirection="horizontal"
   styleClass="p-datatable-gridlines p-datatable-striped"
   responsiveLayout="stack"
   dataKey="name"
-  [paginator]="true"
-  [rows]="10"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first} - {last} rekord a {totalRecords} összes rekordból."
   [globalFilterFields]="[

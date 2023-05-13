@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Common.Entity;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using PackageDelivery.DAL.Entities;
 using System;
@@ -17,11 +18,13 @@ namespace PackageDelivery.DAL
             var database = client.GetDatabase(configuration["DatabaseSettings:DatabaseName"]);
 
             AcceptedShippingRequests = database.GetCollection<AcceptedShippingRequest>(configuration["DatabaseSettings:CollectionName:AcceptedShippingRequest"]);
+            ShippingRequests = database.GetCollection<ShippingRequest>(configuration["DatabaseSettings:CollectionName:ShippingRequest"]);
             VehicleUsages = database.GetCollection<VehicleUsage>(configuration["DatabaseSettings:CollectionName:VehicleUsage"]);
             Vehicles = database.GetCollection<Vehicle>(configuration["DatabaseSettings:CollectionName:Vehicle"]);
         }
 
         public IMongoCollection<AcceptedShippingRequest> AcceptedShippingRequests { get; }
+        public IMongoCollection<ShippingRequest> ShippingRequests { get; }
 
         public IMongoCollection<VehicleUsage> VehicleUsages { get; }
 

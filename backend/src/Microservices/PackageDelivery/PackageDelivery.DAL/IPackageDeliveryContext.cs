@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Common.Entity;
+using MongoDB.Driver;
 using PackageDelivery.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace PackageDelivery.DAL
     public interface IPackageDeliveryContext
     {
         IMongoCollection<AcceptedShippingRequest> AcceptedShippingRequests { get; }
+        IMongoCollection<ShippingRequest> ShippingRequests { get; }
         IMongoCollection<VehicleUsage> VehicleUsages { get; }
         IMongoCollection<Vehicle> Vehicles { get; }
     }

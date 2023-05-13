@@ -30,6 +30,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 #region DAL
 builder.Services.AddScoped<IPackageDeliveryContext, PackageDeliveryContext>();
 builder.Services.AddScoped<IAcceptedShippingRequestRepository, AcceptedShippingRequestRepository>();
+builder.Services.AddScoped<IShippingRequestRepository, ShippingRequestRepository>();
 builder.Services.AddScoped<IVehicleUsageRepository, VehicleUsageRepository>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 #endregion

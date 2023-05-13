@@ -3,6 +3,17 @@ using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+        builder
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+            .AllowAnyHeader());
+});
+#endregion
+
 builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 {
     config.AddJsonFile($"ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json", false, true).AddEnvironmentVariables();
@@ -20,6 +31,8 @@ builder.Services.AddOcelot(builder.Configuration);
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
+
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 

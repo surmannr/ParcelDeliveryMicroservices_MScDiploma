@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -83,6 +83,7 @@ import { PackagesComponent } from './components/dialog/packages/packages.compone
     DialogModule,
     OAuthModule.forRoot(),
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],

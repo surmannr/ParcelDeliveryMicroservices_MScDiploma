@@ -24,6 +24,17 @@ try
     builder.Services.AddScoped<IUserClaimsPrincipalFactory<Employee>, MyClaimsPrincipalFactory>();
     builder.Services.AddScoped<IClaimsTransformation, MyClaimTransformation>();
 
+    #region CORS policy
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("CorsPolicy", builder =>
+            builder
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowAnyHeader());
+    });
+    #endregion
+
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
@@ -39,6 +50,8 @@ try
     Log.Information("Seeding database...");
     SeedData.EnsureSeedData(app);
     Log.Information("Done seeding database. Exiting.");
+
+    app.UseCors("CorsPolicy");
 
     app.MapControllers();
 

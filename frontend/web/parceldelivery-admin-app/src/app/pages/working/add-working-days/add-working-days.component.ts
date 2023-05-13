@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Day } from 'src/app/models/Day';
+import { Timesheet } from 'src/app/models/Timesheet';
+import { EmployeeService } from 'src/app/services/api/employee.service';
 
 @Component({
   selector: 'app-add-working-days',
@@ -15,11 +18,15 @@ export class AddWorkingDaysComponent implements OnInit {
   firstDate: Date = new Date();
   lastDate: Date = new Date();
 
+  note = '';
+
   weekStart: number = 1;
 
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private employeeService: EmployeeService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,10 +42,31 @@ export class AddWorkingDaysComponent implements OnInit {
       acceptLabel: 'Igen',
       rejectLabel: 'Nem',
       accept: () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Felvéve',
-          detail: 'Sikeresen felvetted a munkahetet.',
+        const timesheet: Timesheet = {
+          id: '',
+          dateFrom: this.firstDate,
+          dateTo: this.lastDate,
+          note: this.note,
+          days: this.selectedDays.map((x) => x.id!),
+          userId: '',
+        };
+        this.employeeService.saveTimesheet(timesheet).subscribe({
+          next: () => {},
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Hiba',
+              detail: 'Nem sikerült felvenned a munkahetet.',
+            });
+          },
+          complete: () => {
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Felvéve',
+              detail: 'Sikeresen felvetted a munkahetet.',
+            });
+            this.router.navigate(['/timesheet']);
+          },
         });
       },
       reject: () => {

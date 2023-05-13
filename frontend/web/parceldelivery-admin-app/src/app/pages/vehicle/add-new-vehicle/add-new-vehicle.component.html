@@ -17,11 +17,19 @@
       </div>
       <div *ngIf="!isNewRegistrationNumber">
         <span class="font-bold block mb-2">Rendszám</span>
-        <p-inputMask mask="a**-999" placeholder="Rendszám"></p-inputMask>
+        <p-inputMask
+          mask="a**-999"
+          placeholder="Rendszám"
+          [formControl]="registrationNumber"
+        ></p-inputMask>
       </div>
       <div *ngIf="isNewRegistrationNumber">
         <span class="font-bold block mb-2">Rendszám</span>
-        <p-inputMask mask="aa aa-999" placeholder="Rendszám"></p-inputMask>
+        <p-inputMask
+          mask="aa aa-999"
+          placeholder="Rendszám"
+          [formControl]="registrationNumber"
+        ></p-inputMask>
       </div>
     </div>
     <div
@@ -29,7 +37,12 @@
     >
       <div>
         <span class="font-bold block mb-2">Típus</span>
-        <input type="text" pInputText placeholder="Típus" />
+        <input
+          type="text"
+          pInputText
+          placeholder="Típus"
+          [formControl]="type"
+        />
       </div>
     </div>
   </div>
@@ -37,7 +50,12 @@
     <div class="col-12 md:col-6 flex align-items-center justify-content-end">
       <div>
         <span class="font-bold block mb-2">Évjárat</span>
-        <input type="number" pInputText placeholder="Évjárat" />
+        <input
+          type="number"
+          pInputText
+          placeholder="Évjárat"
+          [formControl]="year"
+        />
       </div>
     </div>
     <div class="col-12 md:col-6 flex align-items-center pl-8">
@@ -48,6 +66,7 @@
         <p-calendar
           dateFormat="dd.mm.yy"
           placeholder="Érvényesség vége"
+          [formControl]="technicalInspectionExpirationDate"
         ></p-calendar>
       </div>
     </div>
@@ -56,28 +75,48 @@
     <div class="field col-12 md:col-3">
       <label for="seating" class="font-bold">Ülések száma</label>
       <div id="seating" class="p-inputgroup">
-        <input type="number" pInputText placeholder="Ülések száma" />
+        <input
+          type="number"
+          pInputText
+          placeholder="Ülések száma"
+          [formControl]="seatingCapacity"
+        />
         <span class="p-inputgroup-addon">db</span>
       </div>
     </div>
     <div class="field col-12 md:col-3">
       <label for="sizeX" class="font-bold">Jármű méret (X, szélesség)</label>
       <div id="sizeX" class="p-inputgroup">
-        <input type="number" pInputText placeholder="Szélesség" />
+        <input
+          type="number"
+          pInputText
+          placeholder="Szélesség"
+          [formControl]="maxInternalSpaceX"
+        />
         <span class="p-inputgroup-addon">m</span>
       </div>
     </div>
     <div class="field col-12 md:col-3">
       <label for="sizeY" class="font-bold">Jármű méret (Y, magasság)</label>
       <div id="sizeY" class="p-inputgroup">
-        <input type="number" pInputText placeholder="Magasság" />
+        <input
+          type="number"
+          pInputText
+          placeholder="Magasság"
+          [formControl]="maxInternalSpaceY"
+        />
         <span class="p-inputgroup-addon">m</span>
       </div>
     </div>
     <div class="field col-12 md:col-3">
       <label for="sizeZ" class="font-bold">Jármű méret (Z, mélység)</label>
       <div id="sizeZ" class="p-inputgroup">
-        <input type="number" pInputText placeholder="Mélység" />
+        <input
+          type="number"
+          pInputText
+          placeholder="Mélység"
+          [formControl]="maxInternalSpaceZ"
+        />
         <span class="p-inputgroup-addon">m</span>
       </div>
     </div>
