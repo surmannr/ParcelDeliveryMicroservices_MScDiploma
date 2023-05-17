@@ -90,9 +90,10 @@ namespace Employees.API
                 new Client
                 {
                     ClientId = configuration["Identity:ClientIds:Flutter"],
-                    RequireClientSecret = false,
+                    ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowOfflineAccess = true,
 
+                    RequirePkce = true,
                     AllowedGrantTypes = GrantTypes.Code,
                     
                     // where to redirect to after login
