@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:parceldelivery_mobile/screens/welcome/customer_welcome.dart';
 import 'package:pkce/pkce.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -75,6 +76,7 @@ class _AuthScreenState extends State<AuthScreen> {
       await prefs.setString('acces_token', accesToken);
       var jwt = JwtDecoder.decode(accesToken);
       await prefs.setString('user_id', jwt['sub']);
+      await Navigator.of(context).pushNamed(WelcomeCustomer.routeName);
     } else {
       const snackBar = SnackBar(
         content: Text('Sikertelen bejelentkezés!'),

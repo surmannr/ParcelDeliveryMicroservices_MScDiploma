@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parceldelivery_mobile/screens/welcome/customer_welcome.dart';
 
 import 'screens/auth/auth_screen.dart';
 
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Coolvetica',
       ),
       home: const AuthScreen(),
+      routes: {
+        WelcomeCustomer.routeName: (context) => const WelcomeCustomer(),
+      },
     );
   }
 }
