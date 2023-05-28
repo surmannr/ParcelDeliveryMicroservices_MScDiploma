@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: packagedelivery-deployment
+  namespace: rudii
+  labels:
+    app: packagedeliveryapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: packagedeliveryapi
+  template:
+    metadata:
+      namespace: rudii
+      labels:
+        app: packagedeliveryapi
+    spec:
+      containers:
+        - name: packagedeliveryapi
+          image: surmannr/msc_packagedelivery:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+            - name: EventBusSettings__HostAddress
+              value: amqp://guest:guest@rabbitmq-service
+            - name: DatabaseSettings__ConnectionString
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configmap
+                  key: mongo_connection_string
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: rudii
+  name: packagedeliveryapi-service
+spec:
+  type: NodePort
+  selector:
+    app: packagedeliveryapi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: packagedeliveryapi-ingress
+  namespace: rudii
+spec:
+  rules:
+    - host: "packagedelivery.k8s.arcter" ## set the domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: packagedeliveryapi-service
+                port:
+                  number: 80

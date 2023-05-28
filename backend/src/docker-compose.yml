@@ -26,37 +26,37 @@ services:
     image: rabbitmq:3-management-alpine
 
   packagedelivery.api:
-    image: ${DOCKER_REGISTRY-}packagedeliveryapi
+    image: ${DOCKER_REGISTRY-}surmannr/msc_packagedelivery
     build:
       context: .
       dockerfile: Microservices/PackageDelivery/PackageDelivery.API/Dockerfile
 
   packagetracking.api:
-    image: ${DOCKER_REGISTRY-}packagetrackingapi
+    image: ${DOCKER_REGISTRY-}surmannr/msc_packagetracking
     build:
       context: .
       dockerfile: Microservices/PackageTracking/PackageTracking.API/Dockerfile
 
   packagesending.api:
-    image: ${DOCKER_REGISTRY-}packagesendingapi
+    image: ${DOCKER_REGISTRY-}surmannr/msc_packagesending
     build:
       context: .
       dockerfile: Microservices/PackageSending/PackageSending.API/Dockerfile
 
   employees.api:
-    image: ${DOCKER_REGISTRY-}employeesapi
+    image: ${DOCKER_REGISTRY-}surmannr/msc_employeeserver
     build:
       context: .
       dockerfile: Microservices/Employees/Employees.API/Dockerfile
 
   customers.api:
-    image: ${DOCKER_REGISTRY-}customersapi
+    image: ${DOCKER_REGISTRY-}surmannr/msc_customerserver
     build:
       context: .
       dockerfile: Microservices/Customers/Customers.API/Dockerfile
 
   ocelotapigateway:
-    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    image: ${DOCKER_REGISTRY-}surmannr/msc_ocelotapigateway
     build:
       context: .
       dockerfile: ApiGateways/OcelotApiGateway/Dockerfile

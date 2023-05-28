@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: packagetracking-deployment
+  namespace: rudii
+  labels:
+    app: packagetrackingapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: packagetrackingapi
+  template:
+    metadata:
+      namespace: rudii
+      labels:
+        app: packagetrackingapi
+    spec:
+      containers:
+        - name: packagetrackingapi
+          image: surmannr/msc_packagetracking:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+            - name: EventBusSettings__HostAddress
+              value: amqp://guest:guest@rabbitmq-service
+            - name: CacheSettings__ConnectionString
+              value: redis-service
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: rudii
+  name: packagetrackingapi-service
+spec:
+  type: NodePort
+  selector:
+    app: packagetrackingapi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: packagetrackingapi-ingress
+  namespace: rudii
+spec:
+  rules:
+    - host: "packagetracking.k8s.arcter" ## set the domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: packagetrackingapi-service
+                port:
+                  number: 80

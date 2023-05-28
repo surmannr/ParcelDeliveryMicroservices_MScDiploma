@@ -79,17 +79,14 @@ services:
     container_name: packagedelivery.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_URLS=http://+:80
       - DatabaseSettings:ConnectionString=mongodb://packagedelivery_mongodb:27017
       - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
     depends_on:
       - packagedelivery.mongodb
       - rabbitmq
     ports:
-      - "42010:443"
-      - "5160:80"
+      - "42010:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -99,17 +96,14 @@ services:
     container_name: packagetracking.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_URLS=http://+:80
       - CacheSettings:ConnectionString=packagetracking_redisdb:6379
       - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
     depends_on:
       - packagetracking.redisdb
       - rabbitmq
     ports:
-      - "5094:80"
-      - "42011:443"
+      - "42011:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -119,17 +113,14 @@ services:
     container_name: packagesending.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings:DefaultConnection=Server=packagesending_postgresql;Port=5432;Database=PackageSendingDb;User Id=admin;Password=admin1234;
       - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
     depends_on:
       - packagesending.postgresql
       - rabbitmq
     ports:
-      - "5064:80"
-      - "42012:443"
+      - "42012:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -139,14 +130,12 @@ services:
     container_name: employees.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings:DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_EmployeesDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
     depends_on:
       - users.mssqldb
     ports:
-      - "5001:443"
+      - "5001:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -156,15 +145,13 @@ services:
     container_name: customers.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings:DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_CustomersDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
     depends_on:
       - users.mssqldb
       - employees.api
     ports:
-      - "5002:443"
+      - "5002:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -174,9 +161,7 @@ services:
     container_name: ocelotapigateway
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=ParcelDeliveryApp123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_URLS=http://+:80
     depends_on:
       - packagesending.api
       - packagetracking.api
@@ -184,8 +169,7 @@ services:
       - employees.api
       - customers.api
     ports:
-      - "5072:80"
-      - "42024:443"
+      - "42024:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

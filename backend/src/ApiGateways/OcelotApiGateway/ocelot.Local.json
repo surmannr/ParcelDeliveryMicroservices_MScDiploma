@@ -375,7 +375,7 @@
         "AllowedScopes": []
       },
       "DangerousAcceptAnyServerCertificateValidator": true,
-      "UpstreamPathTemplate": "customers/{everything}",
+      "UpstreamPathTemplate": "/customers/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
     },
     // Employee

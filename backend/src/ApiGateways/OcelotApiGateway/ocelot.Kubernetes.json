@@ -3,11 +3,10 @@
     // PackageDelivery - AcceptedShipRequest
     {
       "DownstreamPathTemplate": "/api/AcceptedShipRequest",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -20,11 +19,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/AcceptedShipRequest/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -37,11 +35,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/AcceptedShipRequest/employee/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -55,11 +52,10 @@
     // PackageDelivery - ShippingRequest
     {
       "DownstreamPathTemplate": "/api/ShippingRequest",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -72,11 +68,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/ShippingRequest/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -90,11 +85,10 @@
     // PackageDelivery - Vehicle
     {
       "DownstreamPathTemplate": "/api/Vehicle",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -107,11 +101,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/Vehicle/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -125,11 +118,10 @@
     // PackageDelivery - VehicleUsage
     {
       "DownstreamPathTemplate": "/api/VehicleUsage",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -142,11 +134,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/VehicleUsage/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -159,11 +150,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/VehicleUsage/employee/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagedelivery.api",
-          "Port": 80
+          "Host": "packagedelivery.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -177,11 +167,10 @@
     // PackageSending - Billing
     {
       "DownstreamPathTemplate": "/api/Billing",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -194,11 +183,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/Billing/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -211,11 +199,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/Billing/user/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -229,11 +216,10 @@
     // PackageSending - Currency
     {
       "DownstreamPathTemplate": "/api/Currency",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -246,11 +232,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/Currency/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -264,11 +249,10 @@
     // PackageSending - Package
     {
       "DownstreamPathTemplate": "/api/Package",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -281,11 +265,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/Package/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -298,11 +281,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/Package/shipreq-{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -316,11 +298,10 @@
     // PackageSending - PaymentOption
     {
       "DownstreamPathTemplate": "/api/PaymentOption",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -333,11 +314,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/PaymentOption/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -351,11 +331,10 @@
     // PackageSending - ShippingOption
     {
       "DownstreamPathTemplate": "/api/ShippingOption",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -368,11 +347,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/ShippingOption/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -386,11 +364,10 @@
     // PackageSending - ShippingRequest
     {
       "DownstreamPathTemplate": "/api/ShippingRequest",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -403,11 +380,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/ShippingRequest/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -420,11 +396,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/ShippingRequest/user/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagesending.api",
-          "Port": 80
+          "Host": "packagesending.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -438,11 +413,10 @@
     // PackageTracking - PackageTracking
     {
       "DownstreamPathTemplate": "/api/PackageTracking",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagetracking.api",
-          "Port": 80
+          "Host": "packagetracking.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -455,11 +429,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/PackageTracking/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "packagetracking.api",
-          "Port": 80
+          "Host": "packagetracking.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -473,11 +446,10 @@
     // Employee - Timesheet
     {
       "DownstreamPathTemplate": "/api/Timesheet",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "employees.api",
-          "Port": 80
+          "Host": "employee-server.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -490,11 +462,10 @@
     },
     {
       "DownstreamPathTemplate": "/api/Timesheet/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "employees.api",
-          "Port": 80
+          "Host": "employee-server.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -508,11 +479,10 @@
     // Customer
     {
       "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "customers.api",
-          "Port": 80
+          "Host": "customer-server.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -526,11 +496,10 @@
     // Employee
     {
       "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "employees.api",
-          "Port": 80
+          "Host": "employee-server.k8s.arcter"
         }
       ],
       "AuthenticationOptions": {
@@ -543,6 +512,7 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:42024"
+    "BaseUrl": "http://parcel-delivery-api.k8s.arcter"
   }
 }
+
