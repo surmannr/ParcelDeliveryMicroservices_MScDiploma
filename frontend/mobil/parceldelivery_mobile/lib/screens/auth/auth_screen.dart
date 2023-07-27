@@ -18,33 +18,47 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   // Authorization
   final authorizationEndpoint = Uri.parse(
-      '${const String.fromEnvironment("customerBaseUrl")}/connect/authorize');
+      '${const String.fromEnvironment("protocol")}${const String.fromEnvironment("customerBaseUrl")}/connect/authorize');
   // Token
   final tokenEndpoint = Uri.parse(
-      '${const String.fromEnvironment("customerBaseUrl")}/connect/token');
+      '${const String.fromEnvironment("protocol")}${const String.fromEnvironment("customerBaseUrl")}/connect/token');
   // Revocation
   final revoke = Uri.parse(
-      "${const String.fromEnvironment("customerBaseUrl")}/connect/revocation");
+      "${const String.fromEnvironment("protocol")}${const String.fromEnvironment("customerBaseUrl")}/connect/revocation");
   // EndSession
   final endSession = Uri.parse(
-      "${const String.fromEnvironment("customerBaseUrl")}/connect/endsession");
+      "${const String.fromEnvironment("protocol")}${const String.fromEnvironment("customerBaseUrl")}/connect/endsession");
   final redirectUrl = Uri.parse("com.example.flutterapp://callback");
   // Client information
   final identifier = 'flutter-client';
   final secret = 'secret';
 
+  var urlWithoutHttp = const String.fromEnvironment("customerBaseUrl",
+      defaultValue: "10.0.2.2:5002");
+
   Future<String> getAccessToken() async {
     final pkcePair = PkcePair.generate();
+    print(urlWithoutHttp);
     // Construct the url
-    var url = Uri.https('10.0.2.2:5002', '/connect/authorize', {
-      'response_type': 'code',
-      'client_id': identifier,
-      'redirect_uri': 'com.example.flutterapp://callback',
-      'scope': 'openid profile offline_access',
-      'grant_type': 'authorization_code',
-      'code_challenge_method': 'S256',
-      'code_challenge': pkcePair.codeChallenge
-    });
+    var url = const String.fromEnvironment("protocol") == "https://"
+        ? Uri.https(urlWithoutHttp, '/connect/authorize', {
+            'response_type': 'code',
+            'client_id': identifier,
+            'redirect_uri': 'com.example.flutterapp://callback',
+            'scope': 'openid profile offline_access',
+            'grant_type': 'authorization_code',
+            'code_challenge_method': 'S256',
+            'code_challenge': pkcePair.codeChallenge
+          })
+        : Uri.http(urlWithoutHttp, '/connect/authorize', {
+            'response_type': 'code',
+            'client_id': identifier,
+            'redirect_uri': 'com.example.flutterapp://callback',
+            'scope': 'openid profile offline_access',
+            'grant_type': 'authorization_code',
+            'code_challenge_method': 'S256',
+            'code_challenge': pkcePair.codeChallenge
+          });
     // Present the dialog to the user
     var result = await FlutterWebAuth2.authenticate(
         url: url.toString(), callbackUrlScheme: "com.example.flutterapp");
@@ -52,7 +66,9 @@ class _AuthScreenState extends State<AuthScreen> {
     // Extract token from resulting url
     var code = Uri.parse(result).queryParameters['code'] ?? "nope";
 
-    final urlT = Uri.https('10.0.2.2:5002', '/connect/token', {});
+    final urlT = const String.fromEnvironment("protocol") == "https://"
+        ? Uri.https(urlWithoutHttp, '/connect/token', {})
+        : Uri.http(urlWithoutHttp, '/connect/token', {});
     var map = <String, dynamic>{};
     map['grant_type'] = 'authorization_code';
     map['client_id'] = identifier;

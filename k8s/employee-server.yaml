@@ -19,7 +19,7 @@ spec:
       containers:
         - name: employeeidentityapi
           image: surmannr/msc_employeeserver:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:

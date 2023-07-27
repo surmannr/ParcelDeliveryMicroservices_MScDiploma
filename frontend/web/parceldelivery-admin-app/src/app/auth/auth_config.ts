@@ -1,8 +1,10 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
+import { environment } from 'src/environments/environment';
 
 export const authCodeFlowConfig: AuthConfig = {
   // Url of the Identity Provider
-  issuer: 'https://localhost:5001',
+  issuer: environment.issuer,
+  checkOrigin: false,
 
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin,
@@ -27,6 +29,7 @@ export const authCodeFlowConfig: AuthConfig = {
   scope: 'openid profile',
 
   oidc: true,
+  requireHttps: false,
 
   showDebugInformation: true,
 };

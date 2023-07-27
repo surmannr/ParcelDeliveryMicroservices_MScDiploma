@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { throwError } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import jwt_decode from 'jwt-decode';
 
 @Injectable({
@@ -22,6 +22,8 @@ export class BaseService {
   protected httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '/',
     }),
   };
 

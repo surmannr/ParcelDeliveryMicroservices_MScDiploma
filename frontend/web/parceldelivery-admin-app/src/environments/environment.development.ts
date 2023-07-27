@@ -1,3 +1,4 @@
 export const environment = {
-  baseUrl: 'https://localhost:42024',
+  baseUrl: 'http://localhost:42024',
+  issuer: 'http://localhost:5001',
 };

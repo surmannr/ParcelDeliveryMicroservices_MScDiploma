@@ -1,7 +1,8 @@
-﻿using Customers.API;
+using Customers.API;
 using Customers.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Microsoft.AspNetCore.Identity;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()

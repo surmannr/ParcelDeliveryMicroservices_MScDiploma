@@ -1,3 +1,4 @@
 {
-  "customerBaseUrl": "https://10.0.2.2:5002"
+  "protocol": "http://",
+  "customerBaseUrl": "10.0.2.2:5002"
 }

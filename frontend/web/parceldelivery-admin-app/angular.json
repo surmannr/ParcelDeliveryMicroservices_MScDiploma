@@ -38,13 +38,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 }
               ],
               "outputHashing": "all"
@@ -62,6 +57,15 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "kubernetes": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.kubernetes.ts"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
@@ -70,11 +74,21 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "parceldelivery-admin-app:build:production"
+              "browserTarget": "parceldelivery-admin-app:build:production",
+              "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
-              "browserTarget": "parceldelivery-admin-app:build:development"
+              "browserTarget": "parceldelivery-admin-app:build:development",
+              "proxyConfig": "src/proxy.conf.json"
+            },
+            "kubernetes": {
+              "browserTarget": "parceldelivery-admin-app:build:kubernetes",
+              "proxyConfig": "src/proxy.conf.json"
             }
+          },
+          "options": {
+            "proxyConfig": "src/proxy.conf.json",
+            "browserTarget": "parceldelivery-admin-app:build"
           },
           "defaultConfiguration": "development"
         },

@@ -1,7 +1,9 @@
+using Common.Email;
 using Customers.API.Data;
 using Customers.API.Models;
 using Duende.IdentityServer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -48,6 +50,9 @@ namespace Customers.API
                     options.ClientSecret = "copy client secret from Google here";
                 });
 
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
+            builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+
             return builder.Build();
         }
 
@@ -61,7 +66,15 @@ namespace Customers.API
             }
 
             app.UseStaticFiles();
+            // This cookie policy fixes login issues with Chrome 80+ using HHTP
+            app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Lax });
             app.UseRouting();
+
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
+
             app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();

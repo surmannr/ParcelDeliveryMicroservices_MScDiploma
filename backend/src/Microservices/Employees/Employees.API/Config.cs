@@ -69,10 +69,20 @@ namespace Employees.API
                         AllowedGrantTypes = GrantTypes.Code,
                     
                         // where to redirect to after login
-                        RedirectUris = { configuration["Identity:RedirectUris:SPA"] },
+                        RedirectUris = 
+                        { 
+                            configuration["Identity:RedirectUris:SPA:local"],
+                            configuration["Identity:RedirectUris:SPA:employee"],
+                            configuration["Identity:RedirectUris:SPA:frontend"],
+                        },
 
                         // where to redirect to after logout
-                        PostLogoutRedirectUris = { configuration["Identity:PostLogoutRedirectUris:SPA"]  },
+                        PostLogoutRedirectUris =
+                        {
+                            configuration["Identity:PostLogoutRedirectUris:SPA:local"],
+                            configuration["Identity:PostLogoutRedirectUris:SPA:employee"],
+                            configuration["Identity:PostLogoutRedirectUris:SPA:frontend"],
+                        },
 
                         RequirePkce = true,
 
@@ -82,9 +92,11 @@ namespace Employees.API
                             IdentityServerConstants.StandardScopes.Profile,
                             configuration["ApiScope:ApiScopeName"],
                         },
-                        AllowedCorsOrigins =
+                        AllowedCorsOrigins = 
                         {
-                            configuration["Identity:Cors:SPA"],
+                            configuration["Identity:Cors:SPA:local"],
+                            configuration["Identity:Cors:SPA:employee"],
+                            configuration["Identity:Cors:SPA:frontend"],
                         },
                     },
                 new Client
