@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using Common.Extension.CQRS;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
-using PackageDelivery.BL.Extensions.CQRS;
 using PackageDelivery.DAL.Entities;
 using PackageDelivery.DAL.Repositories;
 

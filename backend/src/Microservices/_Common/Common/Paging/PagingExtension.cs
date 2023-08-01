@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
 
 namespace Common.Paging

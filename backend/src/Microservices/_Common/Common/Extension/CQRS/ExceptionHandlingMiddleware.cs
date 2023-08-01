@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Common.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using PackageSending.BL.Exceptions;
-using System.Net.NetworkInformation;
-using Common.Paging;
 using System.Text.Json;
 
-namespace PackageSending.BL.Extensions.CQRS
+namespace Common.Extension.CQRS
 {
     public sealed class ExceptionHandlingMiddleware : IMiddleware
     {

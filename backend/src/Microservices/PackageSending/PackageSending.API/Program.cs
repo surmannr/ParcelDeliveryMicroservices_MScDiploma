@@ -1,12 +1,12 @@
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
+using Common.Extension.CQRS;
 using FluentValidation;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
-using PackageSending.BL.Extensions.CQRS;
 using PackageSending.BL.Extensions.Mapper;
 using PackageSending.BL.Features._Package.Queries;
 using PackageSending.DAL;

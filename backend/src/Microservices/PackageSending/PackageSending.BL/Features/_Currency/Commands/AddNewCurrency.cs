@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using Common.Dto;
 using Common.Entity;
+using Common.Exceptions;
+using Common.Extension.CQRS;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PackageSending.BL.Dto;
-using PackageSending.BL.Exceptions;
-using PackageSending.BL.Extensions.CQRS;
 using PackageSending.DAL;
 
 namespace PackageSending.BL.Features._Currency.Commands

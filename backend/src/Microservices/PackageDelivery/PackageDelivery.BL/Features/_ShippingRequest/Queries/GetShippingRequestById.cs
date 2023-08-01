@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Common.Dto;
+using Common.Exceptions;
 using FluentValidation;
 using MediatR;
-using PackageDelivery.BL.Dto;
-using PackageDelivery.BL.Exceptions;
-using PackageDelivery.DAL.Entities;
 using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.BL.Features._ShippingRequest.Queries

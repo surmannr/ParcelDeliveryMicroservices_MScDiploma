@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Common.Paging
+namespace Common.Exceptions
 {
     [Serializable]
     public class PagingException : Exception

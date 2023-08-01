@@ -3,7 +3,6 @@ using AutoMapper.QueryableExtensions;
 using Common.Dto;
 using Common.Paging;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using PackageSending.DAL;
 
 namespace PackageSending.BL.Features._Billing.Queries

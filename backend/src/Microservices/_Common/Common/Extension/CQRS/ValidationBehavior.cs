@@ -1,8 +1,13 @@
-﻿using FluentValidation;
+﻿using Common.Exceptions;
+using FluentValidation;
 using MediatR;
-using PackageDelivery.BL.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PackageDelivery.BL.Extensions.CQRS
+namespace Common.Extension.CQRS
 {
     public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : class, IRequest<TResponse>

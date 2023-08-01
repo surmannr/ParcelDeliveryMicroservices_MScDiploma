@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
 using Common.Dto;
+using Common.Exceptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PackageSending.BL.Dto;
-using PackageSending.BL.Exceptions;
 using PackageSending.DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PackageSending.BL.Features._ShippingOption.Queries
 {

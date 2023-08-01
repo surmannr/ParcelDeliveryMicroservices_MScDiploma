@@ -3,7 +3,6 @@ using AutoMapper.QueryableExtensions;
 using Common.Dto;
 using Common.Paging;
 using MediatR;
-using PackageDelivery.BL.Dto;
 using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.BL.Features._ShippingRequest.Queries

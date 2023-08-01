@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
+using Common.Exceptions;
+using Common.Extension.CQRS;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PackageSending.BL.Exceptions;
-using PackageSending.BL.Extensions.CQRS;
 using PackageSending.DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PackageSending.BL.Features._ShippingOption.Commands
 {

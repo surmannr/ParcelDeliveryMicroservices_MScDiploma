@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Common.Dto;
+using Common.Exceptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PackageSending.BL.Exceptions;
 using PackageSending.DAL;
 
 namespace PackageSending.BL.Features._Billing.Queries

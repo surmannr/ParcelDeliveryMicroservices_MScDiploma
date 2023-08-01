@@ -1,17 +1,10 @@
-﻿using AutoMapper;
+﻿using Common.Exceptions;
+using Common.Extension.CQRS;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
-using PackageDelivery.BL.Exceptions;
-using PackageDelivery.BL.Extensions.CQRS;
 using PackageDelivery.DAL.Entities;
 using PackageDelivery.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PackageDelivery.BL.Features._VehicleUsage.Commands
 {

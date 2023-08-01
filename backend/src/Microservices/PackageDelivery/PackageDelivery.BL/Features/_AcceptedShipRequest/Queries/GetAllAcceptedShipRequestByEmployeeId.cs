@@ -4,14 +4,7 @@ using Common.Paging;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
-using PackageDelivery.DAL.Entities;
 using PackageDelivery.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PackageDelivery.BL.Features._AcceptedShipRequest.Queries
 {

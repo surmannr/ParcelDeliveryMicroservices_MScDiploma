@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace PackageSending.BL.Extensions.CQRS
+namespace Common.Extension.CQRS
 {
     public interface ICommand<TResult> : IRequest<TResult>
     {

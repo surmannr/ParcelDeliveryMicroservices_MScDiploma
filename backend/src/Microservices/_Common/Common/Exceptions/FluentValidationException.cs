@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PackageSending.BL.Exceptions
+namespace Common.Exceptions
 {
     public class FluentValidationException : Exception
     {

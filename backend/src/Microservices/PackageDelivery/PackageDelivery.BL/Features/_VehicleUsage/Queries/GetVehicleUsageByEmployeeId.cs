@@ -4,8 +4,6 @@ using Common.Paging;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
-using PackageDelivery.BL.Exceptions;
-using PackageDelivery.DAL.Entities;
 using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.BL.Features._VehicleUsage.Queries

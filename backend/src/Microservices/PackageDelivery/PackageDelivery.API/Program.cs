@@ -1,8 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Common.Extension.CQRS;
 using FluentValidation;
 using MediatR;
-using PackageDelivery.BL.Extensions.CQRS;
 using PackageDelivery.BL.Extensions.Identity;
 using PackageDelivery.BL.Extensions.Mapper;
 using PackageDelivery.BL.Features._VehicleUsage.Queries;
