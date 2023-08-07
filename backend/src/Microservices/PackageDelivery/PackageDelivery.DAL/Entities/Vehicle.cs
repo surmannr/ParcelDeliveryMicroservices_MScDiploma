@@ -1,10 +1,4 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.IdGenerators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PackageDelivery.DAL.Entities
 {
@@ -21,5 +15,6 @@ namespace PackageDelivery.DAL.Entities
         public double MaxInternalSpaceX { get; set; }
         public double MaxInternalSpaceY { get; set; }
         public double MaxInternalSpaceZ { get; set; }
+        public double MaxWeight { get; set; }
     }
 }

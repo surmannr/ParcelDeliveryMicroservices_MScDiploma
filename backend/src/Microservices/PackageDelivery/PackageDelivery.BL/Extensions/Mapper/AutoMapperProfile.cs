@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Common.Dto;
 using Common.Entity;
+using Common.Entity.Filters;
 using PackageDelivery.BL.Dto;
+using PackageDelivery.BL.Features._ShippingRequest.Queries;
 using PackageDelivery.DAL.Entities;
 
 namespace PackageDelivery.BL.Extensions.Mapper
@@ -21,6 +23,8 @@ namespace PackageDelivery.BL.Extensions.Mapper
             CreateMap<ShippingRequest, ShippingRequestDto>()
                 .ReverseMap();
             CreateMap<AcceptedShippingRequest, AcceptedShippingRequestDto>().ReverseMap();
+
+            CreateMap<ShippingRequestFilter, GetAllShippingRequests.Query>().ReverseMap();
         }
     }
 }

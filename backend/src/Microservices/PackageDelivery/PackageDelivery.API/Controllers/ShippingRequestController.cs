@@ -1,4 +1,6 @@
-﻿using Common.Dto;
+﻿using AutoMapper;
+using Common.Dto;
+using Common.Entity.Filters;
 using Common.Paging;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,20 +14,18 @@ namespace PackageDelivery.API.Controllers
     public class ShippingRequestController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public ShippingRequestController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public ShippingRequestController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ShippingRequestDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequests([FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequests([FromQuery] ShippingRequestFilter parameter)
         {
-            var vehicles = await _mediator.Send(new GetAllShippingRequests.Query()
-            {
-                PageNumber = parameter.PageNumber,
-                PageSize = parameter.PageSize,
-            });
+            var vehicles = await _mediator.Send(_mapper.Map<GetAllShippingRequests.Query>(parameter));
             return Ok(vehicles);
         }
 

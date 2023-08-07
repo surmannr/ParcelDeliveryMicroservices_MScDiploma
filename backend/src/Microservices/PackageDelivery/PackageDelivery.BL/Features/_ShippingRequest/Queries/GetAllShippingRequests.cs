@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common.Dto;
+using Common.Entity.Filters;
+using Common.Filter;
 using Common.Paging;
 using MediatR;
 using PackageDelivery.DAL.Repositories;
@@ -9,7 +11,7 @@ namespace PackageDelivery.BL.Features._ShippingRequest.Queries
 {
     public static class GetAllShippingRequests
     {
-        public class Query : PagingParameter, IRequest<PagedResponse<ShippingRequestDto>> { }
+        public class Query : ShippingRequestFilter, IRequest<PagedResponse<ShippingRequestDto>> { }
 
         public class Handler : IRequestHandler<Query, PagedResponse<ShippingRequestDto>>
         {
@@ -27,6 +29,7 @@ namespace PackageDelivery.BL.Features._ShippingRequest.Queries
                 var vehicles = await _repository.GetShippingRequests();
                 return vehicles
                     .AsQueryable()
+                    .ExecuteFilterAndOrder(request)
                     .ProjectTo<ShippingRequestDto>(_mapper.ConfigurationProvider)
                     .ToPagedList(request);
             }

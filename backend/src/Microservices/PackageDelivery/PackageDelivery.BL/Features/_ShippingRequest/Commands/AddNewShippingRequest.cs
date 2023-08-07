@@ -28,9 +28,11 @@ namespace PackageDelivery.BL.Features._ShippingRequest.Commands
 
             public async Task<string> Handle(Command request, CancellationToken cancellationToken)
             {
-                var vehicle = _mapper.Map<ShippingRequest>(request.NewShippingRequest);
+                var shippingRequest = _mapper.Map<ShippingRequest>(request.NewShippingRequest);
 
-                return await _shippingRequestRepository.CreateShippingRequest(vehicle);
+                shippingRequest.DateOfDispatch = DateTime.UtcNow;
+
+                return await _shippingRequestRepository.CreateShippingRequest(shippingRequest);
             }
         }
 

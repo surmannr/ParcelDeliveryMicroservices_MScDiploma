@@ -15,6 +15,7 @@ namespace Common.Entity
         public Address AddressTo { get; set; }
         public bool IsExpress { get; set; }
         public bool IsFinished { get; set; }
+        public DateTime DateOfDispatch { get; set; }
         public Status Status { get; set; }
 
         public int PaymentOptionId { get; set; }
