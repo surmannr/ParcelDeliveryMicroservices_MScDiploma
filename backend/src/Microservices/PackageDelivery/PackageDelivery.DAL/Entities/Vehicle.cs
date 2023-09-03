@@ -1,11 +1,13 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Common.Serializers;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace PackageDelivery.DAL.Entities
 {
     public class Vehicle
     {
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string RegistrationNumber { get; set; }
         public string Type { get; set; }

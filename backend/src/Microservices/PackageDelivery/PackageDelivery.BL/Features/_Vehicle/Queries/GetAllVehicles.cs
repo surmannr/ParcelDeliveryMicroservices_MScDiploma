@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common.Filter;
 using Common.Paging;
 using MediatR;
 using PackageDelivery.BL.Dto;
+using PackageDelivery.DAL.Entities.Filters;
 using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.BL.Features._Vehicle.Queries
 {
     public static class GetAllVehicles
     {
-        public class Query : PagingParameter, IRequest<PagedResponse<VehicleDto>> { }
+        public class Query : VehicleFilter, IRequest<PagedResponse<VehicleDto>> { }
 
         public class Handler : IRequestHandler<Query, PagedResponse<VehicleDto>>
         {
@@ -27,6 +29,7 @@ namespace PackageDelivery.BL.Features._Vehicle.Queries
                 var vehicles = await _vehicle.GetVehicles();
                 return vehicles
                     .AsQueryable()
+                    .ExecuteFilterAndOrder(request)
                     .ProjectTo<VehicleDto>(_mapper.ConfigurationProvider)
                     .ToPagedList(request);
             }

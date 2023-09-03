@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace Common.Entity
         public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
 
+        [BsonIgnoreIfNull]
         public ShippingRequest ShippingRequest { get; set; }
     }
 }

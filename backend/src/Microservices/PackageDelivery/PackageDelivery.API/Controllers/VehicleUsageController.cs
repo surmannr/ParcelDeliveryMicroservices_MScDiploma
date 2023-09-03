@@ -1,11 +1,15 @@
-﻿using Common.Paging;
+﻿using AutoMapper;
+using Common.Paging;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PackageDelivery.BL.Dto;
+using PackageDelivery.BL.Features._AcceptedShipRequest.Queries;
+using PackageDelivery.BL.Features._Vehicle.Queries;
 using PackageDelivery.BL.Features._VehicleUsage.Commands;
 using PackageDelivery.BL.Features._VehicleUsage.Queries;
 using PackageDelivery.DAL.Entities;
+using PackageDelivery.DAL.Entities.Filters;
 using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.API.Controllers
@@ -15,34 +19,29 @@ namespace PackageDelivery.API.Controllers
     public class VehicleUsageController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public VehicleUsageController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public VehicleUsageController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<VehicleUsageDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<VehicleUsageDto>>> GetVehicleUsages([FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<VehicleUsageDto>>> GetVehicleUsages([FromQuery] VehicleUsageFilter parameter)
         {
-            var vehicleUsages = await _mediator.Send(new GetAllVehicleUsages.Query()
-            {
-                PageSize = parameter.PageSize,
-                PageNumber = parameter.PageNumber,
-            });
+            var vehicleUsages = await _mediator.Send(_mapper.Map<GetAllVehicleUsages.Query>(parameter));
             return Ok(vehicleUsages);
         }
      
         [HttpGet("employee/{employeeid}", Name = "GetVehicleUsageByEmployeeId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(VehicleUsageDto), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<VehicleUsageDto>>> GetVehicleUsageByEmployeeId(string employeeid, [FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<List<VehicleUsageDto>>> GetVehicleUsageByEmployeeId(string employeeid, [FromQuery] VehicleUsageFilter parameter)
         {
-            var vehicleUsages = await _mediator.Send(new GetVehicleUsagesByEmployeeId.Query()
-            {
-                EmployeeId = employeeid,
-                PageNumber = parameter.PageNumber,
-                PageSize = parameter.PageSize
-            });
+            var query = _mapper.Map<GetVehicleUsagesByEmployeeId.Query>(parameter);
+            query.EmployeeId = employeeid;
+            var vehicleUsages = await _mediator.Send(query);
             return Ok(vehicleUsages);
         }
 

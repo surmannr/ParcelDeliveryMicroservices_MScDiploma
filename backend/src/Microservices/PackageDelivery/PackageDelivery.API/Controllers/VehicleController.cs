@@ -1,9 +1,12 @@
-﻿using Common.Paging;
+﻿using AutoMapper;
+using Common.Paging;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PackageDelivery.BL.Dto;
+using PackageDelivery.BL.Features._AcceptedShipRequest.Queries;
 using PackageDelivery.BL.Features._Vehicle.Commands;
 using PackageDelivery.BL.Features._Vehicle.Queries;
+using PackageDelivery.DAL.Entities.Filters;
 
 namespace PackageDelivery.API.Controllers
 {
@@ -12,20 +15,18 @@ namespace PackageDelivery.API.Controllers
     public class VehicleController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public VehicleController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public VehicleController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<VehicleDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<VehicleDto>>> GetVehicles([FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<VehicleDto>>> GetVehicles([FromQuery] VehicleFilter parameter)
         {
-            var vehicles = await _mediator.Send(new GetAllVehicles.Query()
-            {
-                PageNumber = parameter.PageNumber,
-                PageSize = parameter.PageSize,
-            });
+            var vehicles = await _mediator.Send(_mapper.Map<GetAllVehicles.Query>(parameter));
             return Ok(vehicles);
         }
 

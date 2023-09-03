@@ -1,9 +1,12 @@
-﻿using Common.Paging;
+﻿using AutoMapper;
+using Common.Paging;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PackageDelivery.BL.Dto;
 using PackageDelivery.BL.Features._AcceptedShipRequest.Commands;
 using PackageDelivery.BL.Features._AcceptedShipRequest.Queries;
+using PackageDelivery.BL.Features._ShippingRequest.Queries;
+using PackageDelivery.DAL.Entities.Filters;
 
 namespace PackageDelivery.API.Controllers
 {
@@ -12,20 +15,18 @@ namespace PackageDelivery.API.Controllers
     public class AcceptedShipRequestController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public AcceptedShipRequestController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public AcceptedShipRequestController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<AcceptedShippingRequestDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<AcceptedShippingRequestDto>>> GetAccceptedShipRequests([FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<AcceptedShippingRequestDto>>> GetAccceptedShipRequests([FromQuery] AcceptedShippingRequestFilter parameter)
         {
-            var acceptedShippingRequests = await _mediator.Send(new GetAllAcceptedShipRequests.Query()
-            {
-                PageSize = parameter.PageSize,
-                PageNumber = parameter.PageNumber,
-            });
+            var acceptedShippingRequests = await _mediator.Send(_mapper.Map<GetAllAcceptedShipRequests.Query>(parameter));
             return Ok(acceptedShippingRequests);
         }
 
@@ -44,14 +45,11 @@ namespace PackageDelivery.API.Controllers
         [HttpGet("employee/{employeeid}", Name = "GetAcceptedShipRequestByEmployeeId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(AcceptedShippingRequestDto), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<AcceptedShippingRequestDto>>> GetAcceptedShipRequestByEmployeeId(string employeeid, [FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<List<AcceptedShippingRequestDto>>> GetAcceptedShipRequestByEmployeeId(string employeeid, [FromQuery] AcceptedShippingRequestFilter parameter)
         {
-            var acceptedShippingRequests = await _mediator.Send(new GetAllAcceptedShipRequestByEmployeeId.Query()
-            {
-                EmployeeId = employeeid,
-                PageNumber = parameter.PageNumber,
-                PageSize = parameter.PageSize,
-            });
+            var query = _mapper.Map<GetAllAcceptedShipRequestByEmployeeId.Query>(parameter);
+            query.EmployeeId = employeeid;
+            var acceptedShippingRequests = await _mediator.Send(query);
             return Ok(acceptedShippingRequests);
         }
 

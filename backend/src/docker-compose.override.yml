@@ -36,16 +36,6 @@ services:
       SA_PASSWORD: "Password?123@"
       ACCEPT_EULA: "Y"
 
-  portainer:
-    container_name: portainer
-    restart: always
-    ports:
-      - "8000:8000"
-      - "9000:9000"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-
   pgadmin:
     container_name: pgadmin
     restart: always
@@ -57,16 +47,6 @@ services:
       - "5051:443"
     volumes:
       - pgadmin_data:/root/.pgadmin
-
-  mongo-gui:
-    container_name: "mongo-gui"
-    restart: always
-    depends_on:
-      - packagedelivery.mongodb
-    ports:
-      - "4321:4321"
-    environment:
-      - MONGO_URL=mongodb://packagedelivery_mongodb:27017
 
   rabbitmq:
     container_name: rabbitmq

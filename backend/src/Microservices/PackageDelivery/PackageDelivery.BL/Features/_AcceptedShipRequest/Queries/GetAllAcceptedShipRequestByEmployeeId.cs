@@ -1,16 +1,18 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common.Filter;
 using Common.Paging;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
+using PackageDelivery.DAL.Entities.Filters;
 using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.BL.Features._AcceptedShipRequest.Queries
 {
     public static class GetAllAcceptedShipRequestByEmployeeId
     {
-        public class Query : PagingParameter, IRequest<PagedResponse<AcceptedShippingRequestDto>>
+        public class Query : AcceptedShippingRequestFilter, IRequest<PagedResponse<AcceptedShippingRequestDto>>
         {
             public string EmployeeId { get; set; }
         }
@@ -33,6 +35,7 @@ namespace PackageDelivery.BL.Features._AcceptedShipRequest.Queries
 
                 return acceptedShippings
                     .AsQueryable()
+                    .ExecuteFilterAndOrder(request)
                     .ProjectTo<AcceptedShippingRequestDto>(_mapper.ConfigurationProvider)
                     .ToPagedList(request);
             }

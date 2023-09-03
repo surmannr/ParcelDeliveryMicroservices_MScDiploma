@@ -10,7 +10,6 @@ namespace PackageDelivery.DAL.Entities
 {
     public class AcceptedShippingRequest
     {
-        [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id { get; set; }
         public string EmployeeId { get; set; }

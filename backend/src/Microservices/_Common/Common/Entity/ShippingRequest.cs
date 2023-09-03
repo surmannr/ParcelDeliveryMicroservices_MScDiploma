@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +10,13 @@ namespace Common.Entity
 {
     public class ShippingRequest
     {
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id { get; set; }
         public string UserId { get; set; }
         public string CourierId { get; set; }
+        [BsonIgnoreIfNull]
         public Address AddressFrom { get; set; }
+        [BsonIgnoreIfNull]
         public Address AddressTo { get; set; }
         public bool IsExpress { get; set; }
         public bool IsFinished { get; set; }
@@ -25,6 +30,7 @@ namespace Common.Entity
         public ShippingOption ShippingOption { get; set; }
 
         public string BillingId { get; set; }
+        [BsonIgnoreIfNull]
         public Billing Billing { get; set; }
 
         public List<Package> Packages { get; set; }

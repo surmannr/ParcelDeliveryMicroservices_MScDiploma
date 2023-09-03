@@ -3,8 +3,12 @@ using Common.Dto;
 using Common.Entity;
 using Common.Entity.Filters;
 using PackageDelivery.BL.Dto;
+using PackageDelivery.BL.Features._AcceptedShipRequest.Queries;
 using PackageDelivery.BL.Features._ShippingRequest.Queries;
+using PackageDelivery.BL.Features._Vehicle.Queries;
+using PackageDelivery.BL.Features._VehicleUsage.Queries;
 using PackageDelivery.DAL.Entities;
+using PackageDelivery.DAL.Entities.Filters;
 
 namespace PackageDelivery.BL.Extensions.Mapper
 {
@@ -25,6 +29,11 @@ namespace PackageDelivery.BL.Extensions.Mapper
             CreateMap<AcceptedShippingRequest, AcceptedShippingRequestDto>().ReverseMap();
 
             CreateMap<ShippingRequestFilter, GetAllShippingRequests.Query>().ReverseMap();
+            CreateMap<VehicleFilter, GetAllVehicles.Query>().ReverseMap();
+            CreateMap<AcceptedShippingRequestFilter, GetAllAcceptedShipRequests.Query>().ReverseMap();
+            CreateMap<AcceptedShippingRequestFilter, GetAllAcceptedShipRequestByEmployeeId.Query>().ReverseMap();
+            CreateMap<VehicleUsageFilter, GetAllVehicleUsages.Query>().ReverseMap();
+            CreateMap<VehicleUsageFilter, GetVehicleUsagesByEmployeeId.Query>().ReverseMap();
         }
     }
 }

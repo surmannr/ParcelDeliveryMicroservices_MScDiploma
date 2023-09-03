@@ -1,8 +1,11 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Common.Entity;
 using Common.Extension.CQRS;
+using Common.Serializers;
 using FluentValidation;
 using MediatR;
+using MongoDB.Bson.Serialization;
 using PackageDelivery.BL.Extensions.Identity;
 using PackageDelivery.BL.Extensions.Mapper;
 using PackageDelivery.BL.Features._VehicleUsage.Queries;
@@ -56,6 +59,10 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 
 });
 #endregion
+
+//BsonSerializer.RegisterSerializer(typeof(Address), new AddressSerializer());
+//BsonSerializer.RegisterSerializer(typeof(PaymentOption), new PaymentOptionSerializer());
+//BsonSerializer.RegisterSerializer(typeof(ShippingOption), new ShippingOptionSerializer());
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

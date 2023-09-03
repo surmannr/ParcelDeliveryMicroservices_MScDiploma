@@ -1,16 +1,18 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common.Filter;
 using Common.Paging;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
+using PackageDelivery.DAL.Entities.Filters;
 using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.BL.Features._VehicleUsage.Queries
 {
     public static class GetVehicleUsagesByEmployeeId
     {
-        public class Query : PagingParameter, IRequest<PagedResponse<VehicleUsageDto>>
+        public class Query : VehicleUsageFilter, IRequest<PagedResponse<VehicleUsageDto>>
         {
             public string EmployeeId { get; set; }
         }
@@ -33,6 +35,7 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Queries
 
                 return vehicleUsages
                     .AsQueryable()
+                    .ExecuteFilterAndOrder(request)
                     .ProjectTo<VehicleUsageDto>(_mapper.ConfigurationProvider)
                     .ToPagedList(request);
             }
