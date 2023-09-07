@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common.Dto;
+using Common.Entity.Filters;
+using Common.Filter;
 using Common.Paging;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +12,7 @@ namespace PackageSending.BL.Features._ShipRequest.Queries
 {
     public static class GetAllShipRequests
     {
-        public class Query : PagingParameter, IRequest<PagedResponse<ShippingRequestDto>> { }
+        public class Query : ShippingRequestFilter, IRequest<PagedResponse<ShippingRequestDto>> { }
 
         public class Handler : IRequestHandler<Query, PagedResponse<ShippingRequestDto>>
         {
@@ -26,6 +28,7 @@ namespace PackageSending.BL.Features._ShipRequest.Queries
             public async Task<PagedResponse<ShippingRequestDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 return await _dbContext.ShippingRequests
+                    .ExecuteFilterAndOrder(request)
                     .ProjectTo<ShippingRequestDto>(_mapper.ConfigurationProvider)
                     .ToPagedListAsync(request);
             }

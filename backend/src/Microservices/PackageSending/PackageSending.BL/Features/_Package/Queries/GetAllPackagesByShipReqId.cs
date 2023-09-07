@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common.Dto;
+using Common.Entity.Filters;
+using Common.Filter;
 using Common.Paging;
 using FluentValidation;
 using MediatR;
@@ -11,7 +13,7 @@ namespace PackageSending.BL.Features._Package.Queries
 {
     public static class GetAllPackagesByShipReqId
     {
-        public class Query : PagingParameter, IRequest<PagedResponse<PackageDto>> 
+        public class Query : PackageFilter, IRequest<PagedResponse<PackageDto>> 
         {
             public string ShipReqId { get; set; }
         }
@@ -31,6 +33,7 @@ namespace PackageSending.BL.Features._Package.Queries
             {
                 return await _dbContext.Packages
                     .Where(x => x.ShippingRequestId == request.ShipReqId)
+                    .ExecuteFilterAndOrder(request)
                     .ProjectTo<PackageDto>(_mapper.ConfigurationProvider)
                     .ToPagedListAsync(request);
             }

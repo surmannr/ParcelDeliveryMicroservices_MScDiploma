@@ -1,4 +1,6 @@
-﻿using Common.Dto;
+﻿using AutoMapper;
+using Common.Dto;
+using Common.Entity.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Features._Currency.Commands;
@@ -11,16 +13,18 @@ namespace PackageSending.API.Controllers
     public class CurrencyController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public CurrencyController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public CurrencyController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<CurrencyDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<CurrencyDto>>> GetCurrencies()
+        public async Task<ActionResult<IEnumerable<CurrencyDto>>> GetCurrencies([FromQuery] CurrencyFilter parameter)
         {
-            var currencies = await _mediator.Send(new GetAllCurrencies.Query());
+            var currencies = await _mediator.Send(_mapper.Map<GetAllCurrencies.Query>(parameter));
             return Ok(currencies);
         }
 

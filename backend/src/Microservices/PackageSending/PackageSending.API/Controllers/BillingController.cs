@@ -1,4 +1,6 @@
-﻿using Common.Dto;
+﻿using AutoMapper;
+using Common.Dto;
+using Common.Entity.Filters;
 using Common.Paging;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,20 +15,18 @@ namespace PackageSending.API.Controllers
     public class BillingController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public BillingController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public BillingController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BillingDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<BillingDto>>> GetBillings([FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<BillingDto>>> GetBillings([FromQuery] BillingFilter parameter)
         {
-            var billings = await _mediator.Send(new GetAllBillings.Query()
-            {
-                PageSize = parameter.PageSize,
-                PageNumber = parameter.PageNumber,
-            });
+            var billings = await _mediator.Send(_mapper.Map<GetAllBillings.Query>(parameter));
             return Ok(billings);
         }
 
@@ -44,14 +44,11 @@ namespace PackageSending.API.Controllers
 
         [HttpGet("user/{id}")]
         [ProducesResponseType(typeof(IEnumerable<BillingDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<BillingDto>>> GetBillingsByUserId(string id, [FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<BillingDto>>> GetBillingsByUserId(string id, [FromQuery] BillingFilter parameter)
         {
-            var billings = await _mediator.Send(new GetAllBillingsByUserId.Query() 
-            { 
-                UserId = id,
-                PageNumber = parameter.PageNumber,
-                PageSize = parameter.PageSize,
-            });
+            var query = _mapper.Map<GetAllBillingsByUserId.Query>(parameter);
+            query.UserId = id;
+            var billings = await _mediator.Send(query);
             return Ok(billings);
         }
 

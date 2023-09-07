@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common.Dto;
+using Common.Entity.Filters;
+using Common.Filter;
+using Common.Paging;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PackageSending.DAL;
@@ -9,9 +12,9 @@ namespace PackageSending.BL.Features._ShippingOption.Queries
 {
     public static class GetAllShippingOptions
     {
-        public class Query : IRequest<List<ShippingOptionDto>> { }
+        public class Query : ShippingOptionFilter, IRequest<PagedResponse<ShippingOptionDto>> { }
 
-        public class Handler : IRequestHandler<Query, List<ShippingOptionDto>>
+        public class Handler : IRequestHandler<Query, PagedResponse<ShippingOptionDto>>
         {
             private readonly IMapper _mapper;
             private readonly PackageSendingDbContext _dbContext;
@@ -22,11 +25,12 @@ namespace PackageSending.BL.Features._ShippingOption.Queries
                 _dbContext = dbContext;
             }
 
-            public async Task<List<ShippingOptionDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<PagedResponse<ShippingOptionDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 return await _dbContext.ShippingOptions
+                    .ExecuteFilterAndOrder(request)
                     .ProjectTo<ShippingOptionDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync();
+                    .ToPagedListAsync(request);
             }
         }
     }

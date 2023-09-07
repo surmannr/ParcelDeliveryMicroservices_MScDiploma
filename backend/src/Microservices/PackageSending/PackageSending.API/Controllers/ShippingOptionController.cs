@@ -1,4 +1,6 @@
-﻿using Common.Dto;
+﻿using AutoMapper;
+using Common.Dto;
+using Common.Entity.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,16 +17,18 @@ namespace PackageSending.API.Controllers
     public class ShippingOptionController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public ShippingOptionController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public ShippingOptionController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ShippingOptionDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ShippingOptionDto>>> GetShippingOptions()
+        public async Task<ActionResult<IEnumerable<ShippingOptionDto>>> GetShippingOptions([FromQuery] ShippingOptionFilter parameter)
         {
-            var shippingOptions = await _mediator.Send(new GetAllShippingOptions.Query());
+            var shippingOptions = await _mediator.Send(_mapper.Map<GetAllShippingOptions.Query>(parameter));
             return Ok(shippingOptions);
         }
 

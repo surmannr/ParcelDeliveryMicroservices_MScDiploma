@@ -1,8 +1,11 @@
-﻿using Common.Dto;
+﻿using AutoMapper;
+using Common.Dto;
+using Common.Entity.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Dto;
+using PackageSending.BL.Features._Currency.Queries;
 using PackageSending.BL.Features._Package.Commands;
 using PackageSending.BL.Features._Package.Queries;
 using PackageSending.BL.Features._PaymentOption.Commands;
@@ -15,16 +18,18 @@ namespace PackageSending.API.Controllers
     public class PaymentOptionController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public PaymentOptionController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public PaymentOptionController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PaymentOptionDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PaymentOptionDto>>> GetPaymentOptions()
+        public async Task<ActionResult<IEnumerable<PaymentOptionDto>>> GetPaymentOptions([FromQuery] PaymentOptionFilter parameter)
         {
-            var paymentOptions = await _mediator.Send(new GetAllPaymentOptions.Query());
+            var paymentOptions = await _mediator.Send(_mapper.Map<GetAllPaymentOptions.Query>(parameter));
             return Ok(paymentOptions);
         }
 

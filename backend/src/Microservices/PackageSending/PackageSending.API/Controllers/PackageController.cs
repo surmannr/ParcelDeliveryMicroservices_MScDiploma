@@ -1,11 +1,8 @@
-﻿using Common.Dto;
-using Common.Paging;
+﻿using AutoMapper;
+using Common.Dto;
+using Common.Entity.Filters;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PackageSending.BL.Dto;
-using PackageSending.BL.Features._Billing.Commands;
-using PackageSending.BL.Features._Billing.Queries;
 using PackageSending.BL.Features._Package.Commands;
 using PackageSending.BL.Features._Package.Queries;
 
@@ -16,20 +13,18 @@ namespace PackageSending.API.Controllers
     public class PackageController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public PackageController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public PackageController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PackageDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PackageDto>>> GetPackages([FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<PackageDto>>> GetPackages([FromQuery] PackageFilter parameter)
         {
-            var packages = await _mediator.Send(new GetAllPackages.Query()
-            {
-                PageSize = parameter.PageSize,
-                PageNumber = parameter.PageNumber,
-            });
+            var packages = await _mediator.Send(_mapper.Map<GetAllPackages.Query>(parameter));
             return Ok(packages);
         }
 
@@ -47,14 +42,11 @@ namespace PackageSending.API.Controllers
 
         [HttpGet("shipreq-{id}")]
         [ProducesResponseType(typeof(IEnumerable<PackageDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PackageDto>>> GetPackagesByShipRequestId(string id, [FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<PackageDto>>> GetPackagesByShipRequestId(string id, [FromQuery] PackageFilter parameter)
         {
-            var packages = await _mediator.Send(new GetAllPackagesByShipReqId.Query()
-            { 
-                ShipReqId = id,
-                PageSize = parameter.PageSize,
-                PageNumber = parameter.PageNumber,
-            });
+            var query = _mapper.Map<GetAllPackagesByShipReqId.Query>(parameter);
+            query.ShipReqId = id;
+            var packages = await _mediator.Send(query);
             return Ok(packages);
         }
 

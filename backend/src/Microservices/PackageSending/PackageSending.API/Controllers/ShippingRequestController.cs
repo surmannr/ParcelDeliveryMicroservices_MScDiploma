@@ -1,4 +1,6 @@
-﻿using Common.Dto;
+﻿using AutoMapper;
+using Common.Dto;
+using Common.Entity.Filters;
 using Common.Paging;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Dto;
 using PackageSending.BL.Features._Billing.Commands;
 using PackageSending.BL.Features._Billing.Queries;
+using PackageSending.BL.Features._ShippingOption.Queries;
 using PackageSending.BL.Features._ShipRequest.Commands;
 using PackageSending.BL.Features._ShipRequest.Queries;
 
@@ -16,20 +19,18 @@ namespace PackageSending.API.Controllers
     public class ShippingRequestController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public ShippingRequestController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public ShippingRequestController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ShippingRequestDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequests([FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequests([FromQuery] ShippingRequestFilter parameter)
         {
-            var shippingRequests = await _mediator.Send(new GetAllShipRequests.Query()
-            {
-                PageNumber = parameter.PageNumber,
-                PageSize = parameter.PageSize,
-            });
+            var shippingRequests = await _mediator.Send(_mapper.Map<GetAllShipRequests.Query>(parameter));
             return Ok(shippingRequests);
         }
 
@@ -47,14 +48,11 @@ namespace PackageSending.API.Controllers
 
         [HttpGet("user/{id}")]
         [ProducesResponseType(typeof(IEnumerable<ShippingRequestDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequestsByUserId(string id, [FromQuery] PagingParameter parameter)
+        public async Task<ActionResult<IEnumerable<ShippingRequestDto>>> GetShippingRequestsByUserId(string id, [FromQuery] ShippingRequestFilter parameter)
         {
-            var shippingRequests = await _mediator.Send(new GetAllShipRequestsByUserId.Query()
-            {
-                UserId = id,
-                PageNumber = parameter.PageNumber,
-                PageSize = parameter.PageSize,
-            });
+            var query = _mapper.Map<GetAllShipRequestsByUserId.Query>(parameter);
+            query.UserId = id;
+            var shippingRequests = await _mediator.Send(query);
             return Ok(shippingRequests);
         }
 

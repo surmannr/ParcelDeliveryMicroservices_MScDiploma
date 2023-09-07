@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common.Dto;
+using Common.Entity.Filters;
+using Common.Filter;
 using Common.Paging;
 using FluentValidation;
 using MediatR;
@@ -10,7 +12,7 @@ namespace PackageSending.BL.Features._Billing.Queries
 {
     public static class GetAllBillingsByUserId
     {
-        public class Query : PagingParameter, IRequest<PagedResponse<BillingDto>> 
+        public class Query : BillingFilter, IRequest<PagedResponse<BillingDto>> 
         {
             public string UserId { get; set; }
         }
@@ -30,6 +32,7 @@ namespace PackageSending.BL.Features._Billing.Queries
             {
                 return await _dbContext.Billings
                     .Where(x => x.UserId == request.UserId)
+                    .ExecuteFilterAndOrder(request)
                     .ProjectTo<BillingDto>(_mapper.ConfigurationProvider)
                     .ToPagedListAsync(request);
             }
