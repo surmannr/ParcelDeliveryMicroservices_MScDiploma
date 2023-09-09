@@ -38,15 +38,15 @@ namespace PackageDelivery.BL.Features._AcceptedShipRequest.Commands
         {
             public CommandValidator()
             {
-                RuleFor(x => x.NewAcceptedShipRequest.EmployeeId)
-                    .NotEmpty()
-                    .NotNull()
-                    .WithMessage("Az alkalmazott azonosító nem lehet üres.");
-
-                RuleFor(x => x.NewAcceptedShipRequest.Shipping)
+                RuleFor(x => x.NewAcceptedShipRequest.ShippingRequests)
                    .NotEmpty()
                    .NotNull()
                    .WithMessage("A szállítás nem lehet üres.");
+
+                RuleFor(x => x.NewAcceptedShipRequest.Vehicle)
+                   .NotEmpty()
+                   .NotNull()
+                   .WithMessage("A járművet ki kell választani.");
             }
         }
     }

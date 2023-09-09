@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Common.Dto;
 using Common.Entity;
+using EventBus.Messages.Events;
+using MassTransit;
 using MediatR;
 using PackageDelivery.BL.Algorithms;
 using PackageDelivery.BL.Dto;
@@ -19,11 +21,13 @@ namespace PackageDelivery.BL.Services
         private readonly IParcelPackingAlgorithm _algorithm;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        public SchedulingService(IParcelPackingAlgorithm algorithm, IMediator mediator, IMapper mapper)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public SchedulingService(IParcelPackingAlgorithm algorithm, IMediator mediator, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _algorithm = algorithm;
             _mediator = mediator;
             _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task Schedule()
@@ -58,6 +62,7 @@ namespace PackageDelivery.BL.Services
                         Vehicle = vehicle,
                         Packages = packages,
                         ShippingRequests = shippingRequests,
+                        IsAllPackageTaken = false
                     };
 
                     await _mediator.Send(new AddNewAcceptedShipRequest.Command()
@@ -65,6 +70,15 @@ namespace PackageDelivery.BL.Services
                         NewAcceptedShipRequest = acceptedShippingRequest,
                     });
                 }
+
+                // Event
+                var eventMessage = new AlgorithmExecutedEvent()
+                {
+                    NumberOfDriversNeed = groupByResult.Count(),
+                    Date = date,
+                    DayNumber = (int)(date.DayOfWeek + 6) % 7
+                };
+                await _publishEndpoint.Publish(eventMessage);
             }
         }
     }

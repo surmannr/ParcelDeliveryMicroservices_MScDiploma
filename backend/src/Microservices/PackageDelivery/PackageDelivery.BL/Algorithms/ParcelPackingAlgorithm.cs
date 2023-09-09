@@ -43,8 +43,9 @@ namespace PackageDelivery.BL.Algorithms
             var shippingRequests = await _mediator.Send(new GetAllShippingRequests.Query()
             {
                 PageSize = 0,
-                MinDateOfDispatch = date,
-                MaxDateOfDispatch = date,
+                MinDateOfDispatch = date.AddDays(-2),
+                MaxDateOfDispatch = date.AddDays(1),
+                IsFinished = false
             });
 
             List<ResultPair> results = new();
@@ -52,7 +53,7 @@ namespace PackageDelivery.BL.Algorithms
             // Végigmegyünk a csomagfeladásokon és az algoritmus eredményéhez mentjük
             foreach (var shippingReq in shippingRequests.Data)
             {
-                var partialResults = await PackageSortingToVehicle(shippingReq);
+                var partialResults = PackageSortingToVehicle(shippingReq);
 
                 results.AddRange(partialResults);
             }
@@ -63,7 +64,7 @@ namespace PackageDelivery.BL.Algorithms
             };
         }
 
-        private async Task<List<ResultPair>> PackageSortingToVehicle(ShippingRequestDto shipReq)
+        private List<ResultPair> PackageSortingToVehicle(ShippingRequestDto shipReq)
         {
             List<ResultPair> partialResults = new();
 

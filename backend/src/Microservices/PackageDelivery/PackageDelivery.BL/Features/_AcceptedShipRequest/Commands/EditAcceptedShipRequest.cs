@@ -43,15 +43,15 @@ namespace PackageDelivery.BL.Features._AcceptedShipRequest.Commands
                     .NotNull()
                     .WithMessage("Az azonosító nem lehet üres.");
 
-                RuleFor(x => x.ModifiedAcceptedShipRequest.EmployeeId)
-                    .NotEmpty()
-                    .NotNull()
-                    .WithMessage("Az alkalmazott azonosító nem lehet üres.");
+                RuleFor(x => x.ModifiedAcceptedShipRequest.ShippingRequests)
+                  .NotEmpty()
+                  .NotNull()
+                  .WithMessage("A szállítás nem lehet üres.");
 
-                RuleFor(x => x.ModifiedAcceptedShipRequest.Shipping)
+                RuleFor(x => x.ModifiedAcceptedShipRequest.Vehicle)
                    .NotEmpty()
                    .NotNull()
-                   .WithMessage("A szállítás nem lehet üres.");
+                   .WithMessage("A járművet ki kell választani.");
             }
         }
     }

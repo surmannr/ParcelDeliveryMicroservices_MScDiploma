@@ -1,6 +1,10 @@
 ﻿using Employees.API;
 using Employees.API.Data;
+using Employees.API.EventBusConsumer;
+using Employees.API.Mapper;
 using Employees.API.Models;
+using EventBus.Messages.Common;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +37,30 @@ try
                 .AllowAnyOrigin()
                 .AllowAnyHeader());
     });
+    #endregion
+
+    #region Automapper
+    builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+    #endregion
+
+    #region MassTransit
+    builder.Services.AddMassTransit(config =>
+    {
+        config.AddConsumer<AlgorithmExecutedConsumer>();
+        config.UsingRabbitMq((ctx, cfg) =>
+        {
+            cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+
+            cfg.ReceiveEndpoint(EventBusConstants.AlgorithmExecutedQueue, c =>
+            {
+                c.ConfigureConsumer<AlgorithmExecutedConsumer>(ctx);
+            });
+        });
+    });
+    #endregion
+
+    #region Consumers 
+    builder.Services.AddScoped<AlgorithmExecutedConsumer>();
     #endregion
 
     var app = builder

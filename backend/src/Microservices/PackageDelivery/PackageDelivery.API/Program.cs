@@ -3,9 +3,12 @@ using Autofac.Extensions.DependencyInjection;
 using Common.Entity;
 using Common.Extension.CQRS;
 using Common.Serializers;
+using EventBus.Messages.Common;
 using FluentValidation;
+using MassTransit;
 using MediatR;
 using MongoDB.Bson.Serialization;
+using PackageDelivery.API.EventBusConsumer;
 using PackageDelivery.BL.Algorithms;
 using PackageDelivery.BL.Extensions.Identity;
 using PackageDelivery.BL.Extensions.Mapper;
@@ -65,6 +68,26 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
         .InstancePerDependency();
 
 });
+#endregion
+
+#region MassTransit
+builder.Services.AddMassTransit(config =>
+{
+    config.AddConsumer<AssignEmployeesConsumer>();
+    config.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+
+        cfg.ReceiveEndpoint(EventBusConstants.AssignEmployeesQueue, c =>
+        {
+            c.ConfigureConsumer<AssignEmployeesConsumer>(ctx);
+        });
+    });
+});
+#endregion
+
+#region Consumers 
+builder.Services.AddScoped<AssignEmployeesConsumer>();
 #endregion
 
 //BsonSerializer.RegisterSerializer(typeof(Address), new AddressSerializer());
