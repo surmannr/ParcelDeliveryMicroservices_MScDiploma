@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Common.Dto;
+using PackageDelivery.BL.Dto;
 
 namespace PackageDelivery.BL.Algorithms
 {
@@ -13,7 +10,9 @@ namespace PackageDelivery.BL.Algorithms
         public class ResultPair
         {
             public string VehicleId { get; set; }
-            public List<string> PackageIds { get; set; }
+            public VehicleDto Vehicle { get; set; }
+            public PackageDto Package { get; set; }
+            public ShippingRequestDto ShippingRequest { get; set; }
         }
     }
 }

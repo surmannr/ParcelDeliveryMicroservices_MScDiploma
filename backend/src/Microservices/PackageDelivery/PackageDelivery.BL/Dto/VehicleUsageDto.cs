@@ -10,6 +10,8 @@ namespace PackageDelivery.BL.Dto
     {
         public string Id { get; set; }
         public string EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
+        public string EmployeeEmail { get; set; }
         public VehicleDto Vehicle { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }

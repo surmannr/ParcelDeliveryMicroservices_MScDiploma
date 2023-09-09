@@ -17,7 +17,9 @@ namespace Common.Paging
                 TotalPages = (await list.CountAsync() + parameter.PageSize - 1) / parameter.PageSize,
                 PageNumber = parameter.PageNumber,
                 PageSize = parameter.PageSize,
-                Data = await list.Skip(parameter.PageSize * (parameter.PageNumber - 1)).Take(parameter.PageSize).ToListAsync()
+                Data = parameter.PageSize != 0 
+                    ? await list.Skip(parameter.PageSize * (parameter.PageNumber - 1)).Take(parameter.PageSize).ToListAsync()
+                    : await list.ToListAsync(),
             };
 
             return result;
@@ -33,7 +35,9 @@ namespace Common.Paging
                 TotalPages = (list.Count() + parameter.PageSize - 1) / parameter.PageSize,
                 PageNumber = parameter.PageNumber,
                 PageSize = parameter.PageSize,
-                Data = list.Skip(parameter.PageSize * (parameter.PageNumber - 1)).Take(parameter.PageSize).ToList()
+                Data = parameter.PageSize != 0
+                    ? list.Skip(parameter.PageSize * (parameter.PageNumber - 1)).Take(parameter.PageSize).ToList()
+                    : list.ToList(),
             };
 
             return result;

@@ -1,10 +1,5 @@
 ﻿using Common.Entity;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PackageDelivery.DAL.Entities
 {
@@ -14,7 +9,10 @@ namespace PackageDelivery.DAL.Entities
         public string Id { get; set; }
         public string EmployeeId { get; set; }
         public string EmployeeName { get; set; }
-        public ShippingRequest Shipping { get; set; }
+        public string EmployeeEmail { get; set; }
+        public Vehicle Vehicle { get; set; }
+        public List<Package> Packages { get; set; }
+        public List<ShippingRequest> ShippingRequests { get; set; }
         public bool IsAllPackageTaken { get; set; }
         public string[] ReadPackageIds { get; set; }
     }

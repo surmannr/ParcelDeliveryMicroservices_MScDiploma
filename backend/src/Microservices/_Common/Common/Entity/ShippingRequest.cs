@@ -13,6 +13,8 @@ namespace Common.Entity
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id { get; set; }
         public string UserId { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
         public string CourierId { get; set; }
         [BsonIgnoreIfNull]
         public Address AddressFrom { get; set; }

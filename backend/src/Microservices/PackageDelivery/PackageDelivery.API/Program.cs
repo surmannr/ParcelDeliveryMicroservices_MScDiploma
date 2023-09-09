@@ -6,9 +6,11 @@ using Common.Serializers;
 using FluentValidation;
 using MediatR;
 using MongoDB.Bson.Serialization;
+using PackageDelivery.BL.Algorithms;
 using PackageDelivery.BL.Extensions.Identity;
 using PackageDelivery.BL.Extensions.Mapper;
 using PackageDelivery.BL.Features._VehicleUsage.Queries;
+using PackageDelivery.BL.Services;
 using PackageDelivery.DAL;
 using PackageDelivery.DAL.Repositories;
 using System.Reflection;
@@ -46,6 +48,11 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IIdentityService, IdentityService>();
+#endregion
+
+#region Services
+builder.Services.AddScoped<IParcelPackingAlgorithm, ParcelPackingAlgorithm>();
+builder.Services.AddScoped<ISchedulingService, SchedulingService>();
 #endregion
 
 #region Autofac Validator

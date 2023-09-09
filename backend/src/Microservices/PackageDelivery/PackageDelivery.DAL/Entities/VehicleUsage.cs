@@ -13,6 +13,8 @@ namespace PackageDelivery.DAL.Entities
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id { get; set; }
         public string EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
+        public string EmployeeEmail { get; set; }
         public Vehicle Vehicle { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
