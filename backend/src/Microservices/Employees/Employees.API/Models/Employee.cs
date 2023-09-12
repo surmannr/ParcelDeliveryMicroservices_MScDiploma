@@ -2,6 +2,7 @@
 // See LICENSE in the project root for license information.
 
 
+using Common.Entity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Employees.API.Models

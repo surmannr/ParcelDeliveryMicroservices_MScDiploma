@@ -1,4 +1,6 @@
 ﻿using Common.Dto;
+using Common.Entity;
+using Common.Extension;
 using MediatR;
 using PackageDelivery.BL.Dto;
 using PackageDelivery.BL.Features._ShippingRequest.Queries;
@@ -45,7 +47,8 @@ namespace PackageDelivery.BL.Algorithms
                 PageSize = 0,
                 MinDateOfDispatch = date.AddDays(-2),
                 MaxDateOfDispatch = date.AddDays(1),
-                IsFinished = false
+                IsFinished = false,
+                StatusName = Status.Packing.GetDisplayName()
             });
 
             List<ResultPair> results = new();
@@ -101,8 +104,10 @@ namespace PackageDelivery.BL.Algorithms
         {
             var rand = new Random();
             selectedVehicle = vehicles
-                .Where(x => vehicleIdsWithFullStorage.Any(y => y != x.Id))
-                .ElementAt(rand.Next(vehicles.Count()));
+                .Where(x => !vehicleIdsWithFullStorage.Any(y => y == x.Id))
+                .OrderBy(x => rand.Next())
+                .Take(1)
+                .FirstOrDefault();
         }
     }
 }

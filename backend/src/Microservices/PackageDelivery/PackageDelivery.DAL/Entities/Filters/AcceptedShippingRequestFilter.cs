@@ -6,6 +6,7 @@ namespace PackageDelivery.DAL.Entities.Filters
     public class AcceptedShippingRequestFilter : BaseFilter<AcceptedShippingRequest>
     {
         public string EmployeeName { get; set; }
+        public bool? IsAssignedToEmployee { get; set; }
         public bool? IsAllPackageTaken { get; set; }
 
         public override IQueryable<AcceptedShippingRequest> ExecuteFiltering(IQueryable<AcceptedShippingRequest> toFilter)
@@ -13,6 +14,7 @@ namespace PackageDelivery.DAL.Entities.Filters
             var query = toFilter.AsQueryable();
 
             query = IsAllPackageTaken != null ? query.Where(a => a.IsAllPackageTaken == IsAllPackageTaken) : query;
+            query = IsAssignedToEmployee != null ? query.Where(a => a.IsAssignedToEmployee == IsAssignedToEmployee) : query;
             query = !string.IsNullOrEmpty(EmployeeName) ? query.Where(a => a.EmployeeName.Contains(EmployeeName)) : query;
 
             return query;

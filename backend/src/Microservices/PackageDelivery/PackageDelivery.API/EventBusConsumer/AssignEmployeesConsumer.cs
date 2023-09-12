@@ -3,6 +3,7 @@ using MassTransit;
 using MediatR;
 using PackageDelivery.BL.Features._AcceptedShipRequest.Commands;
 using PackageDelivery.BL.Features._AcceptedShipRequest.Queries;
+using PackageDelivery.BL.Features._ShippingRequest.Commands;
 
 namespace PackageDelivery.API.EventBusConsumer
 {
@@ -19,6 +20,7 @@ namespace PackageDelivery.API.EventBusConsumer
             var acceptedShipRequests = await _mediator.Send(new GetAllAcceptedShipRequests.Query()
             {
                 IsAllPackageTaken = false,
+                IsAssignedToEmployee = false,
                 PageSize = 0,
             });
 
@@ -32,10 +34,17 @@ namespace PackageDelivery.API.EventBusConsumer
                 acceptedShipRequests.Data.ElementAt(i).EmployeeName = string.IsNullOrEmpty(employee.NamePrefix)
                     ? $"{employee.FirstName} {employee.LastName}"
                     : $"{employee.NamePrefix} {employee.FirstName} {employee.LastName}";
+                acceptedShipRequests.Data.ElementAt(i).IsAssignedToEmployee = true;
 
                 await _mediator.Send(new EditAcceptedShipRequest.Command()
                 {
                     ModifiedAcceptedShipRequest = acceptedShipRequests.Data.ElementAt(i)
+                });
+
+                await _mediator.Send(new StatusModificationShippingRequest.Command()
+                {
+                    ShippingRequests = acceptedShipRequests.Data.ElementAt(i).ShippingRequests,
+                    Status = Common.Entity.Status.WaitingToPickup,
                 });
             }
         }

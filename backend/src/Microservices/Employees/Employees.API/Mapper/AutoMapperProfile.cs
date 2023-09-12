@@ -11,6 +11,7 @@ namespace Employees.API.Mapper
         {
             CreateMap<Employee, EmployeeEO>().ReverseMap();
             CreateMap<Timesheet, TimesheetEO>().ReverseMap();
+            CreateMap<Address, AddressEO>().ReverseMap();
         }
     }
 }

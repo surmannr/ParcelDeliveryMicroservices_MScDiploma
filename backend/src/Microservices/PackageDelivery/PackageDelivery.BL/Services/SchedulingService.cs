@@ -62,7 +62,8 @@ namespace PackageDelivery.BL.Services
                         Vehicle = vehicle,
                         Packages = packages,
                         ShippingRequests = shippingRequests,
-                        IsAllPackageTaken = false
+                        IsAllPackageTaken = false,
+                        IsAssignedToEmployee = false,
                     };
 
                     await _mediator.Send(new AddNewAcceptedShipRequest.Command()

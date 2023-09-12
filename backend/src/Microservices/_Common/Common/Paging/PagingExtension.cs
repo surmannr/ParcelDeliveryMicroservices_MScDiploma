@@ -14,7 +14,9 @@ namespace Common.Paging
             PagedResponse<T> result = new PagedResponse<T>()
             {
                 TotalCount = await list.CountAsync(),
-                TotalPages = (await list.CountAsync() + parameter.PageSize - 1) / parameter.PageSize,
+                TotalPages = parameter.PageSize != 0
+                    ? (await list.CountAsync() + parameter.PageSize - 1) / parameter.PageSize
+                    : 1,
                 PageNumber = parameter.PageNumber,
                 PageSize = parameter.PageSize,
                 Data = parameter.PageSize != 0 
@@ -32,7 +34,9 @@ namespace Common.Paging
             PagedResponse<T> result = new PagedResponse<T>()
             {
                 TotalCount = list.Count(),
-                TotalPages = (list.Count() + parameter.PageSize - 1) / parameter.PageSize,
+                TotalPages = parameter.PageSize != 0
+                    ? (list.Count() + parameter.PageSize - 1) / parameter.PageSize
+                    : 1,
                 PageNumber = parameter.PageNumber,
                 PageSize = parameter.PageSize,
                 Data = parameter.PageSize != 0
@@ -47,7 +51,7 @@ namespace Common.Paging
         {
             if (parameter.PageNumber < 1) throw new PagingException("Az oldalszám nem lehet kisebb 0-nál.");
             if (parameter.PageSize > maxPageSize) throw new PagingException($"Az oldalon legfeljebb {maxPageSize} adat jeleníthető meg.");
-            if (parameter.PageSize < 1) throw new PagingException($"Az oldalon legalább 1 adatot meg kell jeleníteni.");
+            if (parameter.PageSize < 0) throw new PagingException($"Az oldalon legalább 1 adatot meg kell jeleníteni.");
         }
     }
 }

@@ -14,6 +14,7 @@ namespace PackageDelivery.DAL.Entities
         public List<Package> Packages { get; set; }
         public List<ShippingRequest> ShippingRequests { get; set; }
         public bool IsAllPackageTaken { get; set; }
+        public bool IsAssignedToEmployee { get; set; }
         public string[] ReadPackageIds { get; set; }
     }
 }

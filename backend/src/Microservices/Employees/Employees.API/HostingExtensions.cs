@@ -50,6 +50,10 @@ namespace Employees.API
                     options.ClientSecret = "copy client secret from Google here";
                 });
 
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
             return builder.Build();
         }
 
@@ -60,6 +64,8 @@ namespace Employees.API
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseStaticFiles();

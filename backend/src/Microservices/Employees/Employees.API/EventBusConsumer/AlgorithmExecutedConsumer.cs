@@ -30,12 +30,16 @@ namespace Employees.API.EventBusConsumer
 
             if (numberOfDriver > 0)
             {
+                var random = rnd.Next();
+                var date = context.Message.Date;
+                var dayNumber = context.Message.DayNumber.ToString();
+
                 var employees = await _dbContext.Users
-                    .Include(x => x.Timesheets)
-                    .Where(x => x.Timesheets.Any(y => y.DateFrom <= context.Message.Date && y.DateTo >= context.Message.Date && y.DaysArray.Contains(context.Message.DayNumber)))
-                    .OrderBy(x => rnd.Next())
-                    .Take(numberOfDriver)
-                    .ToListAsync();
+                .Include(x => x.Timesheets)
+                .Where(x => x.Timesheets.Any(y => y.DateFrom <= date && y.DateTo >= date && y.Days.Contains(dayNumber)))
+                .OrderBy(x => random)
+                .Take(numberOfDriver)
+                .ToListAsync();
 
                 // Event
                 var eventMessage = new AssignEmployeesEvent()

@@ -40,10 +40,6 @@ namespace PackageDelivery.BL.Features._ShippingRequest.Commands
         {
             public CommandValidator()
             {
-                RuleFor(x => x.NewShippingRequest.Id)
-                    .NotEmpty()
-                    .NotNull()
-                    .WithMessage("Az azonosító nem lehet üres.");
             }
         }
     }
