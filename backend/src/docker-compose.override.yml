@@ -62,6 +62,8 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - DatabaseSettings:ConnectionString=mongodb://packagedelivery_mongodb:27017
       - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
+      - ConnectionStrings:HangfireConnection=Server=users_mssqldb;Database=ParcelDelivery_SchedulerDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
+      - ConnectionStrings:HangfireConnectionCreateDb=Server=users_mssqldb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
     depends_on:
       - packagedelivery.mongodb
       - rabbitmq
