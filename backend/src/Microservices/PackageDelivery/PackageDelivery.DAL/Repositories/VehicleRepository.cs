@@ -1,5 +1,8 @@
-﻿using MongoDB.Driver;
+﻿using Common.Filter;
+using Common.Paging;
+using MongoDB.Driver;
 using PackageDelivery.DAL.Entities;
+using PackageDelivery.DAL.Entities.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +28,12 @@ namespace PackageDelivery.DAL.Repositories
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehicles()
+        public async Task<PagedResponse<Vehicle>> GetVehicles(VehicleFilter filter)
         {
             return await _context
                             .Vehicles
-                            .Find(s => true)
-                            .ToListAsync();
+                            .ExecuteFilterAndOrder(filter)
+                            .ToPagedListAsync(filter);
         }
 
         public async Task<string> CreateVehicle(Vehicle vehicle)

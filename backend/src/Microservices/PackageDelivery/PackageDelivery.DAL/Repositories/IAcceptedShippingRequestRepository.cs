@@ -1,16 +1,13 @@
-﻿using PackageDelivery.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Common.Paging;
+using PackageDelivery.DAL.Entities;
+using PackageDelivery.DAL.Entities.Filters;
 
 namespace PackageDelivery.DAL.Repositories
 {
     public interface IAcceptedShippingRequestRepository
     {
-        Task<IEnumerable<AcceptedShippingRequest>> GetAcceptedShippingRequests();
-        Task<IEnumerable<AcceptedShippingRequest>> GetAcceptedShippingRequestsByEmployeeId(string employeeId);
+        Task<PagedResponse<AcceptedShippingRequest>> GetAcceptedShippingRequests(AcceptedShippingRequestFilter filter);
+        Task<PagedResponse<AcceptedShippingRequest>> GetAcceptedShippingRequestsByEmployeeId(string employeeId, AcceptedShippingRequestFilter filter);
         Task<AcceptedShippingRequest> GetAcceptedShippingRequestById(string id);
 
         Task<string> CreateAcceptedShippingRequest(AcceptedShippingRequest shipping);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common.Entity.Filters
 {
-    public class ShippingOptionFilter : BaseFilter<ShippingOption>
+    public class ShippingOptionFilter : SqlBaseFilter<ShippingOption>
     {
         public string ShippingOptionName { get; set; }
         public double? MinShippingOptionPrice { get; set; }

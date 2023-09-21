@@ -1,23 +1,41 @@
 ﻿using Common.Extension;
 using Common.Filter;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using System.Text.RegularExpressions;
 
 namespace PackageDelivery.DAL.Entities.Filters
 {
-    public class AcceptedShippingRequestFilter : BaseFilter<AcceptedShippingRequest>
+    public class AcceptedShippingRequestFilter : MongoBaseFilter<AcceptedShippingRequest>
     {
         public string EmployeeName { get; set; }
+        public string EmployeeId { get; set; }
         public bool? IsAssignedToEmployee { get; set; }
         public bool? IsAllPackageTaken { get; set; }
 
-        public override IQueryable<AcceptedShippingRequest> ExecuteFiltering(IQueryable<AcceptedShippingRequest> toFilter)
+        public override MongoDB.Driver.IAggregateFluent<AcceptedShippingRequest> ExecuteFiltering(MongoDB.Driver.IAggregateFluent<AcceptedShippingRequest> toFilter)
         {
-            var query = toFilter.AsQueryable();
+            var builder = Builders<AcceptedShippingRequest>.Filter;
+            var filter = builder.Empty;
 
-            query = IsAllPackageTaken != null ? query.Where(a => a.IsAllPackageTaken == IsAllPackageTaken) : query;
-            query = IsAssignedToEmployee != null ? query.Where(a => a.IsAssignedToEmployee == IsAssignedToEmployee) : query;
-            query = !string.IsNullOrEmpty(EmployeeName) ? query.Where(a => a.EmployeeName.Contains(EmployeeName)) : query;
+            if (IsAllPackageTaken != null)
+            {
+                filter = filter & builder.Eq(x => x.IsAllPackageTaken, IsAllPackageTaken.Value);
+            }
+            if (IsAssignedToEmployee != null)
+            {
+                filter = filter & builder.Eq(x => x.IsAssignedToEmployee, IsAssignedToEmployee.Value);
+            }
+            if (!string.IsNullOrEmpty(EmployeeName))
+            {
+                filter = filter & builder.Regex(x => x.EmployeeName, BsonRegularExpression.Create(Regex.Escape(EmployeeName)));
+            }
+            if (!string.IsNullOrEmpty(EmployeeId))
+            {
+                filter = filter & builder.Regex(x => x.EmployeeId, BsonRegularExpression.Create(Regex.Escape(EmployeeId)));
+            }
 
-            return query;
+            return toFilter.Match(filter);
         }
     }
 }

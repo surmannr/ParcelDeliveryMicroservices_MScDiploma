@@ -3,7 +3,7 @@ using Common.Filter;
 
 namespace Common.Entity.Filters
 {
-    public class BillingFilter : BaseFilter<Billing>
+    public class BillingFilter : SqlBaseFilter<Billing>
     {
         public double? MinTotalDistance { get; set; }
         public double? MaxTotalDistance { get; set; }

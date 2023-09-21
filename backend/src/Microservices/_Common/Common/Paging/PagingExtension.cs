@@ -1,5 +1,6 @@
 ﻿using Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using System.Reflection.Metadata;
 
 namespace Common.Paging
@@ -21,6 +22,26 @@ namespace Common.Paging
                 PageSize = parameter.PageSize,
                 Data = parameter.PageSize != 0 
                     ? await list.Skip(parameter.PageSize * (parameter.PageNumber - 1)).Take(parameter.PageSize).ToListAsync()
+                    : await list.ToListAsync(),
+            };
+
+            return result;
+        }
+
+        public static async Task<PagedResponse<T>> ToPagedListAsync<T>(this IAggregateFluent<T> list, PagingParameter parameter)
+        {
+            ValidatePagingParameter(parameter);
+            var count = list.Count().FirstOrDefault()?.Count ?? 0;
+            PagedResponse<T> result = new PagedResponse<T>()
+            {
+                TotalCount = ((int)count),
+                TotalPages = parameter.PageSize != 0
+                    ? (((int)count) + parameter.PageSize - 1) / parameter.PageSize
+                    : 1,
+                PageNumber = parameter.PageNumber,
+                PageSize = parameter.PageSize,
+                Data = parameter.PageSize != 0
+                    ? await list.Skip(parameter.PageSize * (parameter.PageNumber - 1)).Limit(parameter.PageSize).ToListAsync()
                     : await list.ToListAsync(),
             };
 

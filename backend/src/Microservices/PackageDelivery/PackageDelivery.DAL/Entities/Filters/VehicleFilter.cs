@@ -1,14 +1,17 @@
 ﻿using Common.Filter;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace PackageDelivery.DAL.Entities.Filters
 {
-    public class VehicleFilter : BaseFilter<Vehicle>
+    public class VehicleFilter : MongoBaseFilter<Vehicle>
     {
         public string RegistrationNumber { get; set; }
         public string Type { get; set; }
@@ -27,35 +30,84 @@ namespace PackageDelivery.DAL.Entities.Filters
         public double? Min_MaxWeight { get; set; }
         public double? Max_MaxWeight { get; set; }
 
-        public override IQueryable<Vehicle> ExecuteFiltering(IQueryable<Vehicle> toFilter)
+        public override MongoDB.Driver.IAggregateFluent<Vehicle> ExecuteFiltering(MongoDB.Driver.IAggregateFluent<Vehicle> toFilter)
         {
-            var query = toFilter.AsQueryable();
+            var builder = Builders<Vehicle>.Filter;
+            var filter = builder.Empty;
 
-            query = !string.IsNullOrEmpty(RegistrationNumber) ? query.Where(a => a.RegistrationNumber.Contains(RegistrationNumber)) : query;
-            query = !string.IsNullOrEmpty(Type) ? query.Where(a => a.Type.Contains(Type)) : query;
+            if (!string.IsNullOrEmpty(RegistrationNumber))
+            {
+                filter = filter & builder.Regex(x => x.RegistrationNumber, BsonRegularExpression.Create(Regex.Escape(RegistrationNumber)));
+            }
+            if (!string.IsNullOrEmpty(Type))
+            {
+                filter = filter & builder.Regex(x => x.Type, BsonRegularExpression.Create(Regex.Escape(Type)));
+            }
 
-            query = MinYear != null ? query.Where(a => a.Year >= MinYear) : query;
-            query = MaxYear != null ? query.Where(a => a.Year <= MaxYear) : query;
+            if (MinYear != null)
+            {
+                filter = filter & builder.Gte(x => x.Year, MinYear.Value);
+            }
+            if (MaxYear != null)
+            {
+                filter = filter & builder.Lte(x => x.Year, MaxYear.Value);
+            }
 
-            query = MinTechnicalInspectionExpirationDate != null ? query.Where(a => a.TechnicalInspectionExpirationDate >= MinTechnicalInspectionExpirationDate) : query;
-            query = MaxTechnicalInspectionExpirationDate != null ? query.Where(a => a.TechnicalInspectionExpirationDate <= MaxTechnicalInspectionExpirationDate) : query;
+            if (MinTechnicalInspectionExpirationDate != null)
+            {
+                filter = filter & builder.Gte(x => x.TechnicalInspectionExpirationDate, MinTechnicalInspectionExpirationDate.Value);
+            }
+            if (MaxTechnicalInspectionExpirationDate != null)
+            {
+                filter = filter & builder.Lte(x => x.TechnicalInspectionExpirationDate, MaxTechnicalInspectionExpirationDate.Value);
+            }
 
-            query = MinSeatingCapacity != null ? query.Where(a => a.SeatingCapacity >= MinSeatingCapacity) : query;
-            query = MaxSeatingCapacity != null ? query.Where(a => a.SeatingCapacity <= MaxSeatingCapacity) : query;
+            if (MinSeatingCapacity != null)
+            {
+                filter = filter & builder.Gte(x => x.SeatingCapacity, MinSeatingCapacity.Value);
+            }
+            if (MaxSeatingCapacity != null)
+            {
+                filter = filter & builder.Lte(x => x.SeatingCapacity, MaxSeatingCapacity.Value);
+            }
 
-            query = Min_MaxInternalSpaceX != null ? query.Where(a => a.MaxInternalSpaceX >= Min_MaxInternalSpaceX) : query;
-            query = Max_MaxInternalSpaceX != null ? query.Where(a => a.MaxInternalSpaceX <= Max_MaxInternalSpaceX) : query;
+            if (Min_MaxInternalSpaceX != null)
+            {
+                filter = filter & builder.Gte(x => x.MaxInternalSpaceX, Min_MaxInternalSpaceX.Value);
+            }
+            if (Max_MaxInternalSpaceX != null)
+            {
+                filter = filter & builder.Lte(x => x.MaxInternalSpaceX, Max_MaxInternalSpaceX.Value);
+            }
 
-            query = Min_MaxInternalSpaceY != null ? query.Where(a => a.MaxInternalSpaceY >= Min_MaxInternalSpaceY) : query;
-            query = Max_MaxInternalSpaceY != null ? query.Where(a => a.MaxInternalSpaceY <= Max_MaxInternalSpaceY) : query;
+            if (Min_MaxInternalSpaceY != null)
+            {
+                filter = filter & builder.Gte(x => x.MaxInternalSpaceY, Min_MaxInternalSpaceY.Value);
+            }
+            if (Max_MaxInternalSpaceY != null)
+            {
+                filter = filter & builder.Lte(x => x.MaxInternalSpaceY, Max_MaxInternalSpaceY.Value);
+            }
 
-            query = Min_MaxInternalSpaceZ != null ? query.Where(a => a.MaxInternalSpaceZ >= Min_MaxInternalSpaceZ) : query;
-            query = Max_MaxInternalSpaceZ != null ? query.Where(a => a.MaxInternalSpaceZ <= Max_MaxInternalSpaceZ) : query;
+            if (Min_MaxInternalSpaceZ != null)
+            {
+                filter = filter & builder.Gte(x => x.MaxInternalSpaceZ, Min_MaxInternalSpaceZ.Value);
+            }
+            if (Max_MaxInternalSpaceZ != null)
+            {
+                filter = filter & builder.Lte(x => x.MaxInternalSpaceZ, Max_MaxInternalSpaceZ.Value);
+            }
 
-            query = Min_MaxWeight != null ? query.Where(a => a.MaxWeight >= Min_MaxWeight) : query;
-            query = Max_MaxWeight != null ? query.Where(a => a.MaxWeight <= Max_MaxWeight) : query;
+            if (Min_MaxWeight != null)
+            {
+                filter = filter & builder.Gte(x => x.MaxWeight, Min_MaxWeight.Value);
+            }
+            if (Max_MaxWeight != null)
+            {
+                filter = filter & builder.Lte(x => x.MaxWeight, Max_MaxWeight.Value);
+            }
 
-            return query;
+            return toFilter.Match(filter);
         }
     }
 }

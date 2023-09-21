@@ -1,17 +1,18 @@
-﻿using Common.Paging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Driver;
 
 namespace Common.Filter
 {
     public static class FilteringExtension
     {
-        public static IQueryable<T> ExecuteFilterAndOrder<T>(this IQueryable<T> list, BaseFilter<T> parameter)
+        public static IQueryable<T> ExecuteFilterAndOrder<T>(this IQueryable<T> list, SqlBaseFilter<T> parameter)
         {
             var filteredList = parameter.ExecuteFiltering(list);
+            return parameter.ExecuteOrdering(filteredList);
+        }
+
+        public static IAggregateFluent<T> ExecuteFilterAndOrder<T>(this IMongoCollection<T> list, MongoBaseFilter<T> parameter)
+        {
+            var filteredList = parameter.ExecuteFiltering(list.Aggregate());
             return parameter.ExecuteOrdering(filteredList);
         }
     }

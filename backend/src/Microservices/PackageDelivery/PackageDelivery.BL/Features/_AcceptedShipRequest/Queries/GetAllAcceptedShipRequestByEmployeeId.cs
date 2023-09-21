@@ -5,6 +5,7 @@ using Common.Paging;
 using FluentValidation;
 using MediatR;
 using PackageDelivery.BL.Dto;
+using PackageDelivery.DAL.Entities;
 using PackageDelivery.DAL.Entities.Filters;
 using PackageDelivery.DAL.Repositories;
 
@@ -14,7 +15,6 @@ namespace PackageDelivery.BL.Features._AcceptedShipRequest.Queries
     {
         public class Query : AcceptedShippingRequestFilter, IRequest<PagedResponse<AcceptedShippingRequestDto>>
         {
-            public string EmployeeId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, PagedResponse<AcceptedShippingRequestDto>>
@@ -30,14 +30,20 @@ namespace PackageDelivery.BL.Features._AcceptedShipRequest.Queries
 
             public async Task<PagedResponse<AcceptedShippingRequestDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var acceptedShippings = await _acceptedShipping
-                    .GetAcceptedShippingRequestsByEmployeeId(request.EmployeeId);
+                var acceptedShippingRequests = await _acceptedShipping
+                    .GetAcceptedShippingRequestsByEmployeeId(request.EmployeeId, request);
 
-                return acceptedShippings
-                    .AsQueryable()
-                    .ExecuteFilterAndOrder(request)
-                    .ProjectTo<AcceptedShippingRequestDto>(_mapper.ConfigurationProvider)
-                    .ToPagedList(request);
+                return new PagedResponse<AcceptedShippingRequestDto>()
+                {
+                    PageNumber = acceptedShippingRequests.PageNumber,
+                    PageSize = acceptedShippingRequests.PageSize,
+                    TotalCount = acceptedShippingRequests.TotalCount,
+                    TotalPages = acceptedShippingRequests.TotalPages,
+                    Data = acceptedShippingRequests.Data
+                        .AsQueryable()
+                        .ProjectTo<AcceptedShippingRequestDto>(_mapper.ConfigurationProvider)
+                        .ToList(),
+                };
             }
         }
 

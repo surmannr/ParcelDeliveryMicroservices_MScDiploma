@@ -1,4 +1,7 @@
 ﻿using Common.Entity;
+using Common.Entity.Filters;
+using Common.Filter;
+using Common.Paging;
 using MongoDB.Driver;
 using PackageDelivery.DAL.Entities;
 using System;
@@ -44,12 +47,12 @@ namespace PackageDelivery.DAL.Repositories
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<ShippingRequest>> GetShippingRequests()
+        public async Task<PagedResponse<ShippingRequest>> GetShippingRequests(ShippingRequestMongoFilter filter)
         {
             return await _context
                             .ShippingRequests
-                            .Find(s => true)
-                            .ToListAsync();
+                            .ExecuteFilterAndOrder(filter)
+                            .ToPagedListAsync(filter);
         }
 
         public async Task<bool> UpdateShippingRequest(ShippingRequest shippingRequest)

@@ -1,5 +1,8 @@
-﻿using MongoDB.Driver;
+﻿using Common.Filter;
+using Common.Paging;
+using MongoDB.Driver;
 using PackageDelivery.DAL.Entities;
+using PackageDelivery.DAL.Entities.Filters;
 
 namespace PackageDelivery.DAL.Repositories
 {
@@ -20,20 +23,21 @@ namespace PackageDelivery.DAL.Repositories
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<AcceptedShippingRequest>> GetAcceptedShippingRequests()
+        public async Task<PagedResponse<AcceptedShippingRequest>> GetAcceptedShippingRequests(AcceptedShippingRequestFilter filter)
         {
             return await _context
                             .AcceptedShippingRequests
-                            .Find(s => true)
-                            .ToListAsync();
+                            .ExecuteFilterAndOrder(filter)
+                            .ToPagedListAsync(filter);
         }
 
-        public async Task<IEnumerable<AcceptedShippingRequest>> GetAcceptedShippingRequestsByEmployeeId(string employeeId)
+        public async Task<PagedResponse<AcceptedShippingRequest>> GetAcceptedShippingRequestsByEmployeeId(string employeeId, AcceptedShippingRequestFilter filter)
         {
+            filter.EmployeeId = employeeId;
             return await _context
                             .AcceptedShippingRequests
-                            .Find(s => s.EmployeeId == employeeId)
-                            .ToListAsync();
+                            .ExecuteFilterAndOrder(filter)
+                            .ToPagedListAsync(filter);
         }
 
         public async Task<string> CreateAcceptedShippingRequest(AcceptedShippingRequest shipping)

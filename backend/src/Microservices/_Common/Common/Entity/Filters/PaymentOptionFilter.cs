@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common.Entity.Filters
 {
-    public class PaymentOptionFilter : BaseFilter<PaymentOption>
+    public class PaymentOptionFilter : SqlBaseFilter<PaymentOption>
     {
         public string PaymentOptionName { get; set; }
 

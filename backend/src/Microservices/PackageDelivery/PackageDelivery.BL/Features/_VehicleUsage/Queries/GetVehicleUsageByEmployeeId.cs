@@ -14,7 +14,6 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Queries
     {
         public class Query : VehicleUsageFilter, IRequest<PagedResponse<VehicleUsageDto>>
         {
-            public string EmployeeId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, PagedResponse<VehicleUsageDto>>
@@ -31,13 +30,19 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Queries
             public async Task<PagedResponse<VehicleUsageDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var vehicleUsages = await _vehicleUsage
-                    .GetVehicleUsageByEmployeeId(request.EmployeeId);
+                    .GetVehicleUsageByEmployeeId(request.EmployeeId, request);
 
-                return vehicleUsages
-                    .AsQueryable()
-                    .ExecuteFilterAndOrder(request)
-                    .ProjectTo<VehicleUsageDto>(_mapper.ConfigurationProvider)
-                    .ToPagedList(request);
+                return new PagedResponse<VehicleUsageDto>()
+                {
+                    PageNumber = vehicleUsages.PageNumber,
+                    PageSize = vehicleUsages.PageSize,
+                    TotalCount = vehicleUsages.TotalCount,
+                    TotalPages = vehicleUsages.TotalPages,
+                    Data = vehicleUsages.Data
+                        .AsQueryable()
+                        .ProjectTo<VehicleUsageDto>(_mapper.ConfigurationProvider)
+                        .ToList(),
+                };
             }
         }
 

@@ -1,5 +1,8 @@
-﻿using MongoDB.Driver;
+﻿using Common.Filter;
+using Common.Paging;
+using MongoDB.Driver;
 using PackageDelivery.DAL.Entities;
+using PackageDelivery.DAL.Entities.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,20 +28,21 @@ namespace PackageDelivery.DAL.Repositories
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<VehicleUsage>> GetVehicleUsageByEmployeeId(string employeeid)
+        public async Task<PagedResponse<VehicleUsage>> GetVehicleUsageByEmployeeId(string employeeid, VehicleUsageFilter filter)
         {
+            filter.EmployeeId = employeeid;
             return await _context
                             .VehicleUsages
-                            .Find(s => s.EmployeeId == employeeid)
-                            .ToListAsync();
+                            .ExecuteFilterAndOrder(filter)
+                            .ToPagedListAsync(filter);
         }
 
-        public async Task<IEnumerable<VehicleUsage>> GetVehicleUsages()
+        public async Task<PagedResponse<VehicleUsage>> GetVehicleUsages(VehicleUsageFilter filter)
         {
             return await _context
                             .VehicleUsages
-                            .Find(s => true)
-                            .ToListAsync();
+                            .ExecuteFilterAndOrder(filter)
+                            .ToPagedListAsync(filter);
         }
 
         public async Task<string> CreateVehicleUsage(VehicleUsage vehicleUsage)

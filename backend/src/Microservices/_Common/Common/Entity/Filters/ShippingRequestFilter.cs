@@ -3,7 +3,7 @@ using Common.Filter;
 
 namespace Common.Entity.Filters
 {
-    public class ShippingRequestFilter : BaseFilter<ShippingRequest>
+    public class ShippingRequestFilter : SqlBaseFilter<ShippingRequest>
     {
         public string StatusName { get; set; }
         public string ShippingOptionName { get; set; }

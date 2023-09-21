@@ -26,12 +26,19 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Queries
 
             public async Task<PagedResponse<VehicleUsageDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var vehicleUsages = await _vehicleUsage.GetVehicleUsages();
-                return vehicleUsages
-                    .AsQueryable()
-                    .ExecuteFilterAndOrder(request)
-                    .ProjectTo<VehicleUsageDto>(_mapper.ConfigurationProvider)
-                    .ToPagedList(request);
+                var vehicleUsages = await _vehicleUsage.GetVehicleUsages(request);
+
+                return new PagedResponse<VehicleUsageDto>()
+                {
+                    PageNumber = vehicleUsages.PageNumber,
+                    PageSize = vehicleUsages.PageSize,
+                    TotalCount = vehicleUsages.TotalCount,
+                    TotalPages = vehicleUsages.TotalPages,
+                    Data = vehicleUsages.Data
+                        .AsQueryable()
+                        .ProjectTo<VehicleUsageDto>(_mapper.ConfigurationProvider)
+                        .ToList(),
+                };
             }
         }
     }

@@ -1,10 +1,12 @@
-﻿using PackageDelivery.DAL.Entities;
+﻿using Common.Paging;
+using PackageDelivery.DAL.Entities;
+using PackageDelivery.DAL.Entities.Filters;
 
 namespace PackageDelivery.DAL.Repositories
 {
     public interface IVehicleRepository
     {
-        Task<IEnumerable<Vehicle>> GetVehicles();
+        Task<PagedResponse<Vehicle>> GetVehicles(VehicleFilter filter);
         Task<Vehicle> GetVehicleById(string id);
 
         Task<string> CreateVehicle(Vehicle vehicle);

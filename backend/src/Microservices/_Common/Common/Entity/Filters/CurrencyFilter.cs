@@ -2,7 +2,7 @@
 
 namespace Common.Entity.Filters
 {
-    public class CurrencyFilter : BaseFilter<Currency>
+    public class CurrencyFilter : SqlBaseFilter<Currency>
     {
         public string CurrencyName { get; set; }
 

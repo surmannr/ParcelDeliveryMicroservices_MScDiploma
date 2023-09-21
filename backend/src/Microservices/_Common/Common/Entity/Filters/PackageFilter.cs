@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common.Entity.Filters
 {
-    public class PackageFilter : BaseFilter<Package>
+    public class PackageFilter : SqlBaseFilter<Package>
     {
         public double? MinSizeX { get; set; }
         public double? MaxSizeX { get; set; }

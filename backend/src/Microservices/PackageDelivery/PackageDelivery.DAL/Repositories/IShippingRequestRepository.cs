@@ -1,4 +1,6 @@
 ﻿using Common.Entity;
+using Common.Entity.Filters;
+using Common.Paging;
 using PackageDelivery.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ namespace PackageDelivery.DAL.Repositories
 {
     public interface IShippingRequestRepository
     {
-        Task<IEnumerable<ShippingRequest>> GetShippingRequests();
+        Task<PagedResponse<ShippingRequest>> GetShippingRequests(ShippingRequestMongoFilter filter);
         Task<ShippingRequest> GetShippingRequestById(string id);
 
         Task<string> CreateShippingRequest(ShippingRequest shippingRequest);

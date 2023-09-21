@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common.Dto;
+using Common.Entity;
 using Common.Filter;
 using Common.Paging;
 using MediatR;
@@ -26,12 +28,19 @@ namespace PackageDelivery.BL.Features._AcceptedShipRequest.Queries
 
             public async Task<PagedResponse<AcceptedShippingRequestDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var acceptedShippingRequests = await _acceptedShipping.GetAcceptedShippingRequests();
-                return acceptedShippingRequests
-                    .AsQueryable()
-                    .ExecuteFilterAndOrder(request)
-                    .ProjectTo<AcceptedShippingRequestDto>(_mapper.ConfigurationProvider)
-                    .ToPagedList(request);
+                var acceptedShippingRequests = await _acceptedShipping.GetAcceptedShippingRequests(request);
+
+                return new PagedResponse<AcceptedShippingRequestDto>()
+                {
+                    PageNumber = acceptedShippingRequests.PageNumber,
+                    PageSize = acceptedShippingRequests.PageSize,
+                    TotalCount = acceptedShippingRequests.TotalCount,
+                    TotalPages = acceptedShippingRequests.TotalPages,
+                    Data = acceptedShippingRequests.Data
+                        .AsQueryable()
+                        .ProjectTo<AcceptedShippingRequestDto>(_mapper.ConfigurationProvider)
+                        .ToList(),
+                };
             }
         }
     }

@@ -5,13 +5,14 @@ using Common.Entity.Filters;
 using Common.Filter;
 using Common.Paging;
 using MediatR;
+using PackageDelivery.BL.Dto;
 using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.BL.Features._ShippingRequest.Queries
 {
     public static class GetAllShippingRequests
     {
-        public class Query : ShippingRequestFilter, IRequest<PagedResponse<ShippingRequestDto>> { }
+        public class Query : ShippingRequestMongoFilter, IRequest<PagedResponse<ShippingRequestDto>> { }
 
         public class Handler : IRequestHandler<Query, PagedResponse<ShippingRequestDto>>
         {
@@ -26,12 +27,19 @@ namespace PackageDelivery.BL.Features._ShippingRequest.Queries
 
             public async Task<PagedResponse<ShippingRequestDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var vehicles = await _repository.GetShippingRequests();
-                return vehicles
-                    .AsQueryable()
-                    .ExecuteFilterAndOrder(request)
-                    .ProjectTo<ShippingRequestDto>(_mapper.ConfigurationProvider)
-                    .ToPagedList(request);
+                var shippingRequests = await _repository.GetShippingRequests(request);
+
+                return new PagedResponse<ShippingRequestDto>()
+                {
+                    PageNumber = shippingRequests.PageNumber,
+                    PageSize = shippingRequests.PageSize,
+                    TotalCount = shippingRequests.TotalCount,
+                    TotalPages = shippingRequests.TotalPages,
+                    Data = shippingRequests.Data
+                        .AsQueryable()
+                        .ProjectTo<ShippingRequestDto>(_mapper.ConfigurationProvider)
+                        .ToList(),
+                };
             }
         }
     }
