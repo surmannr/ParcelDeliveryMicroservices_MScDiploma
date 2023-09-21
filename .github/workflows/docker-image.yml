@@ -1,0 +1,70 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+      - name: Build and push Docker image (Customers Server)
+        uses: docker/build-push-action@v4
+        with:
+          context: backend/src/Microservices/Customers/Customers.API/
+          push: true
+          tags: surmannr/msc_customerserver:latest
+
+      - name: Build and push Docker image (Employees Server)
+        uses: docker/build-push-action@v4
+        with:
+          context: backend/src/Microservices/Employees/Employees.API/
+          push: true
+          tags: surmannr/msc_employeeserver:latest
+
+      - name: Build and push Docker image (PackageDelivery Server)
+        uses: docker/build-push-action@v4
+        with:
+          context: backend/src/Microservices/PackageDelivery/PackageDelivery.API/
+          push: true
+          tags: surmannr/msc_packagedelivery:latest
+
+      - name: Build and push Docker image (PackageSending Server)
+        uses: docker/build-push-action@v4
+        with:
+          context: backend/src/Microservices/PackageSending/PackageSending.API/
+          push: true
+          tags: surmannr/msc_packagesending:latest
+
+      - name: Build and push Docker image (PackageTracking Server)
+        uses: docker/build-push-action@v4
+        with:
+          context: backend/src/Microservices/PackageTracking/PackageTracking.API/
+          push: true
+          tags: surmannr/msc_packagetracking:latest
+
+      - name: Build and push Docker image (Ocelot Apigateway)
+        uses: docker/build-push-action@v4
+        with:
+          context: backend/src/ApiGateways/OcelotApiGateway/
+          push: true
+          tags: surmannr/msc_ocelotapigateway:latest
+          
+      - name: Build and push Docker image (Angular frontend)
+        uses: docker/build-push-action@v4
+        with:
+          context: frontend/web/parceldelivery-admin-app/
+          push: true
+          tags: surmannr/msc_webfrontend:latest
