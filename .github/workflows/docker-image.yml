@@ -26,7 +26,7 @@ jobs:
       - name: Build and push Docker image (Customers Server)
         uses: docker/build-push-action@v4
         with:
-          context: Microservices/Customers/Customers.API/
+          context: backend/src/Microservices/Customers/Customers.API/
           push: true
           tags: surmannr/msc_customerserver:latest
 
