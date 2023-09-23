@@ -26,42 +26,48 @@ jobs:
       - name: Build and push Docker image (Customers Server)
         uses: docker/build-push-action@v4
         with:
-          context: backend/src/Microservices/Customers/Customers.API/
+          context: backend/src/
+          file: backend/src/Microservices/Customers/Customers.API/Dockerfile
           push: true
           tags: surmannr/msc_customerserver:latest
 
       - name: Build and push Docker image (Employees Server)
         uses: docker/build-push-action@v4
         with:
-          context: backend/src/Microservices/Employees/Employees.API/
+          context: backend/src/
+          file: backend/src/Microservices/Employees/Employees.API/Dockerfile
           push: true
           tags: surmannr/msc_employeeserver:latest
 
       - name: Build and push Docker image (PackageDelivery Server)
         uses: docker/build-push-action@v4
         with:
-          context: backend/src/Microservices/PackageDelivery/PackageDelivery.API/
+          context: backend/src/
+          file: backend/src/Microservices/PackageDelivery/PackageDelivery.API/Dockerfile
           push: true
           tags: surmannr/msc_packagedelivery:latest
 
       - name: Build and push Docker image (PackageSending Server)
         uses: docker/build-push-action@v4
         with:
-          context: backend/src/Microservices/PackageSending/PackageSending.API/
+          context: backend/src/
+          file: backend/src/Microservices/PackageSending/PackageSending.API/Dockerfile
           push: true
           tags: surmannr/msc_packagesending:latest
 
       - name: Build and push Docker image (PackageTracking Server)
         uses: docker/build-push-action@v4
         with:
-          context: backend/src/Microservices/PackageTracking/PackageTracking.API/
+          context: backend/src/
+          file: backend/src/Microservices/PackageTracking/PackageTracking.API/Dockerfile
           push: true
           tags: surmannr/msc_packagetracking:latest
 
       - name: Build and push Docker image (Ocelot Apigateway)
         uses: docker/build-push-action@v4
         with:
-          context: backend/src/ApiGateways/OcelotApiGateway/
+          context: backend/src/
+          file: backend/src/ApiGateways/OcelotApiGateway/Dockerfile
           push: true
           tags: surmannr/msc_ocelotapigateway:latest
           
