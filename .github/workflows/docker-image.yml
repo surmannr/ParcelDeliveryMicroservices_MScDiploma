@@ -74,6 +74,7 @@ jobs:
       - name: Build and push Docker image (Angular frontend)
         uses: docker/build-push-action@v4
         with:
-          context: frontend/web/parceldelivery-admin-app
+          context: frontend/web/parceldelivery-admin-app/.
+          file: frontend/web/parceldelivery-admin-app/Dockerfile
           push: true
           tags: surmannr/msc_webfrontend:latest
