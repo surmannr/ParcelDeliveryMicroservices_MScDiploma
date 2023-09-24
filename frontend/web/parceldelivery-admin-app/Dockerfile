@@ -6,6 +6,7 @@ FROM node:latest as build
 # Set the working directory
 WORKDIR /usr/local/app
 
+COPY package.json package-lock.json ./
 # Add the source code to app
 COPY ./ /usr/local/app/
 
