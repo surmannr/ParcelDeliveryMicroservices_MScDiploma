@@ -70,6 +70,11 @@ jobs:
           file: backend/src/ApiGateways/OcelotApiGateway/Dockerfile
           push: true
           tags: surmannr/msc_ocelotapigateway:latest
+
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
           
       - name: Build and push Docker image (Angular frontend)
         uses: docker/build-push-action@v4
