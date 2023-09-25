@@ -72,11 +72,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          
-      - name: Build and push Docker image (Angular frontend)
-        uses: docker/build-push-action@v4
-        with:
-          context: frontend/web/parceldelivery-admin-app/
-          file: frontend/web/parceldelivery-admin-app/Dockerfile
-          push: true
-          tags: surmannr/msc_webfrontend:latest
+
+      - name: Build Angular Docker image
+        working-directory: ./frontend/web/parceldelivery-admin-app
+        run: docker build -f ./Dockerfile -t surmannr/msc_webfrontend  .
+        
+      - name: Push Angular Docker image to DockerHub
+        working-directory: ./frontend/web/parceldelivery-admin-app
+        run: docker push surmannr/msc_webfrontend:latest
