@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TypeGen.Core.TypeAnnotations;
 
 namespace Common.Entity
 {
+    [ExportTsEnum(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_models")]
     public enum Status
     {
         [Display(Name = "Feldolgozás")]

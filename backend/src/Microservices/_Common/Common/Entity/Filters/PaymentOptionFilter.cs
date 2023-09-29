@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypeGen.Core.TypeAnnotations;
 
 namespace Common.Entity.Filters
 {
+    [ExportTsClass(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_filters")]
     public class PaymentOptionFilter : SqlBaseFilter<PaymentOption>
     {
         public string PaymentOptionName { get; set; }

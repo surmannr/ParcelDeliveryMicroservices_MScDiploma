@@ -1,7 +1,9 @@
-﻿using Common.Paging;
+﻿using Common.Filter;
+using Common.Paging;
 using Employees.API.Data;
 using Employees.API.Dto;
 using Employees.API.Models;
+using Employees.API.Models.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,10 +23,10 @@ namespace Employees.API.Controllers
         }
 
         [HttpGet]
-        public async Task<PagedResponse<TimesheetDto>> Get([FromQuery] string userId, [FromQuery] PagingParameter pagingParameter)
+        public async Task<PagedResponse<TimesheetDto>> Get([FromQuery] TimesheetFilter pagingParameter)
         {
             return await dbContext.Timesheets
-                .Where(x => x.UserId == userId)
+                .ExecuteFilterAndOrder(pagingParameter)
                 .Select(x => new TimesheetDto
                 {
                     UserId = x.UserId,

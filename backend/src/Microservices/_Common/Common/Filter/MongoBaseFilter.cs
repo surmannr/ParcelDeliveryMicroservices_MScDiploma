@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypeGen.Core.TypeAnnotations;
 
 namespace Common.Filter
 {
+    [ExportTsClass(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_filters")]
     public abstract class MongoBaseFilter<T> : BaseFilter<T>
     {
         public virtual IAggregateFluent<T> ExecuteOrdering(IAggregateFluent<T> toFilter)

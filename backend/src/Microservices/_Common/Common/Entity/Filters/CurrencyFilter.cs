@@ -1,7 +1,9 @@
 ﻿using Common.Filter;
+using TypeGen.Core.TypeAnnotations;
 
 namespace Common.Entity.Filters
 {
+    [ExportTsClass(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_filters")]
     public class CurrencyFilter : SqlBaseFilter<Currency>
     {
         public string CurrencyName { get; set; }

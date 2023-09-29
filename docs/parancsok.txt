@@ -1,0 +1,1 @@
+TS modellek generálása: TypeGen generate --config-path  "../../../tgconfig.json"

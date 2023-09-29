@@ -1,8 +1,10 @@
 ﻿using Common.Extension;
 using Common.Filter;
+using TypeGen.Core.TypeAnnotations;
 
 namespace Common.Entity.Filters
 {
+    [ExportTsClass(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_filters")]
     public class ShippingRequestFilter : SqlBaseFilter<ShippingRequest>
     {
         public string StatusName { get; set; }

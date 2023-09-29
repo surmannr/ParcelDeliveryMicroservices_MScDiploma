@@ -3,7 +3,7 @@
     // PackageDelivery - AcceptedShipRequest
     {
       "DownstreamPathTemplate": "/api/AcceptedShipRequest",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -15,7 +15,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/AcceptedShipRequest/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -27,7 +27,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/AcceptedShipRequest/employee/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -40,7 +40,7 @@
     // PackageDelivery - ShippingRequest
     {
       "DownstreamPathTemplate": "/api/ShippingRequest",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -52,7 +52,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/ShippingRequest/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -65,7 +65,7 @@
     // PackageDelivery - Vehicle
     {
       "DownstreamPathTemplate": "/api/Vehicle",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -77,7 +77,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/Vehicle/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -90,7 +90,7 @@
     // PackageDelivery - VehicleUsage
     {
       "DownstreamPathTemplate": "/api/VehicleUsage",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -102,7 +102,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/VehicleUsage/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -114,7 +114,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/VehicleUsage/employee/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -127,7 +127,7 @@
     // PackageSending - Billing
     {
       "DownstreamPathTemplate": "/api/Billing",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -139,7 +139,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/Billing/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -151,7 +151,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/Billing/user/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -164,7 +164,7 @@
     // PackageSending - Currency
     {
       "DownstreamPathTemplate": "/api/Currency",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -176,7 +176,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/Currency/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -189,7 +189,7 @@
     // PackageSending - Package
     {
       "DownstreamPathTemplate": "/api/Package",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -201,7 +201,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/Package/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -213,7 +213,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/Package/shipreq-{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -226,7 +226,7 @@
     // PackageSending - PaymentOption
     {
       "DownstreamPathTemplate": "/api/PaymentOption",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -238,7 +238,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/PaymentOption/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -251,7 +251,7 @@
     // PackageSending - ShippingOption
     {
       "DownstreamPathTemplate": "/api/ShippingOption",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -263,7 +263,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/ShippingOption/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -276,7 +276,7 @@
     // PackageSending - ShippingRequest
     {
       "DownstreamPathTemplate": "/api/ShippingRequest",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -288,7 +288,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/ShippingRequest/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -300,7 +300,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/ShippingRequest/user/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -313,7 +313,7 @@
     // PackageTracking - PackageTracking
     {
       "DownstreamPathTemplate": "/api/PackageTracking",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -325,7 +325,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/PackageTracking/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -338,7 +338,7 @@
     // Employee - Timesheet
     {
       "DownstreamPathTemplate": "/api/Timesheet",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -350,7 +350,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/Timesheet/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -363,7 +363,7 @@
     // Customer
     {
       "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -381,7 +381,7 @@
     // Employee
     {
       "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -398,6 +398,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:42024"
+    "BaseUrl": "http://localhost:42024"
   }
 }

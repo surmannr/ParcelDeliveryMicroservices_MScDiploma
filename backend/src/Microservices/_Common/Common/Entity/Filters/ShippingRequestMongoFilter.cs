@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using TypeGen.Core.TypeAnnotations;
 
 namespace Common.Entity.Filters
 {
+    [ExportTsClass(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_filters")]
     public class ShippingRequestMongoFilter : MongoBaseFilter<ShippingRequest>
     {
         public string StatusName { get; set; }
