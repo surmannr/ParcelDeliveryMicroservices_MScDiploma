@@ -79,6 +79,10 @@ jobs:
         with:
           node-version: 16.x
 
+      - name: PrimeNG download
+        working-directory: ./frontend/web/parceldelivery-admin-app
+        run: npm install primeng
+
       - name: Build Angular Docker image
         working-directory: ./frontend/web/parceldelivery-admin-app
         run: docker build -f ./Dockerfile -t surmannr/msc_webfrontend  .
