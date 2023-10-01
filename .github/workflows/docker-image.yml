@@ -87,6 +87,10 @@ jobs:
 
       - name: Build Angular Docker image
         working-directory: ./frontend/web/parceldelivery-admin-app
+        run: echo "$PWD"
+
+      - name: Build Angular Docker image
+        working-directory: ./frontend/web/parceldelivery-admin-app
         run: docker build -f ./Dockerfile -t surmannr/msc_webfrontend  .
         
       - name: Push Angular Docker image to DockerHub
