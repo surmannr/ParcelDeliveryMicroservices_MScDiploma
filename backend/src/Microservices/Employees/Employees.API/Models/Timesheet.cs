@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
+using TypeGen.Core.TypeAnnotations;
 
 namespace Employees.API.Models
 {
+    [ExportTsInterface(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_models")]
     public class Timesheet
     {
         public string Id { get; set; }
@@ -28,6 +30,7 @@ namespace Employees.API.Models
         }
         public string Note { get; set; }
 
+        [TsIgnore]
         public Employee User { get; set; }
     }
 }

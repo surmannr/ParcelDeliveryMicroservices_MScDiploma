@@ -4,6 +4,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import jwt_decode from 'jwt-decode';
+import { BaseFilter } from 'src/app/_filters/base-filter';
 
 @Injectable({
   providedIn: 'root',
@@ -43,5 +44,23 @@ export class BaseService {
     return throwError(
       () => new Error('Something bad happened; please try again later.')
     );
+  }
+
+  getFilterParams<K, T extends BaseFilter<K>>(filter: T): string {
+    let filterParams = '';
+
+    const properties = Object.getOwnPropertyNames(filter);
+
+    type ObjectKey = keyof typeof filter;
+
+    properties.forEach((property) => {
+      const propertyName = property as ObjectKey;
+
+      if (filter[propertyName] !== undefined) {
+        filterParams += `&${property}=${filter[propertyName]}`;
+      }
+    });
+
+    return filterParams.slice(1);
   }
 }

@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypeGen.Core.TypeAnnotations;
 
 namespace PackageDelivery.DAL.Entities
 {
+    [ExportTsInterface(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_models")]
     public class VehicleUsage
     {
         [BsonId]

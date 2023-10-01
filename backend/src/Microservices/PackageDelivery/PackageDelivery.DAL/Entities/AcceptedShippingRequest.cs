@@ -1,8 +1,10 @@
 ﻿using Common.Entity;
 using MongoDB.Bson.Serialization.Attributes;
+using TypeGen.Core.TypeAnnotations;
 
 namespace PackageDelivery.DAL.Entities
 {
+    [ExportTsInterface(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_models")]
     public class AcceptedShippingRequest
     {
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]

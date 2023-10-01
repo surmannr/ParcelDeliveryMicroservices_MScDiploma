@@ -3,9 +3,7 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-import { ShippingRequest } from "./shipping-request";
-
-export class Package {
+export class PackageDto {
     id: string | undefined;
     userId: string | undefined;
     sizeX: number | undefined;
@@ -14,5 +12,4 @@ export class Package {
     weight: number | undefined;
     isFragile: boolean | undefined;
     shippingRequestId: string | undefined;
-    shippingRequest: ShippingRequest | undefined;
 }

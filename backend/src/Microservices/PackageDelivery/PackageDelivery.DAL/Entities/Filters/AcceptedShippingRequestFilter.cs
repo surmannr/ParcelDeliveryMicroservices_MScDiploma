@@ -3,9 +3,11 @@ using Common.Filter;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.RegularExpressions;
+using TypeGen.Core.TypeAnnotations;
 
 namespace PackageDelivery.DAL.Entities.Filters
 {
+    [ExportTsClass(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_filters")]
     public class AcceptedShippingRequestFilter : MongoBaseFilter<AcceptedShippingRequest>
     {
         public string EmployeeName { get; set; }

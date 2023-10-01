@@ -4,10 +4,12 @@
 
 using Common.Entity;
 using Microsoft.AspNetCore.Identity;
+using TypeGen.Core.TypeAnnotations;
 
 namespace Employees.API.Models
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
+    [TsIgnoreBase]
     public class Employee : IdentityUser
     {
         public string FirstName { get; set; }

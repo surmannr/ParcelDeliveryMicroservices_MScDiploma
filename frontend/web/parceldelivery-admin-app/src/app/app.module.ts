@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -40,6 +39,8 @@ import { VehicleUsageListComponent } from './pages/vehicle/vehicle-usage-list/ve
 import { ShippingRequestListComponent } from './pages/shipping-request/shipping-request-list/shipping-request-list.component';
 import { AcceptedShippingRequestListComponent } from './pages/shipping-request/accepted-shipping-request-list/accepted-shipping-request-list.component';
 import { PackagesComponent } from './components/dialog/packages/packages.component';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler';
+import { NgModule } from '@angular/core';
 
 @NgModule({
   declarations: [

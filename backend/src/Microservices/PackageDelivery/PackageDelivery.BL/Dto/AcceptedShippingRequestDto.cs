@@ -1,9 +1,11 @@
 ﻿using Common.Dto;
 using Common.Entity;
 using PackageDelivery.DAL.Entities;
+using TypeGen.Core.TypeAnnotations;
 
 namespace PackageDelivery.BL.Dto
 {
+    [ExportTsInterface(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_dtos")]
     public class AcceptedShippingRequestDto
     {
         public string Id { get; set; }

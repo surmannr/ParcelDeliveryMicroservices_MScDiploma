@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { TimesheetDto } from 'src/app/_dtos/timesheet-dto';
 import { Day } from 'src/app/models/Day';
 import { Timesheet } from 'src/app/models/Timesheet';
 import { EmployeeService } from 'src/app/services/api/employee.service';
@@ -42,7 +43,7 @@ export class AddWorkingDaysComponent implements OnInit {
       acceptLabel: 'Igen',
       rejectLabel: 'Nem',
       accept: () => {
-        const timesheet: Timesheet = {
+        const timesheet: TimesheetDto = {
           id: '',
           dateFrom: this.firstDate,
           dateTo: this.lastDate,

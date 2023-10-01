@@ -2,9 +2,11 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
+using TypeGen.Core.TypeAnnotations;
 
 namespace PackageDelivery.DAL.Entities
 {
+    [ExportTsInterface(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_models")]
     public class Vehicle
     {
         [BsonRepresentation(BsonType.ObjectId)]

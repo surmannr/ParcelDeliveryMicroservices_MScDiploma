@@ -5,6 +5,8 @@ import { Timesheet } from 'src/app/models/Timesheet';
 import { Observable, catchError, retry, tap } from 'rxjs';
 import { PagedResult } from 'src/app/models/PagedResult';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { TimesheetDto } from 'src/app/_dtos/timesheet-dto';
+import { TimesheetFilter } from 'src/app/_filters/timesheet-filter';
 
 @Injectable({
   providedIn: 'root',
@@ -17,22 +19,22 @@ export class EmployeeService extends BaseService {
   baseUrlTimesheet = this.baseUrl + '/Timesheet';
 
   getTimesheets(
-    pageSize: number,
-    pageNumber: number
-  ): Observable<PagedResult<Timesheet>> {
+    filter: TimesheetFilter
+  ): Observable<PagedResult<TimesheetDto>> {
+    filter.userId = this.userId;
+
     return this.http
-      .get<PagedResult<Timesheet>>(
-        this.baseUrlTimesheet +
-          `?userId=${this.userId}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
+      .get<PagedResult<TimesheetDto>>(
+        this.baseUrlTimesheet + `?${this.getFilterParams(filter)}`,
         this.httpOptions
       )
       .pipe(retry(3), catchError(this.handleError));
   }
 
-  saveTimesheet(timesheet: Timesheet): Observable<Timesheet> {
+  saveTimesheet(timesheet: TimesheetDto): Observable<TimesheetDto> {
     timesheet.userId = this.userId;
     return this.http
-      .post<Timesheet>(this.baseUrlTimesheet, timesheet, this.httpOptions)
+      .post<TimesheetDto>(this.baseUrlTimesheet, timesheet, this.httpOptions)
       .pipe(
         tap((data) => {
           console.log(data);

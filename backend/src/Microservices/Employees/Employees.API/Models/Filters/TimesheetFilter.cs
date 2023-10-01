@@ -1,7 +1,9 @@
 ﻿using Common.Filter;
+using TypeGen.Core.TypeAnnotations;
 
 namespace Employees.API.Models.Filters
 {
+    [ExportTsClass(OutputDir = "../../../../../frontend/web/parceldelivery-admin-app/src/app/_filters")]
     public class TimesheetFilter : SqlBaseFilter<Timesheet>
     {
         public string UserId { get; set; }
