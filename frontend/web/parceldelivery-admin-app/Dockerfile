@@ -11,7 +11,6 @@ COPY . .
 
 # Install all the dependencies
 RUN npm install
-RUN npm install primeng
 
 ARG configuration=kubernetes
 
