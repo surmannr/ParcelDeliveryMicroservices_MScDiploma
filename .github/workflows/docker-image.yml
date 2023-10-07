@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -74,25 +71,10 @@ jobs:
           push: true
           tags: surmannr/msc_ocelotapigateway:latest
 
-      - name: Node
-        uses: actions/setup-node@v3
+      - name: Build and push Docker image (Angular)
+        uses: docker/build-push-action@v4
         with:
-          node-version: 16.x
-
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm  # Cache npm packages
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Build Angular Docker image
-        working-directory: ./frontend/web/parceldelivery-admin-app
-        run: echo "$PWD"
-
-      - name: Build Angular Docker image
-        working-directory: ./frontend/web/parceldelivery-admin-app
-        run: docker build -f ./Dockerfile -t surmannr/msc_webfrontend  .
-        
-      - name: Push Angular Docker image to DockerHub
-        working-directory: ./frontend/web/parceldelivery-admin-app
-        run: docker push surmannr/msc_webfrontend:latest
+          context: frontend/web/parceldelivery-admin-app
+          file: frontend/web/parceldelivery-admin-app/Dockerfile
+          push: true
+          tags: surmannr/msc_webfrontend:latest
