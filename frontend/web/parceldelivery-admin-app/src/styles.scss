@@ -2,7 +2,7 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
-@import 'primeflex/primeflex.scss';
+@import "primeflex/primeflex.css";
 
 body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -46,3 +46,5 @@ body {
     background: var(--teal-700) !important;
     color: white !important;
 }
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
