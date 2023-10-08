@@ -4,13 +4,12 @@
 FROM node:latest as build
 
 # Set the working directory
-WORKDIR /usr/local/app
+WORKDIR /app
 
 # Add the source code to app
 COPY . .
 
 # Install all the dependencies
-RUN npm i -g angular-cli
 RUN npm ci
 
 ARG configuration=kubernetes
@@ -25,7 +24,7 @@ RUN npm run ng build -- --configuration=$configuration
 FROM nginx:latest
 
 # Copy the build output to replace the default nginx contents.
-COPY --from=build /usr/local/app/dist/parceldelivery-admin-app /usr/share/nginx/html
+COPY --from=build /app/dist/parceldelivery-admin-app /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
