@@ -29,14 +29,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     VehiclesListComponent,
     VehicleUsagesListComponent,
     AddNewWorkingDaysComponent,
-    TimesheetComponent
+    TimesheetComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
