@@ -10,7 +10,7 @@ WORKDIR /usr/local/app
 COPY . .
 
 # Install all the dependencies
-RUN npm install
+RUN npm ci
 
 ARG configuration=kubernetes
 
