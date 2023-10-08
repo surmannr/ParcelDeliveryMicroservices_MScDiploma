@@ -14,6 +14,7 @@ import { VehicleUsagesListComponent } from './pages/vehicles/vehicle-usages-list
 import { AddNewWorkingDaysComponent } from './pages/workings/add-new-working-days/add-new-working-days.component';
 import { TimesheetComponent } from './pages/workings/timesheet/timesheet.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShippingPacksComponent } from './dialogs/shipping-packs/shipping-packs.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     VehicleUsagesListComponent,
     AddNewWorkingDaysComponent,
     TimesheetComponent,
+    ShippingPacksComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
