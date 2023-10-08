@@ -1,0 +1,7 @@
+{
+  "/.well-known/openid-configuration": {
+    "target": "http://employee-server.k8s.arcter",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
