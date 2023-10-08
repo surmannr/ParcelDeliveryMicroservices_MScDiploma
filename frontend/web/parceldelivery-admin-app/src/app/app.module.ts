@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './frame/header/header.component';
 import { FooterComponent } from './frame/footer/footer.component';
-import { PackagesComponent } from './dialogs/packages/packages.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AcceptedShippingRequestListComponent } from './pages/shipping-requests/accepted-shipping-request-list/accepted-shipping-request-list.component';
 import { ShippingRequestListComponent } from './pages/shipping-requests/shipping-request-list/shipping-request-list.component';
@@ -21,7 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    PackagesComponent,
     HomeComponent,
     AcceptedShippingRequestListComponent,
     ShippingRequestListComponent,
