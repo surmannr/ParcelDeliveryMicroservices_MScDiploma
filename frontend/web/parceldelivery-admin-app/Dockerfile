@@ -10,6 +10,7 @@ WORKDIR /usr/local/app
 COPY . .
 
 # Install all the dependencies
+RUN npm i -g angular-cli
 RUN npm ci
 
 ARG configuration=kubernetes
