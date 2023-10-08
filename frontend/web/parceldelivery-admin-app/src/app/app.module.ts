@@ -2,6 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './frame/header/header.component';
@@ -17,6 +23,9 @@ import { TimesheetComponent } from './pages/workings/timesheet/timesheet.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShippingPacksComponent } from './dialogs/shipping-packs/shipping-packs.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +46,14 @@ import { ShippingPacksComponent } from './dialogs/shipping-packs/shipping-packs.
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
+    OAuthModule.forRoot(),
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

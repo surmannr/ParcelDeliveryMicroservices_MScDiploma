@@ -1,1 +1,23 @@
-<p>home works!</p>
+<div class="row flex flex-column justify-content-center align-items-center">
+  <div
+    class="row flex-column gap-3 mt-5 justify-content-center"
+    *ngIf="givenName"
+  >
+    <p class="h3 text-center">Üdvözlünk a kezelőfelületen {{ givenName }}!</p>
+
+    <img
+      src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg"
+      alt="Image"
+    />
+  </div>
+
+  <div
+    class="row flex-column gap-3 mt-5 justify-content-center"
+    *ngIf="!givenName"
+  >
+    <img
+      src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg"
+      alt="Image"
+    />
+  </div>
+</div>

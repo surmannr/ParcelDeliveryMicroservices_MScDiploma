@@ -1,0 +1,13 @@
+.mat-toolbar {
+    background-color: #1dd1a1;
+    color: white;
+}
+
+button.mat-mdc-menu-item.mat-mdc-focus-indicator{
+    color: white !important;
+    background-color: #1dd1a1;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

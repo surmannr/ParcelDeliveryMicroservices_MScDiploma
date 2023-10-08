@@ -1,1 +1,70 @@
-<p>header works!</p>
+<mat-toolbar color="primary" *ngIf="this.oauthService.hasValidAccessToken()">
+  <img src="assets/logo.png" height="50" class="mr-2" routerLink="/" />
+  <div class="spacer"></div>
+  <mat-nav-list class="list-horizontal">
+    <mat-list-item>
+      <button mat-menu-item [matMenuTriggerFor]="munkamenu">Munka</button>
+    </mat-list-item>
+    <mat-menu #munkamenu="matMenu" [overlapTrigger]="false">
+      <div class="d-flex flex-column">
+        <a mat-button routerLink="add-working-days">
+          <span>Új ráfordítás</span>
+        </a>
+        <a mat-button routerLink="timesheet">
+          <span>Munkanapló</span>
+        </a>
+      </div>
+    </mat-menu>
+  </mat-nav-list>
+
+  <mat-nav-list class="list-horizontal">
+    <mat-list-item>
+      <button mat-menu-item [matMenuTriggerFor]="jarmumenu">Jármű</button>
+    </mat-list-item>
+    <mat-menu #jarmumenu="matMenu" [overlapTrigger]="false">
+      <div class="d-flex flex-column">
+        <a mat-button routerLink="add-new-vehicle">
+          <span>Új jármű</span>
+        </a>
+        <a mat-button routerLink="vehicles">
+          <span>Járművek</span>
+        </a>
+        <a mat-button routerLink="vehicleUsages">
+          <span>Járműhasználatok</span>
+        </a>
+      </div>
+    </mat-menu>
+  </mat-nav-list>
+
+  <mat-nav-list class="list-horizontal">
+    <mat-list-item>
+      <button mat-menu-item [matMenuTriggerFor]="csomagokmenu">Csomagok</button>
+    </mat-list-item>
+    <mat-menu #csomagokmenu="matMenu" [overlapTrigger]="false">
+      <div class="d-flex flex-column">
+        <a mat-button routerLink="shipping-requests">
+          <span>Elküldött csomagok</span>
+        </a>
+        <a mat-button routerLink="accepted-shipping-requests">
+          <span>Kézbesítés alatt lévő csomagok</span>
+        </a>
+      </div>
+    </mat-menu>
+  </mat-nav-list>
+
+  <mat-nav-list class="list-horizontal">
+    <mat-list-item>
+      <button mat-menu-item (click)="logout()">Kijelentkezés</button>
+    </mat-list-item>
+  </mat-nav-list>
+</mat-toolbar>
+
+<mat-toolbar color="primary" *ngIf="!this.oauthService.hasValidAccessToken()">
+  <img src="assets/logo.png" height="50" class="mr-2" routerLink="/" />
+  <div class="spacer"></div>
+  <mat-nav-list class="list-horizontal">
+    <mat-list-item>
+      <button mat-menu-item (click)="login()">Bejelentkezés</button>
+    </mat-list-item>
+  </mat-nav-list>
+</mat-toolbar>
