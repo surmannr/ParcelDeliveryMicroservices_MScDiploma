@@ -7,6 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +29,7 @@ import { ShippingPacksComponent } from './dialogs/shipping-packs/shipping-packs.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
+import { DaysFromIntArrayPipePipe } from './pipes/days-from-int-array.pipe.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
     AddNewWorkingDaysComponent,
     TimesheetComponent,
     ShippingPacksComponent,
+    DaysFromIntArrayPipePipe,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     MatIconModule,
     MatListModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
