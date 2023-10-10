@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,6 +63,7 @@ import { DaysFromIntArrayPipePipe } from './pipes/days-from-int-array.pipe.pipe'
     MatPaginatorModule,
     MatTableModule,
     MatProgressBarModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
