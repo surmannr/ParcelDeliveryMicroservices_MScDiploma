@@ -67,6 +67,7 @@ export class TimesheetComponent implements OnInit, AfterViewInit {
   }
 
   load() {
+    console.log(this.filter.minDateFrom);
     this.timesheetService.loading = true;
     this.filter.pageSize = this.pageSize;
     this.filter.pageNumber = this.pageNumber;

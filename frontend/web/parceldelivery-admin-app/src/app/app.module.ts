@@ -11,6 +11,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +35,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
 import { DaysFromIntArrayPipePipe } from './pipes/days-from-int-array.pipe.pipe';
+import { DateFilterComponent } from './components/filter/date-filter/date-filter.component';
+import { StringFilterComponent } from './components/filter/string-filter/string-filter.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +52,8 @@ import { DaysFromIntArrayPipePipe } from './pipes/days-from-int-array.pipe.pipe'
     TimesheetComponent,
     ShippingPacksComponent,
     DaysFromIntArrayPipePipe,
+    DateFilterComponent,
+    StringFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +63,7 @@ import { DaysFromIntArrayPipePipe } from './pipes/days-from-int-array.pipe.pipe'
     OAuthModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
@@ -64,6 +73,10 @@ import { DaysFromIntArrayPipePipe } from './pipes/days-from-int-array.pipe.pipe'
     MatTableModule,
     MatProgressBarModule,
     MatSortModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

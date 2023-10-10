@@ -57,7 +57,12 @@ export class BaseService {
       const propertyName = property as ObjectKey;
 
       if (filter[propertyName] !== undefined) {
-        filterParams += `&${property}=${filter[propertyName]}`;
+        if (property.toLowerCase().includes('date')) {
+          var date = filter[propertyName] as Date;
+          filterParams += `&${property}=${date.toDateString()}`;
+        } else {
+          filterParams += `&${property}=${filter[propertyName]}`;
+        }
       }
     });
 
