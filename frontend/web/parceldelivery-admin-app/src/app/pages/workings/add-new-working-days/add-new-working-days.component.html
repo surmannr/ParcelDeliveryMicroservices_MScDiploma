@@ -1,1 +1,39 @@
-<p>add-new-working-days works!</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <p class="h2 m-0">Új munkahét felvétele</p>
+  <mat-card>
+    <mat-card-content class="d-flex justify-content-between align-items-center">
+      <p class="h4 m-0">
+        Kiválasztott hét: {{ firstDate | date : "yyyy.MM.dd." }} -
+        {{ lastDate | date : "yyyy.MM.dd." }}
+      </p>
+      <button mat-icon-button class="btn-toggle" (click)="previousWeek()">
+        <mat-icon> chevron_left</mat-icon>
+      </button>
+      <button mat-icon-button class="btn-toggle" (click)="nextWeek()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-chip-listbox
+  aria-label="Napok kiválasztása"
+  multiple
+  required
+  [(ngModel)]="selectedDays"
+>
+  <mat-chip-option *ngFor="let element of availableDays" [value]="element.id">{{
+    element.name
+  }}</mat-chip-option>
+</mat-chip-listbox>
+
+<mat-form-field class="w-100 mt-3 mb-3">
+  <mat-label>Megjegyzés</mat-label>
+  <textarea matInput rows="5" [(ngModel)]="note"></textarea>
+</mat-form-field>
+
+<div class="row justify-content-center">
+  <div>
+    <button mat-raised-button color="primary" (click)="save()">Mentés</button>
+  </div>
+</div>

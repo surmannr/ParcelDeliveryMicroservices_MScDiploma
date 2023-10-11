@@ -15,6 +15,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,6 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DaysFromIntArrayPipePipe } from './pipes/days-from-int-array.pipe.pipe';
 import { DateFilterComponent } from './components/filter/date-filter/date-filter.component';
 import { StringFilterComponent } from './components/filter/string-filter/string-filter.component';
+import { SaveDialogSheetComponent } from './dialogs/save-dialog-sheet/save-dialog-sheet.component';
+import { DeleteDialogSheetComponent } from './dialogs/delete-dialog-sheet/delete-dialog-sheet.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +60,8 @@ import { StringFilterComponent } from './components/filter/string-filter/string-
     DaysFromIntArrayPipePipe,
     DateFilterComponent,
     StringFilterComponent,
+    SaveDialogSheetComponent,
+    DeleteDialogSheetComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +85,10 @@ import { StringFilterComponent } from './components/filter/string-filter/string-
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatChipsModule,
+    MatBottomSheetModule,
+    MatSnackBarModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

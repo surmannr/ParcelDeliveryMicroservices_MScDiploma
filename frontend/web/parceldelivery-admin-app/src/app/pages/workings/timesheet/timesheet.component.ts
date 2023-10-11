@@ -7,6 +7,9 @@ import { TimesheetFilter } from 'src/app/_filters/timesheet-filter';
 import { TimesheetService } from 'src/app/apiservices/timesheet.service';
 import { PagedResult } from 'src/app/models/PagedResult';
 import { merge } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { DeleteDialogSheetComponent } from 'src/app/dialogs/delete-dialog-sheet/delete-dialog-sheet.component';
 
 @Component({
   selector: 'app-timesheet',
@@ -14,7 +17,11 @@ import { merge } from 'rxjs';
   styleUrls: ['./timesheet.component.css'],
 })
 export class TimesheetComponent implements OnInit, AfterViewInit {
-  constructor(public timesheetService: TimesheetService) {}
+  constructor(
+    public timesheetService: TimesheetService,
+    private snackBar: MatSnackBar,
+    private bottomSheet: MatBottomSheet
+  ) {}
 
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -85,11 +92,24 @@ export class TimesheetComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(id: string) {
-    this.timesheetService.deleteTimesheet(id).subscribe({
-      error: (err) => console.error(err),
-      complete: () => {
-        this.load();
-      },
+    const dialog = this.bottomSheet.open(DeleteDialogSheetComponent);
+
+    dialog.afterDismissed().subscribe((result) => {
+      if (result) {
+        this.timesheetService.deleteTimesheet(id).subscribe({
+          complete: () => {
+            this.load();
+            this.snackBar.open('Sikeresen törölted a munkahetet.', 'Értem', {
+              duration: 3000,
+            });
+          },
+          error: () => {
+            this.snackBar.open('Nem sikerült törölnöd a munkahetet.', 'Értem', {
+              duration: 3000,
+            });
+          },
+        });
+      }
     });
   }
 }
