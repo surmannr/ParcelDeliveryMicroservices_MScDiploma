@@ -21,7 +21,7 @@ export class TimesheetComponent implements OnInit, AfterViewInit {
 
   timesheets: PagedResult<TimesheetDto> | undefined;
   dataSource = new MatTableDataSource<TimesheetDto>(undefined);
-  displayedColumns: string[] = ['dateFrom', 'dateTo', 'days', 'note'];
+  displayedColumns: string[] = ['dateFrom', 'dateTo', 'days', 'note', 'id'];
 
   pageSize: number = 10;
   pageNumber: number = 1;
@@ -56,7 +56,6 @@ export class TimesheetComponent implements OnInit, AfterViewInit {
 
     merge(this.sort.sortChange, this.paginator.page).subscribe((data) => {
       this.load();
-      console.log(data);
     });
   }
 
@@ -67,7 +66,6 @@ export class TimesheetComponent implements OnInit, AfterViewInit {
   }
 
   load() {
-    console.log(this.filter.minDateFrom);
     this.timesheetService.loading = true;
     this.filter.pageSize = this.pageSize;
     this.filter.pageNumber = this.pageNumber;
