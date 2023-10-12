@@ -36,7 +36,6 @@ export class TimesheetService extends BaseService {
       .post<TimesheetDto>(this.baseUrlTimesheet, timesheet, this.httpOptions)
       .pipe(
         tap((data) => {
-          console.log(data);
           return data;
         }),
         catchError(this.handleError)

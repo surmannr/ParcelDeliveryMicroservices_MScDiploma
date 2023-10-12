@@ -5,19 +5,25 @@
   >
     <p class="h3 text-center">Üdvözlünk a kezelőfelületen {{ givenName }}!</p>
 
-    <img
-      src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg"
-      alt="Image"
-    />
+    <div class="h-100 d-flex justify-content-center">
+      <img
+        src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg"
+        alt="Image"
+        class="img-fluid"
+      />
+    </div>
   </div>
 
   <div
     class="row flex-column gap-3 mt-5 justify-content-center"
     *ngIf="!givenName"
   >
-    <img
-      src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg"
-      alt="Image"
-    />
+    <div class="h-100 d-flex justify-content-center">
+      <img
+        src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg"
+        alt="Image"
+        class="img-fluid"
+      />
+    </div>
   </div>
 </div>

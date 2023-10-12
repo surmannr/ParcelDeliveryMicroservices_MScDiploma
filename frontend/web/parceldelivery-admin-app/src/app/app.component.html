@@ -1,7 +1,11 @@
-<app-header class="mh-25"></app-header>
+<div class="d-flex flex-column w-100 mh-100 gap-3" style="min-height: 100%">
+  <app-header></app-header>
 
-<div class="container d-flex justify-content-center mh-100 pt-3">
-  <router-outlet></router-outlet>
+  <div
+    class="container justify-content-center align-items-start pt-3 pb-3 mb-auto w-100 h-100"
+  >
+    <router-outlet></router-outlet>
+  </div>
+
+  <app-footer></app-footer>
 </div>
-
-<app-footer class="mh-25"></app-footer>

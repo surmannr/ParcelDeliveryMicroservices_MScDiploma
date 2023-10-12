@@ -1,1 +1,142 @@
-<p>add-new-vehicle works!</p>
+<form [formGroup]="newVehicleForm" (ngSubmit)="save()">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <p class="h2 m-0">Új jármű felvétele</p>
+  </div>
+
+  <div class="d-flex mb-3 w-100 justify-content-center">
+    <img src="assets/autok.webp" alt="Image" class="img-fluid" />
+  </div>
+
+  <div class="d-flex justify-content-between gap-3 mb-3">
+    <mat-form-field *ngIf="!isNewRegistrationNumber" class="w-100">
+      <mat-label>Rendszám</mat-label>
+      <input
+        matInput
+        placeholder="Rendszám"
+        formControlName="registrationNumber"
+        mask="UUU-000"
+        [showMaskTyped]="true"
+        [dropSpecialCharacters]="false"
+      />
+      <mat-hint align="end">Az új rendszámhoz jelöld be a négyzetet.</mat-hint>
+      <mat-checkbox
+        matSuffix
+        [(ngModel)]="isNewRegistrationNumber"
+        [ngModelOptions]="{ standalone: true }"
+        class="m-2"
+      >
+      </mat-checkbox>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isNewRegistrationNumber" class="w-100">
+      <mat-label>Rendszám</mat-label>
+      <input
+        matInput
+        placeholder="Rendszám"
+        formControlName="registrationNumber"
+        [showMaskTyped]="true"
+        [dropSpecialCharacters]="false"
+        mask="UU UU-000"
+      />
+      <mat-hint align="end">Az új rendszámhoz jelöld be a négyzetet.</mat-hint>
+      <mat-checkbox
+        matSuffix
+        [(ngModel)]="isNewRegistrationNumber"
+        [ngModelOptions]="{ standalone: true }"
+        class="m-2"
+      ></mat-checkbox>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Típus</mat-label>
+      <input matInput placeholder="Típus" formControlName="type" />
+    </mat-form-field>
+  </div>
+
+  <div class="d-flex justify-content-between gap-3 mb-3">
+    <mat-form-field class="w-100">
+      <mat-label>Évjárat</mat-label>
+      <input
+        matInput
+        placeholder="Évjárat"
+        formControlName="year"
+        type="number"
+        mask="0000"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Ülések száma</mat-label>
+      <input
+        matInput
+        placeholder="Ülések száma"
+        formControlName="seatingCapacity"
+        type="number"
+        mask="099"
+      />
+      <span matTextSuffix>db</span>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Műszaki lejárta</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="technicalInspectionExpirationDate"
+        placeholder="Műszaki lejárta"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="d-flex justify-content-between gap-3 mb-3">
+    <mat-form-field class="w-100">
+      <mat-label>Max. belső hely (X)</mat-label>
+      <input
+        matInput
+        placeholder="Max. belső hely (X)"
+        formControlName="maxInternalSpaceX"
+        type="number"
+        mask="09999"
+      />
+      <span matTextSuffix>méter</span>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Max. belső hely (Y)</mat-label>
+      <input
+        matInput
+        placeholder="Max. belső hely (Y)"
+        formControlName="maxInternalSpaceY"
+        type="number"
+        mask="09999"
+      />
+      <span matTextSuffix>méter</span>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Max. belső hely (Z)</mat-label>
+      <input
+        matInput
+        placeholder="Max. belső hely (Z)"
+        formControlName="maxInternalSpaceZ"
+        type="number"
+        mask="09999"
+      />
+      <span matTextSuffix>méter</span>
+    </mat-form-field>
+  </div>
+
+  <div class="row justify-content-center">
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!newVehicleForm.valid"
+      >
+        Mentés
+      </button>
+    </div>
+  </div>
+</form>

@@ -19,6 +19,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,6 +44,13 @@ import { DateFilterComponent } from './components/filter/date-filter/date-filter
 import { StringFilterComponent } from './components/filter/string-filter/string-filter.component';
 import { SaveDialogSheetComponent } from './dialogs/save-dialog-sheet/save-dialog-sheet.component';
 import { DeleteDialogSheetComponent } from './dialogs/delete-dialog-sheet/delete-dialog-sheet.component';
+import { AddNewVehicleusageComponent } from './pages/vehicles/add-new-vehicleusage/add-new-vehicleusage.component';
+import { NumberFilterComponent } from './components/filter/number-filter/number-filter.component';
+import {
+  NgxMaskDirective,
+  NgxMaskPipe,
+  provideEnvironmentNgxMask,
+} from 'ngx-mask';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +70,8 @@ import { DeleteDialogSheetComponent } from './dialogs/delete-dialog-sheet/delete
     StringFilterComponent,
     SaveDialogSheetComponent,
     DeleteDialogSheetComponent,
+    AddNewVehicleusageComponent,
+    NumberFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +82,8 @@ import { DeleteDialogSheetComponent } from './dialogs/delete-dialog-sheet/delete
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
@@ -89,8 +101,9 @@ import { DeleteDialogSheetComponent } from './dialogs/delete-dialog-sheet/delete
     MatBottomSheetModule,
     MatSnackBarModule,
     MatCardModule,
+    MatCheckboxModule,
   ],
-  providers: [],
+  providers: [provideEnvironmentNgxMask()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
