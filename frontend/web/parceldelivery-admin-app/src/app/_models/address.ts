@@ -3,7 +3,7 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-export interface Address {
+export class Address {
     street: string | undefined;
     city: string | undefined;
     zipCode: number | undefined;

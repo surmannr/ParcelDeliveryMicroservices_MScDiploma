@@ -20,6 +20,16 @@ export class BaseService {
     return claims['sub'];
   }
 
+  get employeeName() {
+    const claims: any = jwt_decode(this.oauth.getAccessToken());
+    return claims['name'];
+  }
+
+  get employeeEmail() {
+    const claims: any = jwt_decode(this.oauth.getAccessToken());
+    return claims['email'];
+  }
+
   protected httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

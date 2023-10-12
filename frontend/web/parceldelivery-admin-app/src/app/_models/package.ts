@@ -5,7 +5,7 @@
 
 import { ShippingRequest } from "./shipping-request";
 
-export interface Package {
+export class Package {
     id: string | undefined;
     userId: string | undefined;
     sizeX: number | undefined;

@@ -5,7 +5,7 @@
 
 import { CurrencyDto } from "./currency-dto";
 
-export interface BillingDto {
+export class BillingDto {
     id: string | undefined;
     userId: string | undefined;
     name: string | undefined;

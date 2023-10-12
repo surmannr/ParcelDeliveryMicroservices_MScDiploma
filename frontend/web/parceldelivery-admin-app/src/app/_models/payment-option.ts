@@ -3,7 +3,7 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-export interface PaymentOption {
+export class PaymentOption {
     id: number | undefined;
     name: string | undefined;
 }

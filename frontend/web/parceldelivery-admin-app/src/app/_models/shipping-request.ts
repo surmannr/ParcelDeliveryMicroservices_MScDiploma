@@ -10,7 +10,7 @@ import { ShippingOption } from "./shipping-option";
 import { Billing } from "./billing";
 import { Package } from "./package";
 
-export interface ShippingRequest {
+export class ShippingRequest {
     id: string | undefined;
     userId: string | undefined;
     name: string | undefined;

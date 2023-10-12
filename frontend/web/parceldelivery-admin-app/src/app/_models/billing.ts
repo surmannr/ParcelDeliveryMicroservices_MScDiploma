@@ -6,7 +6,7 @@
 import { Currency } from "./currency";
 import { ShippingRequest } from "./shipping-request";
 
-export interface Billing {
+export class Billing {
     id: string | undefined;
     userId: string | undefined;
     name: string | undefined;

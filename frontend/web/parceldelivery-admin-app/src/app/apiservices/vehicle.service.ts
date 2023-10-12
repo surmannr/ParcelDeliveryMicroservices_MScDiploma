@@ -8,6 +8,7 @@ import { VehicleDto } from '../_dtos/vehicle-dto';
 import { VehicleUsageDto } from '../_dtos/vehicle-usage-dto';
 import { VehicleFilter } from '../_filters/vehicle-filter';
 import { VehicleUsageFilter } from '../_filters/vehicle-usage-filter';
+import { NewVehicleUsageDto } from '../_dtos/new-vehicle-usage-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -59,9 +60,14 @@ export class VehicleService extends BaseService {
       .pipe(catchError(this.handleError));
   }
 
-  saveVehicleUsage(vehicleUsage: VehicleUsageDto): Observable<VehicleUsageDto> {
+  saveVehicleUsage(
+    vehicleUsage: NewVehicleUsageDto
+  ): Observable<NewVehicleUsageDto> {
+    vehicleUsage.employeeId = this.userId;
+    vehicleUsage.employeeEmail = this.employeeEmail;
+    vehicleUsage.employeeName = this.employeeName;
     return this.http
-      .post<VehicleUsageDto>(
+      .post<NewVehicleUsageDto>(
         this.baseUrlVehicleUsage,
         vehicleUsage,
         this.httpOptions

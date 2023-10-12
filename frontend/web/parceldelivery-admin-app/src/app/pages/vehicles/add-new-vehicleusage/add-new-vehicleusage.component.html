@@ -1,1 +1,67 @@
-<p>add-new-vehicleusage works!</p>
+<form [formGroup]="newVehicleUsageForm" (ngSubmit)="save()">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <p class="h2 m-0">Új járműhasználat felvétele</p>
+  </div>
+
+  <div class="d-flex justify-content-between gap-3 mb-3">
+    <mat-form-field class="w-100">
+      <mat-label>Mettől</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerDateFrom"
+        formControlName="dateFrom"
+        placeholder="Mettől"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="pickerDateFrom"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerDateFrom></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Meddig</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerDateTo"
+        formControlName="dateTo"
+        placeholder="Meddig"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="pickerDateTo"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerDateTo></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="d-flex justify-content-between gap-3 mb-3">
+    <mat-form-field class="w-100">
+      <mat-label>Jármű kiválasztása</mat-label>
+      <mat-select formControlName="vehicleId">
+        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+          {{ vehicle.registrationNumber }} ( {{ vehicle.type }} )
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="d-flex justify-content-between gap-3 mb-3">
+    <mat-form-field class="w-100 mt-3 mb-3">
+      <mat-label>Megjegyzés</mat-label>
+      <textarea matInput rows="5" formControlName="note"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="row justify-content-center">
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!newVehicleUsageForm.valid"
+      >
+        Mentés
+      </button>
+    </div>
+  </div>
+</form>

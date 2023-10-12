@@ -20,6 +20,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -102,6 +103,7 @@ import {
     MatSnackBarModule,
     MatCardModule,
     MatCheckboxModule,
+    MatSelectModule,
   ],
   providers: [provideEnvironmentNgxMask()],
   bootstrap: [AppComponent],

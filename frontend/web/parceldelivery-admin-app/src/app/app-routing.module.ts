@@ -9,6 +9,7 @@ import { VehiclesListComponent } from './pages/vehicles/vehicles-list/vehicles-l
 import { VehicleUsagesListComponent } from './pages/vehicles/vehicle-usages-list/vehicle-usages-list.component';
 import { AddNewWorkingDaysComponent } from './pages/workings/add-new-working-days/add-new-working-days.component';
 import { authGuard } from './auth/auth.guard';
+import { AddNewVehicleusageComponent } from './pages/vehicles/add-new-vehicleusage/add-new-vehicleusage.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'vehicles', component: VehiclesListComponent },
   { path: 'add-new-vehicle', component: AddNewVehicleComponent },
   { path: 'vehicleUsages', component: VehicleUsagesListComponent },
+  { path: 'add-new-vehicleUsages', component: AddNewVehicleusageComponent },
   { path: 'shipping-requests', component: ShippingRequestListComponent },
   {
     path: 'accepted-shipping-requests',

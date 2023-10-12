@@ -3,7 +3,7 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-export interface ShippingOptionDto {
+export class ShippingOptionDto {
     id: number | undefined;
     name: string | undefined;
     price: number | undefined;

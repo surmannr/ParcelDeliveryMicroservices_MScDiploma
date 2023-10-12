@@ -1,1 +1,92 @@
-<p>vehicle-usages-list works!</p>
+<p class="h2 mb-3">Járműhasználataim</p>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="this.dataSource" matSort #sort="matSort">
+    <!-- DateFrom Column -->
+    <ng-container matColumnDef="dateFrom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Mettől
+        <app-date-filter
+          title="Mettől"
+          [(minDate)]="filter.minDateFrom"
+          [(maxDate)]="filter.maxDateFrom"
+          (filter)="load()"
+        ></app-date-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.dateFrom | date : "yyyy.MM.dd." }}
+      </td>
+    </ng-container>
+
+    <!-- DateTo Column -->
+    <ng-container matColumnDef="dateTo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Meddig
+        <app-date-filter
+          title="Meddig"
+          [(minDate)]="filter.minDateTo"
+          [(maxDate)]="filter.maxDateTo"
+          (filter)="load()"
+        ></app-date-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.dateTo | date : "yyyy.MM.dd." }}
+      </td>
+    </ng-container>
+
+    <!-- TechnicalInspectionExpirationDate Column -->
+    <ng-container matColumnDef="vehicle">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Jármű
+        <app-string-filter
+          title="Rendszám"
+          [(value)]="filter.registrationNumber"
+          (filter)="load()"
+        ></app-string-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.vehicle.registrationNumber }} ( {{ element.vehicle.type }} )
+      </td>
+    </ng-container>
+
+    <!-- Note Column -->
+    <ng-container matColumnDef="note">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Megjegyzés
+        <app-string-filter
+          title="Megjegyzés"
+          [(value)]="filter.note"
+          (filter)="load()"
+        ></app-string-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.note }}</td>
+    </ng-container>
+
+    <!-- Delete Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          class="btn-toggle"
+          (click)="onDelete(element.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+  <mat-paginator
+    showFirstLastButtons
+    #paginator
+    [length]="vehicleUsages?.totalCount"
+    [pageSize]="pageSize"
+  >
+  </mat-paginator>
+</div>

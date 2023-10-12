@@ -36,6 +36,8 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Commands
                 {
                     Id = request.ModifiedVehicleUsage.Id,
                     EmployeeId = request.ModifiedVehicleUsage.EmployeeId,
+                    EmployeeName = request.ModifiedVehicleUsage.EmployeeName,
+                    EmployeeEmail = request.ModifiedVehicleUsage.EmployeeEmail,
                     DateFrom = request.ModifiedVehicleUsage.DateFrom,
                     DateTo = request.ModifiedVehicleUsage.DateTo,
                     Note = request.ModifiedVehicleUsage.Note,

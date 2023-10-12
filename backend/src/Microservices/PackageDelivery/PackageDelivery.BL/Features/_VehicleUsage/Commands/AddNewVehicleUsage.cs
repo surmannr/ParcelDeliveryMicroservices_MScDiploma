@@ -35,6 +35,8 @@ namespace PackageDelivery.BL.Features._VehicleUsage.Commands
                 var vehicleUsage = new VehicleUsage()
                 {
                     EmployeeId = request.NewVehicleUsage.EmployeeId,
+                    EmployeeName = request.NewVehicleUsage.EmployeeName,
+                    EmployeeEmail = request.NewVehicleUsage.EmployeeEmail,
                     DateFrom = request.NewVehicleUsage.DateFrom,
                     DateTo = request.NewVehicleUsage.DateTo,
                     Note = request.NewVehicleUsage.Note,

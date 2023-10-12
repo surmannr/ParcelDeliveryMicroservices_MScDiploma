@@ -63,7 +63,7 @@ export class AddNewVehicleComponent {
       maxInternalSpaceY: this.newVehicleForm.get('maxInternalSpaceY')?.value!,
       maxInternalSpaceZ: this.newVehicleForm.get('maxInternalSpaceZ')?.value!,
     };
-    console.log(vehicle);
+
     const dialog = this.bottomSheet.open(SaveDialogSheetComponent);
 
     dialog.afterDismissed().subscribe((result) => {

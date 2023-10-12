@@ -4,13 +4,13 @@
  */
 
 import { AddressDto } from "./address-dto";
-import { Status } from "../_models/status";
+import { Status } from "./status";
 import { PaymentOptionDto } from "./payment-option-dto";
 import { ShippingOptionDto } from "./shipping-option-dto";
 import { BillingDto } from "./billing-dto";
 import { PackageDto } from "./package-dto";
 
-export interface ShippingRequestDto {
+export class ShippingRequestDto {
     id: string | undefined;
     userId: string | undefined;
     name: string | undefined;

@@ -6,6 +6,8 @@
 export interface NewVehicleUsageDto {
     id: string | undefined;
     employeeId: string | undefined;
+    employeeName: string | undefined;
+    employeeEmail: string | undefined;
     vehicleId: string | undefined;
     dateFrom: Date | undefined;
     dateTo: Date | undefined;
