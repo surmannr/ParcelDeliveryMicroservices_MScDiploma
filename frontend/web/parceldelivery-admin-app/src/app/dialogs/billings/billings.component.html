@@ -1,0 +1,13 @@
+<h1 *ngIf="!billing" mat-dialog-title>Nincs megjelenítendő számla.</h1>
+<h1 *ngIf="billing" mat-dialog-title>Név: {{ billing.name }}</h1>
+<div *ngIf="billing" mat-dialog-content>
+  <p class="h2">Számlaazonosító: #{{ billing.id }}</p>
+  <p class="h5">Távolság a két cél között: {{ billing.totalDistance }}km</p>
+  <p class="h5">
+    Fizetendő összeg: {{ billing.totalAmount }}
+    {{ billing.currency?.name ?? "Ft" }}
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeClick()">Kilépés</button>
+</div>

@@ -21,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,6 +53,11 @@ import {
   NgxMaskPipe,
   provideEnvironmentNgxMask,
 } from 'ngx-mask';
+import { AddressPipe } from './pipes/address.pipe';
+import { AddressFilterComponent } from './components/filter/address-filter/address-filter.component';
+import { StatusPipe } from './pipes/status.pipe';
+import { StatusEditComponent } from './components/edit/status-edit/status-edit.component';
+import { BillingsComponent } from './dialogs/billings/billings.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +79,11 @@ import {
     DeleteDialogSheetComponent,
     AddNewVehicleusageComponent,
     NumberFilterComponent,
+    AddressPipe,
+    AddressFilterComponent,
+    StatusPipe,
+    StatusEditComponent,
+    BillingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +115,7 @@ import {
     MatCardModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatDialogModule,
   ],
   providers: [provideEnvironmentNgxMask()],
   bootstrap: [AppComponent],

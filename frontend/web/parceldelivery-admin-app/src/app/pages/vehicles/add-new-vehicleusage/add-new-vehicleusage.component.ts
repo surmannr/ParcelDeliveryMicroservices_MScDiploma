@@ -54,8 +54,7 @@ export class AddNewVehicleusageComponent implements OnInit {
       employeeId: '',
       employeeName: '',
     };
-    console.log(vehicle);
-    console.log(vehicleUsage);
+
     const dialog = this.bottomSheet.open(SaveDialogSheetComponent);
 
     dialog.afterDismissed().subscribe((result) => {

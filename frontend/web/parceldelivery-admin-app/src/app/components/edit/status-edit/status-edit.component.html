@@ -1,0 +1,41 @@
+<button
+  mat-stroked-button
+  class="btn-toggle"
+  [matMenuTriggerFor]="menu"
+  (click)="$event.stopPropagation()"
+>
+  <p class="m-2">{{ status | status }}</p>
+</button>
+
+<mat-menu #menu>
+  <div mat-menu-item mat-filter-item [disableRipple]="true" class="menu-title">
+    <p class="h5">Státusz módosítása</p>
+  </div>
+
+  <div
+    class="mb-2"
+    mat-menu-item
+    mat-filter-item
+    [disableRipple]="true"
+    (click)="$event.stopPropagation()"
+  >
+    <mat-form-field class="w-100">
+      <mat-label>Státusz kiválasztása</mat-label>
+      <mat-select [(ngModel)]="newStatus">
+        <mat-option *ngFor="let a_status of availableStatus" [value]="a_status">
+          {{ a_status | status }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div
+    mat-menu-item
+    mat-filter-item
+    [disableRipple]="true"
+    (click)="$event.stopPropagation()"
+    class="d-flex justify-content-around w-100"
+  >
+    <button mat-raised-button color="primary" (click)="save()">Mentés</button>
+  </div>
+</mat-menu>

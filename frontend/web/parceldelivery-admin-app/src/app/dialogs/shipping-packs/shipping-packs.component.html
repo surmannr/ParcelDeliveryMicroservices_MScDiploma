@@ -1,1 +1,58 @@
-<p>shipping-packs works!</p>
+<h1 *ngIf="packages.length === 0" mat-dialog-title>
+  Nincs megjelenítendő csomagok.
+</h1>
+<h1 *ngIf="packages.length !== 0" mat-dialog-title>Csomagok</h1>
+<div *ngIf="packages.length !== 0" mat-dialog-content>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="this.dataSource" matSort #sort="matSort">
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Csomagazonosító
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <!-- SizeX Column -->
+      <ng-container matColumnDef="sizeX">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Méret (X)</th>
+        <td mat-cell *matCellDef="let element">{{ element.sizeX }} m</td>
+      </ng-container>
+
+      <!-- SizeY Column -->
+      <ng-container matColumnDef="sizeY">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Méret (Y)</th>
+        <td mat-cell *matCellDef="let element">{{ element.sizeY }} m</td>
+      </ng-container>
+
+      <!-- SizeZ Column -->
+      <ng-container matColumnDef="sizeZ">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Méret (Z)</th>
+        <td mat-cell *matCellDef="let element">{{ element.sizeZ }} m</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Súly</th>
+        <td mat-cell *matCellDef="let element">{{ element.weight }} kg</td>
+      </ng-container>
+
+      <!-- IsFragile Column -->
+      <ng-container matColumnDef="isFragile">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Törékeny?</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox
+            [(ngModel)]="element.isFragile"
+            [disabled]="true"
+          ></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeClick()">Kilépés</button>
+</div>

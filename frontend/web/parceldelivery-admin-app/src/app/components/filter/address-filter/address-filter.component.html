@@ -1,0 +1,95 @@
+<button
+  mat-icon-button
+  [color]="
+    street != undefined ||
+    country != undefined ||
+    city != undefined ||
+    zipCode != undefined
+      ? 'warn'
+      : ''
+  "
+  class="btn-toggle"
+  [matMenuTriggerFor]="menu"
+  (click)="$event.stopPropagation()"
+>
+  <mat-icon>filter_list</mat-icon>
+</button>
+
+<mat-menu #menu>
+  <div mat-menu-item mat-filter-item [disableRipple]="true" class="menu-title">
+    <p class="h5">{{ title }} szűrése</p>
+  </div>
+
+  <div
+    class="mb-2"
+    mat-menu-item
+    mat-filter-item
+    [disableRipple]="true"
+    (click)="$event.stopPropagation()"
+  >
+    <mat-form-field>
+      <mat-label>Ország</mat-label>
+      <input matInput placeholder="Szűrési feltétel" [(ngModel)]="country" />
+    </mat-form-field>
+  </div>
+
+  <div
+    class="mb-2"
+    mat-menu-item
+    mat-filter-item
+    [disableRipple]="true"
+    (click)="$event.stopPropagation()"
+  >
+    <mat-form-field>
+      <mat-label>Város</mat-label>
+      <input matInput placeholder="Szűrési feltétel" [(ngModel)]="city" />
+    </mat-form-field>
+  </div>
+
+  <div
+    class="mb-2"
+    mat-menu-item
+    mat-filter-item
+    [disableRipple]="true"
+    (click)="$event.stopPropagation()"
+  >
+    <mat-form-field>
+      <mat-label>Irányítószám</mat-label>
+      <input
+        matInput
+        placeholder="Szűrési feltétel"
+        [(ngModel)]="zipCode"
+        type="number"
+        [showMaskTyped]="true"
+        [dropSpecialCharacters]="false"
+        mask="0000"
+      />
+    </mat-form-field>
+  </div>
+
+  <div
+    class="mb-2"
+    mat-menu-item
+    mat-filter-item
+    [disableRipple]="true"
+    (click)="$event.stopPropagation()"
+  >
+    <mat-form-field>
+      <mat-label>Utca</mat-label>
+      <input matInput placeholder="Szűrési feltétel" [(ngModel)]="street" />
+    </mat-form-field>
+  </div>
+
+  <div
+    mat-menu-item
+    mat-filter-item
+    [disableRipple]="true"
+    (click)="$event.stopPropagation()"
+    class="d-flex justify-content-around w-100"
+  >
+    <button mat-raised-button (click)="clear()">Törlés</button> &nbsp;
+    <button mat-raised-button color="primary" (click)="applyFilter()">
+      Szűrés
+    </button>
+  </div>
+</mat-menu>
