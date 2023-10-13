@@ -57,6 +57,25 @@
 
   <mat-nav-list class="list-horizontal">
     <mat-list-item>
+      <button mat-menu-item [matMenuTriggerFor]="othermenu">Egyéb</button>
+    </mat-list-item>
+    <mat-menu #othermenu="matMenu" [overlapTrigger]="false">
+      <div class="d-flex flex-column">
+        <a mat-button routerLink="others/currency">
+          <span>Pénznemek</span>
+        </a>
+        <a mat-button routerLink="others/payment-option">
+          <span>Fizetési módok</span>
+        </a>
+        <a mat-button routerLink="others/shipping-option">
+          <span>Szállítási módok</span>
+        </a>
+      </div>
+    </mat-menu>
+  </mat-nav-list>
+
+  <mat-nav-list class="list-horizontal">
+    <mat-list-item>
       <button mat-menu-item (click)="logout()">Kijelentkezés</button>
     </mat-list-item>
   </mat-nav-list>

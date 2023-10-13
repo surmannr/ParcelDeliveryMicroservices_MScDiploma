@@ -1,0 +1,14 @@
+<h1 *ngIf="currency.id === 0" mat-dialog-title>Új pénznem felvétele</h1>
+<h1 *ngIf="currency.id !== 0" mat-dialog-title>Meglévő pénznem módosítása</h1>
+<div mat-dialog-content>
+  <mat-form-field class="w-100">
+    <mat-label>Pénznem neve</mat-label>
+    <input matInput placeholder="Pénznem" [(ngModel)]="currency.name" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="editOrAdd(currency)" color="primary">
+    Mentés
+  </button>
+  <button mat-button (click)="closeClick()">Mégse</button>
+</div>

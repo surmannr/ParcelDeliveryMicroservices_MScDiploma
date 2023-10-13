@@ -1,0 +1,31 @@
+<h1 *ngIf="shippingOption.id === 0" mat-dialog-title>
+  Új szállítási mód felvétele
+</h1>
+<h1 *ngIf="shippingOption.id !== 0" mat-dialog-title>
+  Meglévő szállítási mód módosítása
+</h1>
+<div mat-dialog-content>
+  <mat-form-field class="w-100 mb-3">
+    <mat-label>Szállítási mód neve</mat-label>
+    <input
+      matInput
+      placeholder="Szállítási mód"
+      [(ngModel)]="shippingOption.name"
+    />
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <mat-label>Szállítási mód ára</mat-label>
+    <input
+      matInput
+      placeholder="Szállítási ár"
+      [(ngModel)]="shippingOption.price"
+      type="number"
+    />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="editOrAdd(shippingOption)" color="primary">
+    Mentés
+  </button>
+  <button mat-button (click)="closeClick()">Mégse</button>
+</div>

@@ -59,6 +59,12 @@ import { StatusPipe } from './pipes/status.pipe';
 import { StatusEditComponent } from './components/edit/status-edit/status-edit.component';
 import { BillingsComponent } from './dialogs/billings/billings.component';
 import { ShippingsComponent } from './dialogs/shippings/shippings.component';
+import { CurrencyComponent } from './pages/others/currency/currency.component';
+import { PaymentMethodComponent } from './pages/others/payment-method/payment-method.component';
+import { ShippingMethodComponent } from './pages/others/shipping-method/shipping-method.component';
+import { CurrencyEditComponent } from './components/edit/currency-edit/currency-edit.component';
+import { PaymentMethodEditComponent } from './components/edit/payment-method-edit/payment-method-edit.component';
+import { ShippingMethodEditComponent } from './components/edit/shipping-method-edit/shipping-method-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +92,12 @@ import { ShippingsComponent } from './dialogs/shippings/shippings.component';
     StatusEditComponent,
     BillingsComponent,
     ShippingsComponent,
+    CurrencyComponent,
+    PaymentMethodComponent,
+    ShippingMethodComponent,
+    CurrencyEditComponent,
+    PaymentMethodEditComponent,
+    ShippingMethodEditComponent,
   ],
   imports: [
     BrowserModule,
