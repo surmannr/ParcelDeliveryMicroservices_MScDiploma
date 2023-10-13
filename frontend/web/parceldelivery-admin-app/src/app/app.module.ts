@@ -58,6 +58,7 @@ import { AddressFilterComponent } from './components/filter/address-filter/addre
 import { StatusPipe } from './pipes/status.pipe';
 import { StatusEditComponent } from './components/edit/status-edit/status-edit.component';
 import { BillingsComponent } from './dialogs/billings/billings.component';
+import { ShippingsComponent } from './dialogs/shippings/shippings.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,6 +85,7 @@ import { BillingsComponent } from './dialogs/billings/billings.component';
     StatusPipe,
     StatusEditComponent,
     BillingsComponent,
+    ShippingsComponent,
   ],
   imports: [
     BrowserModule,

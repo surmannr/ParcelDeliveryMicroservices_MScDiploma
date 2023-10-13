@@ -1,0 +1,93 @@
+<h1 *ngIf="shippingRequests.length === 0" mat-dialog-title>
+  Nincsenek megjelenítendő csomagfeladások.
+</h1>
+<h1 *ngIf="shippingRequests.length !== 0" mat-dialog-title>Csomagfeladások</h1>
+<div *ngIf="shippingRequests.length !== 0" mat-dialog-content>
+  <div class="mat-elevation-z8 table-responsive">
+    <table mat-table [dataSource]="this.dataSource" matSort #sort="matSort">
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Rendelés azonosító
+        </th>
+        <td mat-cell *matCellDef="let element">#{{ element.id }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Név</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- AddressFrom Column -->
+      <ng-container matColumnDef="addressFrom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Honnan</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.addressFrom | address }}
+        </td>
+      </ng-container>
+
+      <!-- AddressTo Column -->
+      <ng-container matColumnDef="addressTo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Hová</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.addressTo | address }}
+        </td>
+      </ng-container>
+
+      <!-- IsExpress Column -->
+      <ng-container matColumnDef="isExpress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Express?</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox
+            [(ngModel)]="element.isExpress"
+            [disabled]="true"
+          ></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- IsFinished Column -->
+      <ng-container matColumnDef="isFinished">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Kézbesítve?</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox
+            [(ngModel)]="element.isFinished"
+            [disabled]="true"
+          ></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Státusz</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.status | status }}
+        </td>
+      </ng-container>
+
+      <!-- PaymentOption Column -->
+      <ng-container matColumnDef="paymentOption">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fizetési mód</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.paymentOption.name }}
+        </td>
+      </ng-container>
+
+      <!-- ShippingOption Column -->
+      <ng-container matColumnDef="shippingOption">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Szállítási mód
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.shippingOption.name }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeClick()">Kilépés</button>
+</div>

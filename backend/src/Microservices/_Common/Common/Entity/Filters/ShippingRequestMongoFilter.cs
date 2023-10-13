@@ -46,7 +46,12 @@ namespace Common.Entity.Filters
             }
             if (!string.IsNullOrEmpty(StatusName))
             {
-                filter = filter & builder.Regex(x => x.Status.GetDisplayName(), BsonRegularExpression.Create(Regex.Escape(StatusName)));
+                var statuses = Enum.GetValues(typeof(Status)).Cast<Status>();
+                var status = statuses.FirstOrDefault(x => x.GetDisplayName() == StatusName);
+                if (status != null)
+                {
+                    filter = filter & builder.Eq(x => x.Status, status);
+                }
             }
 
             // Bool values

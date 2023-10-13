@@ -113,6 +113,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
+      - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
       - ConnectionStrings:DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_EmployeesDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
     depends_on:
       - users.mssqldb
@@ -128,6 +129,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
+      - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
       - ConnectionStrings:DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_CustomersDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
     depends_on:
       - users.mssqldb

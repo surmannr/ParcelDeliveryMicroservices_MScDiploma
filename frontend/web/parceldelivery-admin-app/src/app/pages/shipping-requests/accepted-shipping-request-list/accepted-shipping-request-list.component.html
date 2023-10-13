@@ -1,1 +1,111 @@
-<p>accepted-shipping-request-list works!</p>
+<p class="h2 mb-3">Kézbesítendő csomagok</p>
+
+<div class="mat-elevation-z8 table-responsive">
+  <table mat-table [dataSource]="this.dataSource" matSort #sort="matSort">
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Kézbesítés azonosító
+      </th>
+      <td mat-cell *matCellDef="let element">#{{ element.id }}</td>
+    </ng-container>
+
+    <!-- EmployeeName Column -->
+    <ng-container matColumnDef="employeeName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Futár neve
+        <app-string-filter
+          title="Futár"
+          [(value)]="filter.employeeName"
+          (filter)="load()"
+        ></app-string-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.employeeName }}</td>
+    </ng-container>
+
+    <!-- EmployeeEmail Column -->
+    <ng-container matColumnDef="employeeEmail">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Futár email címe
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.employeeEmail }}</td>
+    </ng-container>
+
+    <!-- Vehicle Column -->
+    <ng-container matColumnDef="vehicle">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Jármű</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.vehicle.registrationNumber }} ( {{ element.vehicle.type }} )
+      </td>
+    </ng-container>
+
+    <!-- Packages Column -->
+    <ng-container matColumnDef="packages">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Csomagok</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="warn" (click)="openPackages(element)">
+          Megtekintés
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- ShippingRequests Column -->
+    <ng-container matColumnDef="shippingRequests">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Csomagfeladások</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="warn" (click)="openShippings(element)">
+          Megtekintés
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- IsAllPackageTaken Column -->
+    <ng-container matColumnDef="isAllPackageTaken">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Összes csomag kézbesítve?
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          [(ngModel)]="element.isAllPackageTaken"
+          [disabled]="true"
+        ></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- IsAssignedToEmployee Column -->
+    <ng-container matColumnDef="isAssignedToEmployee">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Futárhoz rendelve?
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          [(ngModel)]="element.isAssignedToEmployee"
+          [disabled]="true"
+        ></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- ReadPackageIds Column -->
+    <ng-container matColumnDef="readPackageIds">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Futár által beolvasott csomagazonosítók
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.readPackageIds.join(",") }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+  <mat-paginator
+    showFirstLastButtons
+    #paginator
+    [length]="acceptedShippingRequests?.totalCount"
+    [pageSize]="pageSize"
+  >
+  </mat-paginator>
+</div>

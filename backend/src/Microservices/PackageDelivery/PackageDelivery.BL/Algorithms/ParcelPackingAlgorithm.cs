@@ -45,8 +45,6 @@ namespace PackageDelivery.BL.Algorithms
             var shippingRequests = await _mediator.Send(new GetAllShippingRequests.Query()
             {
                 PageSize = 0,
-                MinDateOfDispatch = date.AddDays(-2),
-                MaxDateOfDispatch = date.AddDays(1),
                 IsFinished = false,
                 StatusName = Status.Packing.GetDisplayName()
             });
