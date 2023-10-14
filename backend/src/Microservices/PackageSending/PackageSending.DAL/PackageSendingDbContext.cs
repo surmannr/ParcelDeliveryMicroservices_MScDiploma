@@ -5,16 +5,21 @@ namespace PackageSending.DAL
 {
     public class PackageSendingDbContext : DbContext
     {
-        public DbSet<Billing> Billings { get; set; }
-        public DbSet<Currency> Currencies { get; set; }
-        public DbSet<Package> Packages { get; set; }
-        public DbSet<PaymentOption> PaymentOptions { get; set; }
-        public DbSet<ShippingOption> ShippingOptions { get; set; }
-        public DbSet<ShippingRequest> ShippingRequests { get; set; }
+        public virtual DbSet<Billing> Billings { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<Package> Packages { get; set; }
+        public virtual DbSet<PaymentOption> PaymentOptions { get; set; }
+        public virtual DbSet<ShippingOption> ShippingOptions { get; set; }
+        public virtual DbSet<ShippingRequest> ShippingRequests { get; set; }
 
         public PackageSendingDbContext(DbContextOptions<PackageSendingDbContext> options)
             : base(options)
         {
+        }
+
+        public PackageSendingDbContext()
+        {
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

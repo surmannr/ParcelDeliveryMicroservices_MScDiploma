@@ -12,7 +12,6 @@ namespace PackageDelivery.Tests.UnitTests
         private readonly Mock<IVehicleRepository> _mockRepo;
 
         private readonly string byId = "vehicleID1";
-        private readonly string employeeId = "tesztuserid";
         private readonly Vehicle element = MockVehicleRepository.Vehicles.First();
 
         public VehicleUnitTests() : base()

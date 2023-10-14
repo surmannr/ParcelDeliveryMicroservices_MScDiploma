@@ -30,6 +30,7 @@ namespace PackageSending.BL.Features._Billing.Queries
             {
                 var billing = await _dbContext
                     .Billings
+                    .Include(b => b.Currency)
                     .FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (billing == null) throw new NotFoundException("Nincs ilyen számla a megadott azonosító alapján!");

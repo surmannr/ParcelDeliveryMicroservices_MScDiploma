@@ -28,6 +28,11 @@ namespace PackageSending.BL.Features._ShipRequest.Queries
             public async Task<PagedResponse<ShippingRequestDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 return await _dbContext.ShippingRequests
+                    .Include(x => x.PaymentOption)
+                    .Include(x => x.ShippingOption)
+                    .Include(x => x.AddressFrom)
+                    .Include(x => x.AddressTo)
+                    .Include(x => x.Billing)
                     .ExecuteFilterAndOrder(request)
                     .ProjectTo<ShippingRequestDto>(_mapper.ConfigurationProvider)
                     .ToPagedListAsync(request);

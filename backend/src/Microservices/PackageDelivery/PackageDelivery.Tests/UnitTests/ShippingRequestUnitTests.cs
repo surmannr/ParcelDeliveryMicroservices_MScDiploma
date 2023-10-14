@@ -13,7 +13,6 @@ namespace PackageDelivery.Tests.UnitTests
         private readonly Mock<IShippingRequestRepository> _mockRepo;
 
         private readonly string byId = "shipID1";
-        private readonly string employeeId = "tesztuserid";
         private readonly ShippingRequest element = MockShippingRequestRepository.ShippingRequests.First();
 
         public ShippingRequestUnitTests() : base()
