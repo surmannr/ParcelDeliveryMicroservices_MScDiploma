@@ -19,6 +19,7 @@ namespace PackageDelivery.BL.Extensions.Mapper
             CreateMap<Package, PackageDto>().ReverseMap();
             CreateMap<Vehicle, VehicleDto>().ReverseMap();
             CreateMap<VehicleUsage, VehicleUsageDto>().ReverseMap();
+            CreateMap<VehicleUsage, NewVehicleUsageDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<PaymentOption, PaymentOptionDto>().ReverseMap();
             CreateMap<ShippingOption, ShippingOptionDto>().ReverseMap();
