@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Common.Paging;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageDelivery.BL.Dto;
 using PackageDelivery.BL.Features._AcceptedShipRequest.Queries;
@@ -12,6 +13,7 @@ namespace PackageDelivery.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VehicleController : ControllerBase
     {
         private readonly IMediator _mediator;

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Common.Dto;
 using Common.Entity.Filters;
-using Common.Paging;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageDelivery.BL.Features._ShippingRequest.Commands;
 using PackageDelivery.BL.Features._ShippingRequest.Queries;
@@ -11,6 +11,7 @@ namespace PackageDelivery.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ShippingRequestController : ControllerBase
     {
         private readonly IMediator _mediator;

@@ -1,16 +1,12 @@
 using Autofac;
-using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
-using Common.Entity;
 using Common.Extension.CQRS;
-using Common.Serializers;
 using EventBus.Messages.Common;
 using FluentValidation;
 using Hangfire;
 using Hangfire.SqlServer;
 using MassTransit;
 using MediatR;
-using System.Data.SqlClient;
 using PackageDelivery.API;
 using PackageDelivery.API.EventBusConsumer;
 using PackageDelivery.BL.Algorithms;
@@ -21,8 +17,12 @@ using PackageDelivery.BL.Services;
 using PackageDelivery.DAL;
 using PackageDelivery.DAL.Repositories;
 using System.Reflection;
-using MongoDB.Driver.Core.Configuration;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -130,6 +130,32 @@ builder.Services.AddMassTransit(config =>
 builder.Services.AddScoped<AssignEmployeesConsumer>();
 #endregion
 
+#region Authentication
+//JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+           .AddJwtBearer(options =>
+           {
+               options.Authority = "http://localhost:5001";
+               options.Audience = "apiResource";
+               options.RequireHttpsMetadata = false;
+
+               options.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateAudience = false
+               };
+
+               // it's recommended to check the type header to avoid "JWT confusion" attacks
+               options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+           });
+
+builder.Services.AddAuthorization(options => options.AddPolicy("ApiScope", policy =>
+{
+    policy.RequireAuthenticatedUser();
+    //policy.RequireClaim("scope", "employeesApi");
+}));
+
+#endregion
+
 //BsonSerializer.RegisterSerializer(typeof(Address), new AddressSerializer());
 //BsonSerializer.RegisterSerializer(typeof(PaymentOption), new PaymentOptionSerializer());
 //BsonSerializer.RegisterSerializer(typeof(ShippingOption), new ShippingOptionSerializer());
@@ -147,6 +173,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseStaticFiles();
+app.UseRouting();
 
 app.UseCors("CorsPolicy");
 
@@ -156,10 +184,15 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
 });
 RecurringJob.AddOrUpdate<ISchedulingService>((schedulingService) => schedulingService.Schedule(), Cron.Daily, queue: "algorithm");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapControllers();
+});
 
 app.Run();

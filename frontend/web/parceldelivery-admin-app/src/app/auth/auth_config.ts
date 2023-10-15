@@ -11,7 +11,7 @@ export const authCodeFlowConfig: AuthConfig = {
 
   // The SPA's id. The SPA is registerd with this id at the auth-server
   // clientId: 'server.code',
-  clientId: 'angular-client',
+  clientId: 'angularclient',
   dummyClientSecret:
     'f8b4f7f5dcf949cf25249a5cb303b8c98bbed806acc0cca74e7cb2062eca8344',
   // Just needed if your auth server demands a secret. In general, this
@@ -26,7 +26,7 @@ export const authCodeFlowConfig: AuthConfig = {
   // The first four are defined by OIDC.
   // Important: Request offline_access to get a refresh token
   // The api scope is a usecase specific one
-  scope: 'openid profile',
+  scope: 'openid profile employeeApi',
 
   oidc: true,
   requireHttps: false,

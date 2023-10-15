@@ -30,9 +30,10 @@ namespace Employees.API
                     options.Events.RaiseSuccessEvents = true;
 
                     // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
-                    options.EmitStaticAudienceClaim = true;
+                    //options.EmitStaticAudienceClaim = true;
                 })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiResources(Config.ApiResources(builder.Configuration))
                 .AddInMemoryApiScopes(Config.ApiScopes(builder.Configuration))
                 .AddInMemoryClients(Config.Clients(builder.Configuration))
                 .AddAspNetIdentity<Employee>()

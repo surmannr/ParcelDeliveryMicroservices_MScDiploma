@@ -14,8 +14,8 @@ namespace Employees.API
                 new IdentityResources.Profile(),
             };
 
-        public static IEnumerable<ApiScope> ApiScopes(IConfiguration configuration) =>
-            new ApiScope[]
+        public static IEnumerable<ApiScope> ApiScopes(IConfiguration configuration) { 
+            var apiScopes = new ApiScope[]
             {
                 new ApiScope(
                     name: configuration["Identity:ApiScope:ApiScopeName"],
@@ -30,6 +30,19 @@ namespace Employees.API
                         }
                     )
             };
+
+            return apiScopes;
+        }
+            
+
+        public static IEnumerable<ApiResource> ApiResources(IConfiguration configuration) =>
+           new ApiResource[]
+           {
+                new ApiResource("apiResource", "Api Resource")
+                {
+                    Scopes = { configuration["Identity:ApiScope:ApiScopeName"] }
+                },
+           };
 
         public static IEnumerable<Client> Clients(IConfiguration configuration) =>
             new List<Client>
@@ -54,7 +67,7 @@ namespace Employees.API
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        configuration["ApiScope:ApiScopeName"],
+                        configuration["Identity:ApiScope:ApiScopeName"],
                     },
                     AllowedCorsOrigins =
                     {
@@ -74,6 +87,8 @@ namespace Employees.API
                             configuration["Identity:RedirectUris:SPA:local"],
                             configuration["Identity:RedirectUris:SPA:employee"],
                             configuration["Identity:RedirectUris:SPA:frontend"],
+                            "https://oauth.pstmn.io/v1/callback",
+                            "https://oauth.pstmn.io/v1/browser-callback",
                         },
 
                         // where to redirect to after logout
@@ -82,6 +97,8 @@ namespace Employees.API
                             configuration["Identity:PostLogoutRedirectUris:SPA:local"],
                             configuration["Identity:PostLogoutRedirectUris:SPA:employee"],
                             configuration["Identity:PostLogoutRedirectUris:SPA:frontend"],
+                            "https://oauth.pstmn.io/v1/callback",
+                            "https://oauth.pstmn.io/v1/browser-callback",
                         },
 
                         RequirePkce = true,
@@ -90,13 +107,14 @@ namespace Employees.API
                         {
                             IdentityServerConstants.StandardScopes.OpenId,
                             IdentityServerConstants.StandardScopes.Profile,
-                            configuration["ApiScope:ApiScopeName"],
+                            configuration["Identity:ApiScope:ApiScopeName"],
                         },
                         AllowedCorsOrigins = 
                         {
                             configuration["Identity:Cors:SPA:local"],
                             configuration["Identity:Cors:SPA:employee"],
                             configuration["Identity:Cors:SPA:frontend"],
+                            "https://oauth.pstmn.io",
                         },
                     },
                 new Client
@@ -119,7 +137,7 @@ namespace Employees.API
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        configuration["ApiScope:ApiScopeName"],
+                        configuration["Identity:ApiScope:ApiScopeName"],
                     },
                 }
             };

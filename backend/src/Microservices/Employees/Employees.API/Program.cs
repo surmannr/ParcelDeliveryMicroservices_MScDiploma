@@ -78,7 +78,7 @@ try
     Log.Information("Seeding database...");
     SeedData.EnsureSeedData(app);
     Log.Information("Done seeding database. Exiting.");
-
+    
     app.UseCors("CorsPolicy");
 
     app.MapControllers();

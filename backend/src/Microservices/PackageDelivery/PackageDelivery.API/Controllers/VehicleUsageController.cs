@@ -1,21 +1,17 @@
 ﻿using AutoMapper;
-using Common.Paging;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageDelivery.BL.Dto;
-using PackageDelivery.BL.Features._AcceptedShipRequest.Queries;
-using PackageDelivery.BL.Features._Vehicle.Queries;
 using PackageDelivery.BL.Features._VehicleUsage.Commands;
 using PackageDelivery.BL.Features._VehicleUsage.Queries;
-using PackageDelivery.DAL.Entities;
 using PackageDelivery.DAL.Entities.Filters;
-using PackageDelivery.DAL.Repositories;
 
 namespace PackageDelivery.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VehicleUsageController : ControllerBase
     {
         private readonly IMediator _mediator;
