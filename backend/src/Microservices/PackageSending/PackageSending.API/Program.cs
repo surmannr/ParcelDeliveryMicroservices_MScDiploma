@@ -5,8 +5,11 @@ using Common.Extension.CQRS;
 using FluentValidation;
 using MassTransit;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.IdentityModel.Tokens;
 using PackageSending.BL.Extensions.Mapper;
 using PackageSending.BL.Features._Package.Queries;
 using PackageSending.DAL;
@@ -65,6 +68,69 @@ builder.Services.AddMassTransit(config =>
 });
 #endregion
 
+#region Authentication
+//JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+builder.Services.AddAuthentication("CustomerServer")
+           .AddJwtBearer("EmployeeServer", options =>
+           {
+               options.Authority = builder.Configuration["EmployeeIdentity:Authority"]; ;
+               options.Audience = builder.Configuration["EmployeeIdentity:Audience"];
+               options.RequireHttpsMetadata = false;
+
+               options.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateAudience = false
+               };
+
+               options.Events = new JwtBearerEvents()
+               {
+                   OnAuthenticationFailed = (context) =>
+                   {
+                       context.NoResult();
+                       return Task.CompletedTask;
+                   }
+               };
+
+               // it's recommended to check the type header to avoid "JWT confusion" attacks
+               options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+           })
+           .AddJwtBearer("CustomerServer", options =>
+           {
+               options.Authority = builder.Configuration["CustomerIdentity:Authority"]; ;
+               options.Audience = builder.Configuration["CustomerIdentity:Audience"];
+               options.RequireHttpsMetadata = false;
+
+               options.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateAudience = false
+               };
+
+               options.Events = new JwtBearerEvents()
+               {
+                   OnAuthenticationFailed = (context) =>
+                   {
+                       context.NoResult();
+                       return Task.CompletedTask;
+                   }
+               };
+
+               // it's recommended to check the type header to avoid "JWT confusion" attacks
+               options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+           });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ApiScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "customersApi", "employeeApi");
+    });
+
+    options.DefaultPolicy = options.GetPolicy("ApiScope") ?? new AuthorizationPolicyBuilder().Build();
+});
+
+#endregion
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -85,13 +151,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseStaticFiles();
+app.UseRouting();
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapControllers();
+});
 
 app.Run();

@@ -98,7 +98,7 @@
         }
       ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "",
+        "AuthenticationProviderKey": "EmployeeServer",
         "AllowedScopes": []
       },
       "DangerousAcceptAnyServerCertificateValidator": true,

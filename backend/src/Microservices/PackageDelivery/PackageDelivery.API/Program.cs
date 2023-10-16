@@ -23,6 +23,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -114,6 +115,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 builder.Services.AddMassTransit(config =>
 {
     config.AddConsumer<AssignEmployeesConsumer>();
+    config.AddConsumer<SendingPackageConsumer>();
     config.UsingRabbitMq((ctx, cfg) =>
     {
         cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
@@ -122,12 +124,18 @@ builder.Services.AddMassTransit(config =>
         {
             c.ConfigureConsumer<AssignEmployeesConsumer>(ctx);
         });
+
+        cfg.ReceiveEndpoint(EventBusConstants.SendingPackageQueue, c =>
+        {
+            c.ConfigureConsumer<SendingPackageConsumer>(ctx);
+        });
     });
 });
 #endregion
 
 #region Consumers 
 builder.Services.AddScoped<AssignEmployeesConsumer>();
+builder.Services.AddScoped<SendingPackageConsumer>();
 #endregion
 
 #region Authentication
@@ -135,8 +143,8 @@ builder.Services.AddScoped<AssignEmployeesConsumer>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
            .AddJwtBearer(options =>
            {
-               options.Authority = "http://localhost:5001";
-               options.Audience = "apiResource";
+               options.Authority = builder.Configuration["EmployeeIdentity:Authority"]; ;
+               options.Audience = builder.Configuration["EmployeeIdentity:Audience"];
                options.RequireHttpsMetadata = false;
 
                options.TokenValidationParameters = new TokenValidationParameters
@@ -148,11 +156,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
            });
 
-builder.Services.AddAuthorization(options => options.AddPolicy("ApiScope", policy =>
+builder.Services.AddAuthorization(options =>
 {
-    policy.RequireAuthenticatedUser();
-    //policy.RequireClaim("scope", "employeesApi");
-}));
+    options.AddPolicy("EmployeeScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "employeeApi");
+    });
+
+    options.DefaultPolicy = options.GetPolicy("EmployeeScope") ?? new AuthorizationPolicyBuilder().Build();
+});
 
 #endregion
 

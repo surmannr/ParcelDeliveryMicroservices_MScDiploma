@@ -20,7 +20,8 @@ namespace Customers.API
 
             builder.Services.AddIdentity<Customer, IdentityRole>()
                 .AddEntityFrameworkStores<CustomersDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddClaimsPrincipalFactory<MyClaimsPrincipalFactory>();
 
             builder.Services
                 .AddIdentityServer(options =>
@@ -30,13 +31,17 @@ namespace Customers.API
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
 
+                    options.IssuerUri = builder.Configuration["IssueUri"];
+
                     // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
-                    options.EmitStaticAudienceClaim = true;
+                    //options.EmitStaticAudienceClaim = true;
                 })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiResources(Config.ApiResources(builder.Configuration))
                 .AddInMemoryApiScopes(Config.ApiScopes(builder.Configuration))
                 .AddInMemoryClients(Config.Clients(builder.Configuration))
-                .AddAspNetIdentity<Customer>();
+                .AddAspNetIdentity<Customer>()
+                .AddProfileService<ProfileService>();
 
             builder.Services.AddAuthentication()
                 .AddGoogle(options =>

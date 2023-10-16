@@ -60,10 +60,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - DatabaseSettings:ConnectionString=mongodb://packagedelivery_mongodb:27017
-      - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
-      - ConnectionStrings:HangfireConnection=Server=users_mssqldb;Database=ParcelDelivery_SchedulerDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
-      - ConnectionStrings:HangfireConnectionCreateDb=Server=users_mssqldb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
+      - DatabaseSettings__ConnectionString=mongodb://packagedelivery_mongodb:27017
+      - EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672
+      - ConnectionStrings__HangfireConnection=Server=users_mssqldb;Database=ParcelDelivery_SchedulerDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
+      - ConnectionStrings__HangfireConnectionCreateDb=Server=users_mssqldb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
+      - EmployeeIdentity__Authority=http://host.docker.internal:5001
+      - CustomerIdentity__Authority=http://host.docker.internal:5002
     depends_on:
       - packagedelivery.mongodb
       - rabbitmq
@@ -79,8 +81,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - CacheSettings:ConnectionString=packagetracking_redisdb:6379
-      - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
+      - CacheSettings__ConnectionString=packagetracking_redisdb:6379
+      - EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672
+      - EmployeeIdentity__Authority=http://host.docker.internal:5001
+      - CustomerIdentity__Authority=http://host.docker.internal:5002
     depends_on:
       - packagetracking.redisdb
       - rabbitmq
@@ -96,8 +100,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings:DefaultConnection=Server=packagesending_postgresql;Port=5432;Database=PackageSendingDb;User Id=admin;Password=admin1234;
-      - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
+      - ConnectionStrings__DefaultConnection=Server=packagesending_postgresql;Port=5432;Database=PackageSendingDb;User Id=admin;Password=admin1234;
+      - EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672
+      - EmployeeIdentity__Authority=http://host.docker.internal:5001
+      - CustomerIdentity__Authority=http://host.docker.internal:5002
     depends_on:
       - packagesending.postgresql
       - rabbitmq
@@ -113,10 +119,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
-      - ConnectionStrings:DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_EmployeesDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
+      - EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672
+      - IssueUri=http://host.docker.internal:5001
+      - ConnectionStrings__DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_EmployeesDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
     depends_on:
       - users.mssqldb
+      - rabbitmq
     ports:
       - "5001:80"
     volumes:
@@ -129,8 +137,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
-      - ConnectionStrings:DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_CustomersDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
+      - EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672
+      - IssueUri=http://host.docker.internal:5002
+      - ConnectionStrings__DefaultConnection=Server=users_mssqldb;Database=ParcelDelivery_CustomersDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true
     depends_on:
       - users.mssqldb
       - employees.api
@@ -146,6 +155,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
+      - EmployeeIdentity__Authority=http://host.docker.internal:5001
+      - CustomerIdentity__Authority=http://host.docker.internal:5002
     depends_on:
       - packagesending.api
       - packagetracking.api

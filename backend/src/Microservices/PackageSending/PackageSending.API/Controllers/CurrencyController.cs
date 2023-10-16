@@ -2,6 +2,7 @@
 using Common.Dto;
 using Common.Entity.Filters;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Features._Currency.Commands;
 using PackageSending.BL.Features._Currency.Queries;
@@ -10,6 +11,7 @@ namespace PackageSending.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "EmployeeServer, CustomerServer")]
     public class CurrencyController : ControllerBase
     {
         private readonly IMediator _mediator;

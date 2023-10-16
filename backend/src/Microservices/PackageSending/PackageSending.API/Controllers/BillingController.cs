@@ -3,6 +3,7 @@ using Common.Dto;
 using Common.Entity.Filters;
 using Common.Paging;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Dto;
 using PackageSending.BL.Features._Billing.Commands;
@@ -12,6 +13,7 @@ namespace PackageSending.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BillingController : ControllerBase
     {
         private readonly IMediator _mediator;

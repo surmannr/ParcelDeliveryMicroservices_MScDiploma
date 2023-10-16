@@ -1,4 +1,5 @@
-﻿using EventBus.Messages.EventObjects;
+﻿using Common.Entity;
+using EventBus.Messages.EventObjects;
 
 namespace EventBus.Messages.Events
 {
@@ -11,6 +12,8 @@ namespace EventBus.Messages.Events
         public AddressEO AddressTo { get; set; }
         public bool IsExpress { get; set; }
         public bool IsFinished { get; set; }
+        public DateTime DateOfDispatch { get; set; }
+        public Status Status { get; set; }
 
         public PaymentOptionEO PaymentOption { get; set; }
         public ShippingOptionEO ShippingOption { get; set; }

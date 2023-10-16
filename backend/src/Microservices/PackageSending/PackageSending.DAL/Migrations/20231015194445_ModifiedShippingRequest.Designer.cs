@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PackageSending.DAL;
@@ -11,9 +12,11 @@ using PackageSending.DAL;
 namespace PackageSending.DAL.Migrations
 {
     [DbContext(typeof(PackageSendingDbContext))]
-    partial class PackageSendingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231015194445_ModifiedShippingRequest")]
+    partial class ModifiedShippingRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -29,6 +29,8 @@ namespace Employees.API
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
 
+                    options.IssuerUri = builder.Configuration["IssueUri"];
+
                     // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
                     //options.EmitStaticAudienceClaim = true;
                 })

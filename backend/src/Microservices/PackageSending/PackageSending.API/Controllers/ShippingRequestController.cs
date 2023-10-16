@@ -3,6 +3,7 @@ using Common.Dto;
 using Common.Entity.Filters;
 using Common.Paging;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PackageSending.BL.Dto;
@@ -16,6 +17,7 @@ namespace PackageSending.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ShippingRequestController : ControllerBase
     {
         private readonly IMediator _mediator;

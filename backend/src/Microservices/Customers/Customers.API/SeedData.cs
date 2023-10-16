@@ -26,6 +26,10 @@ namespace Customers.API
                         UserName = "trevor",
                         Email = "TrevorVincenzo@email.com",
                         EmailConfirmed = true,
+                        FirstName = "Tervor",
+                        LastName = "Vincenzo",
+                        NamePrefix = "Dr",
+                        BirthDate = DateTime.Now.AddYears(-27),
                     };
                     var result = userMgr.CreateAsync(alice, "Pass123$").Result;
                     if (!result.Succeeded)
@@ -57,7 +61,11 @@ namespace Customers.API
                     {
                         UserName = "megan",
                         Email = "MeganVincenzo@email.com",
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
+                        FirstName = "Megan",
+                        LastName = "Vincenzo",
+                        NamePrefix = "",
+                        BirthDate = DateTime.Now.AddYears(-27),
                     };
                     var result = userMgr.CreateAsync(bob, "Pass123$").Result;
                     if (!result.Succeeded)

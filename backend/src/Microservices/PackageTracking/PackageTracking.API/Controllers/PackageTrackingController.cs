@@ -1,4 +1,5 @@
 ﻿using Common.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageTracking.DAL.Repositories;
 
@@ -6,6 +7,7 @@ namespace PackageTracking.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PackageTrackingController : ControllerBase
     {
         private readonly IPackageTrackingRepository _repository;

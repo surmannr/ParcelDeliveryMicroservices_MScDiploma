@@ -2,12 +2,8 @@
 using Common.Dto;
 using Common.Entity.Filters;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PackageSending.BL.Dto;
-using PackageSending.BL.Features._Currency.Queries;
-using PackageSending.BL.Features._Package.Commands;
-using PackageSending.BL.Features._Package.Queries;
 using PackageSending.BL.Features._PaymentOption.Commands;
 using PackageSending.BL.Features._PaymentOption.Queries;
 
@@ -15,6 +11,7 @@ namespace PackageSending.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "EmployeeServer, CustomerServer")]
     public class PaymentOptionController : ControllerBase
     {
         private readonly IMediator _mediator;

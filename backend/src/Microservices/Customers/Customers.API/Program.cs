@@ -3,6 +3,8 @@ using Customers.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Customers.API.Models;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -19,6 +21,20 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
 
+    builder.Services.AddScoped<IUserClaimsPrincipalFactory<Customer>, MyClaimsPrincipalFactory>();
+    builder.Services.AddScoped<IClaimsTransformation, MyClaimTransformation>();
+
+    #region CORS policy
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("CorsPolicy", builder =>
+            builder
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowAnyHeader());
+    });
+    #endregion
+
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
@@ -33,6 +49,8 @@ try
     Log.Information("Seeding database...");
     SeedData.EnsureSeedData(app);
     Log.Information("Done seeding database. Exiting.");
+
+    app.UseCors("CorsPolicy");
 
     app.Run();
 }
