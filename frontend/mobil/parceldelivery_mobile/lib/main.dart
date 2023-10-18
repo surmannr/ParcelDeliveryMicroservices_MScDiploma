@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parceldelivery_mobile/screens/auth/employee_auth_screen.dart';
+import 'package:parceldelivery_mobile/screens/auth/role_chooser.dart';
 import 'package:parceldelivery_mobile/screens/welcome/customer_welcome.dart';
+import 'package:parceldelivery_mobile/screens/welcome/employee_welcome.dart';
 
-import 'screens/auth/auth_screen.dart';
+import 'screens/auth/customer_auth_screen.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
@@ -37,9 +39,13 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Coolvetica',
       ),
-      home: const AuthScreen(),
+      home: RoleChooserScreen(),
       routes: {
         WelcomeCustomer.routeName: (context) => const WelcomeCustomer(),
+        WelcomeEmployee.routeName: (context) => const WelcomeEmployee(),
+        RoleChooserScreen.routeName: (context) => RoleChooserScreen(),
+        CustomerAuthScreen.routeName: (context) => const CustomerAuthScreen(),
+        EmployeeAuthScreen.routeName: (context) => const EmployeeAuthScreen(),
       },
     );
   }

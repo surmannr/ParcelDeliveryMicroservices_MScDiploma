@@ -1,4 +1,4 @@
 export const environment = {
   baseUrl: 'http://localhost:42024',
-  issuer: 'http://localhost:5001',
+  issuer: 'http://host.docker.internal:5001',
 };
