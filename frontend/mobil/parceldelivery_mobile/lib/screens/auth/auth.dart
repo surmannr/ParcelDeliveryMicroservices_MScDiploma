@@ -79,11 +79,13 @@ class Auth {
       await prefs.setString('family_name', jwt['family_name']);
       await prefs.setString('email', jwt['email']);
       await prefs.setString('role', role);
-      await Navigator.of(context).pushNamed(navigateRouteName);
+      // ignore: use_build_context_synchronously
+      await Navigator.of(context).popAndPushNamed(navigateRouteName);
     } else {
       const snackBar = SnackBar(
         content: Text('Sikertelen bejelentkezés!'),
       );
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }

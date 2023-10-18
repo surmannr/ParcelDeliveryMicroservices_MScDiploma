@@ -13,7 +13,7 @@ class WelcomeCustomer extends StatefulWidget {
 class _WelcomeCustomerState extends State<WelcomeCustomer> {
   @override
   Widget build(BuildContext context) {
-    return FrameScaffold(
+    return const FrameScaffold(
       child: Column(
         children: [
           Text("Welcome"),

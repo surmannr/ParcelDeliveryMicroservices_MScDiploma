@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:parceldelivery_mobile/components/menu/appbar.dart';
 
 class FrameScaffold extends StatelessWidget {
-  FrameScaffold({required this.child, super.key});
+  const FrameScaffold({required this.child, super.key});
 
-  Widget child;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
