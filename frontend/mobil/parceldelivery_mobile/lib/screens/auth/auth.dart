@@ -13,16 +13,22 @@ class Auth {
   static const identifier = 'flutter-client';
   static const secret = 'secret';
 
-  static Future<String> getAccessToken(String protocol, String baseUrl) async {
+  static const employeeApiScope = "employeeApi";
+  static const customerApiScope = "customersApi";
+
+  static Future<String> getAccessToken(
+      String protocol, String baseUrl, bool isEmployee) async {
     final pkcePair = PkcePair.generate();
-    print(baseUrl);
+
+    var scope = isEmployee ? employeeApiScope : customerApiScope;
+
     // Construct the url
     var url = protocol == "https://"
         ? Uri.https(baseUrl, '/connect/authorize', {
             'response_type': 'code',
             'client_id': identifier,
             'redirect_uri': redirectUrl.toString(),
-            'scope': 'openid profile offline_access',
+            'scope': 'openid profile offline_access $scope',
             'grant_type': 'authorization_code',
             'code_challenge_method': 'S256',
             'code_challenge': pkcePair.codeChallenge
@@ -31,7 +37,7 @@ class Auth {
             'response_type': 'code',
             'client_id': identifier,
             'redirect_uri': redirectUrl.toString(),
-            'scope': 'openid profile offline_access',
+            'scope': 'openid profile offline_access $scope',
             'grant_type': 'authorization_code',
             'code_challenge_method': 'S256',
             'code_challenge': pkcePair.codeChallenge
@@ -52,6 +58,7 @@ class Auth {
     map['client_secret'] = secret;
     map['code'] = code;
     map['code_verifier'] = pkcePair.codeVerifier;
+    map['scope'] = 'openid profile offline_access $scope';
     map['redirect_uri'] = redirectUrl.toString();
     final response = await http.post(urlT, headers: {}, body: map);
 
@@ -66,11 +73,12 @@ class Auth {
     String navigateRouteName,
     String role,
   ) async {
-    var accesToken = await getAccessToken(protocol, baseUrl);
+    var accesToken =
+        await getAccessToken(protocol, baseUrl, role == "employee");
 
     if (accesToken.isNotEmpty) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('acces_token', accesToken);
+      await prefs.setString('access_token', accesToken);
       var jwt = JwtDecoder.decode(accesToken);
       await prefs.setString('user_id', jwt['sub']);
       await prefs.setString('name', jwt['name']);

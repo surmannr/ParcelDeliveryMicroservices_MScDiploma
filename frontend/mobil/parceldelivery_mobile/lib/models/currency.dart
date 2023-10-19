@@ -6,7 +6,7 @@ part 'currency.g.dart';
 @freezed
 class Currency with _$Currency {
   const factory Currency({
-    required String id,
+    required int id,
     required String name,
   }) = _Currency;
 

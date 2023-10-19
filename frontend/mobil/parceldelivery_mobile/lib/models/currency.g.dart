@@ -8,7 +8,7 @@ part of 'currency.dart';
 
 _$CurrencyImpl _$$CurrencyImplFromJson(Map<String, dynamic> json) =>
     _$CurrencyImpl(
-      id: json['id'] as String,
+      id: json['id'] as int,
       name: json['name'] as String,
     );
 

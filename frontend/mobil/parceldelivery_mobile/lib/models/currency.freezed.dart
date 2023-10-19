@@ -20,7 +20,7 @@ Currency _$CurrencyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Currency {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ abstract class $CurrencyCopyWith<$Res> {
   factory $CurrencyCopyWith(Currency value, $Res Function(Currency) then) =
       _$CurrencyCopyWithImpl<$Res, Currency>;
   @useResult
-  $Res call({String id, String name});
+  $Res call({int id, String name});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$CurrencyCopyWithImpl<$Res, $Val extends Currency>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,7 @@ abstract class _$$CurrencyImplCopyWith<$Res>
       __$$CurrencyImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name});
+  $Res call({int id, String name});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$CurrencyImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -113,7 +113,7 @@ class _$CurrencyImpl implements _Currency {
       _$$CurrencyImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
   final String name;
 
@@ -150,14 +150,14 @@ class _$CurrencyImpl implements _Currency {
 }
 
 abstract class _Currency implements Currency {
-  const factory _Currency(
-      {required final String id, required final String name}) = _$CurrencyImpl;
+  const factory _Currency({required final int id, required final String name}) =
+      _$CurrencyImpl;
 
   factory _Currency.fromJson(Map<String, dynamic> json) =
       _$CurrencyImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get name;
   @override

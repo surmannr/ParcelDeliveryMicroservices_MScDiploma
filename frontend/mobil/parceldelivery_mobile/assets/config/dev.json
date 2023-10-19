@@ -1,5 +1,6 @@
 {
   "protocol": "http://",
   "customerBaseUrl": "10.0.2.2:5002",
-  "employeeBaseUrl": "10.0.2.2:5001"
+  "employeeBaseUrl": "10.0.2.2:5001",
+  "baseUrl": "10.0.2.2:42024"
 }

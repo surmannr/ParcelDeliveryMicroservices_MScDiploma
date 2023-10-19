@@ -8,11 +8,13 @@ class Config {
   final String protocol;
   final String customerBaseUrl;
   final String employeeBaseUrl;
+  final String baseUrl;
 
   Config({
     required this.protocol,
     required this.customerBaseUrl,
     required this.employeeBaseUrl,
+    required this.baseUrl,
   });
 
   static Future<Config> forEnvironment() async {
@@ -29,6 +31,7 @@ class Config {
       protocol: json['protocol'],
       customerBaseUrl: json['customerBaseUrl'],
       employeeBaseUrl: json['employeeBaseUrl'],
+      baseUrl: json['baseUrl'],
     );
   }
 }
