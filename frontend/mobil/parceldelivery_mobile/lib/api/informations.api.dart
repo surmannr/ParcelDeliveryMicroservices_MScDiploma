@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:parceldelivery_mobile/api/_connector.dart';
 import 'package:parceldelivery_mobile/models/currency.dart';
 import 'package:parceldelivery_mobile/models/pagedresult.dart';
