@@ -20,8 +20,7 @@ class DrawerTile extends StatelessWidget {
           title: Text(
             title,
             style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+              fontSize: 15,
             ),
           ),
           onTap: () async {

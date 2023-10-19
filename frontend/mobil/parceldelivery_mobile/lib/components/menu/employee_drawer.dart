@@ -7,7 +7,7 @@ class EmployeeDrawer extends Drawer {
   const EmployeeDrawer({super.key})
       : super(
           child: const Column(
-            children: const [
+            children: [
               SizedBox(
                 height: 20,
               ),

@@ -1,9 +1,9 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:parceldelivery_mobile/components/common/top_image_widget.dart';
 import 'package:parceldelivery_mobile/components/menu/drawer_tile.dart';
 import 'package:parceldelivery_mobile/components/menu/theme_switch_button.dart';
 import 'package:parceldelivery_mobile/main.dart';
+import 'package:parceldelivery_mobile/screens/currency/currency_list.dart';
 
 class CommonMenuParts extends StatefulWidget {
   const CommonMenuParts({
@@ -29,7 +29,7 @@ class _CommonMenuPartsState extends State<CommonMenuParts> {
         ),
         const DrawerTile(
           title: "Valuták",
-          navigateToRouteName: "",
+          navigateToRouteName: CurrencyListScreen.routeName,
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -46,9 +46,12 @@ class _CommonMenuPartsState extends State<CommonMenuParts> {
                 child: Text('Theme '
                     '${myApp.themeMode.toString().dotTail}'),
               ),
-              trailing: ThemeSwitchButton(
-                themeMode: myApp.themeMode,
-                onChanged: myApp.changeTheme,
+              trailing: Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: ThemeSwitchButton(
+                  themeMode: myApp.themeMode,
+                  onChanged: myApp.changeTheme,
+                ),
               ),
               onTap: () {
                 if (isDark) {

@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parceldelivery_mobile/bloc/currency/currency_bloc.dart';
 import 'package:parceldelivery_mobile/screens/auth/employee_auth_screen.dart';
 import 'package:parceldelivery_mobile/screens/auth/role_chooser.dart';
+import 'package:parceldelivery_mobile/screens/currency/currency_list.dart';
 import 'package:parceldelivery_mobile/screens/welcome/customer_welcome.dart';
 import 'package:parceldelivery_mobile/screens/welcome/employee_welcome.dart';
 
@@ -47,51 +50,60 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'ParcelDeliveryApp',
-      builder: (context, child) => MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child!),
-      theme: FlexThemeData.light(
-        scheme: FlexScheme.dellGenoa,
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 7,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 10,
-          blendOnColors: false,
-          useTextTheme: true,
-          useM2StyleDividerInM3: true,
-          useInputDecoratorThemeInDialogs: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CurrencyBloc>(
+          lazy: false,
+          create: (BuildContext context) => CurrencyBloc(),
         ),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-        fontFamily: 'Coolvetica',
-        swapLegacyOnMaterial3: true,
-      ),
-      darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.dellGenoa,
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 13,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 20,
-          useTextTheme: true,
-          useM2StyleDividerInM3: true,
-          useInputDecoratorThemeInDialogs: true,
+      ],
+      child: MaterialApp(
+        title: 'ParcelDeliveryApp',
+        builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!),
+        theme: FlexThemeData.light(
+          scheme: FlexScheme.dellGenoa,
+          surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+          blendLevel: 7,
+          subThemesData: const FlexSubThemesData(
+            blendOnLevel: 10,
+            blendOnColors: false,
+            useTextTheme: true,
+            useM2StyleDividerInM3: true,
+            useInputDecoratorThemeInDialogs: true,
+          ),
+          visualDensity: FlexColorScheme.comfortablePlatformDensity,
+          useMaterial3: true,
+          fontFamily: 'Coolvetica',
+          swapLegacyOnMaterial3: true,
         ),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-        fontFamily: 'Coolvetica',
-        swapLegacyOnMaterial3: true,
+        darkTheme: FlexThemeData.dark(
+          scheme: FlexScheme.dellGenoa,
+          surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+          blendLevel: 13,
+          subThemesData: const FlexSubThemesData(
+            blendOnLevel: 20,
+            useTextTheme: true,
+            useM2StyleDividerInM3: true,
+            useInputDecoratorThemeInDialogs: true,
+          ),
+          visualDensity: FlexColorScheme.comfortablePlatformDensity,
+          useMaterial3: true,
+          fontFamily: 'Coolvetica',
+          swapLegacyOnMaterial3: true,
+        ),
+        themeMode: themeMode,
+        home: RoleChooserScreen(),
+        routes: {
+          WelcomeCustomer.routeName: (context) => const WelcomeCustomer(),
+          WelcomeEmployee.routeName: (context) => const WelcomeEmployee(),
+          RoleChooserScreen.routeName: (context) => RoleChooserScreen(),
+          CustomerAuthScreen.routeName: (context) => const CustomerAuthScreen(),
+          EmployeeAuthScreen.routeName: (context) => const EmployeeAuthScreen(),
+          CurrencyListScreen.routeName: (context) => const CurrencyListScreen(),
+        },
       ),
-      themeMode: themeMode,
-      home: RoleChooserScreen(),
-      routes: {
-        WelcomeCustomer.routeName: (context) => const WelcomeCustomer(),
-        WelcomeEmployee.routeName: (context) => const WelcomeEmployee(),
-        RoleChooserScreen.routeName: (context) => RoleChooserScreen(),
-        CustomerAuthScreen.routeName: (context) => const CustomerAuthScreen(),
-        EmployeeAuthScreen.routeName: (context) => const EmployeeAuthScreen(),
-      },
     );
   }
 }
