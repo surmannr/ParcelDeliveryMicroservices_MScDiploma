@@ -18,7 +18,7 @@ class ShippingOptionTile extends StatelessWidget {
         elevation: 4,
         child: ListTile(
           title: Text(
-            entity.name,
+            "${entity.name} (Ár: ${entity.price})",
             style: const TextStyle(
               fontSize: 15,
             ),
