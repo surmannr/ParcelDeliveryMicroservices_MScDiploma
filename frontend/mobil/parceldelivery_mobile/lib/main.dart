@@ -2,9 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parceldelivery_mobile/bloc/accepted_ship_request/accepted_ship_request_bloc.dart';
 import 'package:parceldelivery_mobile/bloc/currency/currency_bloc.dart';
 import 'package:parceldelivery_mobile/bloc/payment_option/payment_option_bloc.dart';
 import 'package:parceldelivery_mobile/bloc/shipping_option/shipping_option_bloc.dart';
+import 'package:parceldelivery_mobile/bloc/shipping_request/shipping_request_bloc.dart';
+import 'package:parceldelivery_mobile/bloc/vehicle_usage/vehicle_usage_bloc.dart';
 import 'package:parceldelivery_mobile/constants.dart';
 import 'package:parceldelivery_mobile/screens/auth/employee_auth_screen.dart';
 import 'package:parceldelivery_mobile/screens/auth/role_chooser.dart';
@@ -90,6 +93,18 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ShippingOptionBloc>(
           lazy: false,
           create: (BuildContext context) => ShippingOptionBloc(),
+        ),
+        BlocProvider<AcceptedShipRequestBloc>(
+          lazy: false,
+          create: (BuildContext context) => AcceptedShipRequestBloc(),
+        ),
+        BlocProvider<ShippingRequestBloc>(
+          lazy: false,
+          create: (BuildContext context) => ShippingRequestBloc(),
+        ),
+        BlocProvider<VehicleUsageBloc>(
+          lazy: false,
+          create: (BuildContext context) => VehicleUsageBloc(),
         ),
       ],
       child: MaterialApp(
