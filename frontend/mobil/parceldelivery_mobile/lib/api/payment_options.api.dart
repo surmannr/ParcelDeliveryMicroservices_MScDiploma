@@ -1,14 +1,14 @@
 import 'package:parceldelivery_mobile/api/_connector.dart';
-import 'package:parceldelivery_mobile/models/currency.dart';
 import 'package:parceldelivery_mobile/models/pagedresult.dart';
+import 'package:parceldelivery_mobile/models/payment_option.dart';
 
-class CurrenciesApi {
-  static Future<PagedResult<Currency>> get() async {
+class PaymentOptionsApi {
+  static Future<PagedResult<PaymentOption>> get() async {
     final dio = await Connector.createDio();
-    final response = await dio.get("/Currency");
+    final response = await dio.get("/PaymentOption");
 
     var pagedData = PagedResult.fromJson(response.data,
-        (json) => Currency.fromJson(json as Map<String, dynamic>));
+        (json) => PaymentOption.fromJson(json as Map<String, dynamic>));
 
     if (response.statusCode == 200) {
       return pagedData;
@@ -17,9 +17,9 @@ class CurrenciesApi {
     }
   }
 
-  static Future<bool> add(Currency entity) async {
+  static Future<bool> add(PaymentOption entity) async {
     final dio = await Connector.createDio();
-    final response = await dio.post("/Currency", data: entity);
+    final response = await dio.post("/PaymentOption", data: entity);
 
     if (response.statusCode == 201) {
       return true;
@@ -28,9 +28,9 @@ class CurrenciesApi {
     }
   }
 
-  static Future<bool> update(Currency entity) async {
+  static Future<bool> update(PaymentOption entity) async {
     final dio = await Connector.createDio();
-    final response = await dio.put("/Currency", data: entity);
+    final response = await dio.put("/PaymentOption", data: entity);
 
     if (response.statusCode == 200) {
       return true;
@@ -39,9 +39,9 @@ class CurrenciesApi {
     }
   }
 
-  static Future<bool> delete(Currency entity) async {
+  static Future<bool> delete(PaymentOption entity) async {
     final dio = await Connector.createDio();
-    final response = await dio.delete("/Currency/${entity.id}");
+    final response = await dio.delete("/PaymentOption/${entity.id}");
 
     if (response.statusCode == 200) {
       return true;

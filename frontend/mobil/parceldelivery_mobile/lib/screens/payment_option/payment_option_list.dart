@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parceldelivery_mobile/bloc/currency/currency_bloc.dart';
+import 'package:parceldelivery_mobile/bloc/payment_option/payment_option_bloc.dart';
 import 'package:parceldelivery_mobile/frame.dart';
-import 'package:parceldelivery_mobile/models/currency.dart';
-import 'package:parceldelivery_mobile/screens/currency/currency_dialog.dart';
-import 'package:parceldelivery_mobile/screens/currency/currency_tile.dart';
+import 'package:parceldelivery_mobile/models/payment_option.dart';
+import 'package:parceldelivery_mobile/screens/payment_option/payment_option_dialog.dart';
+import 'package:parceldelivery_mobile/screens/payment_option/payment_option_tile.dart';
 
-class CurrencyListScreen extends StatefulWidget {
-  const CurrencyListScreen({super.key});
+class PaymentOptionListScreen extends StatefulWidget {
+  const PaymentOptionListScreen({super.key});
 
-  static const routeName = '/currencies';
+  static const routeName = '/payment-options';
 
   @override
-  State<CurrencyListScreen> createState() => _CurrencyListScreenState();
+  State<PaymentOptionListScreen> createState() =>
+      _PaymentOptionListScreenState();
 }
 
-class _CurrencyListScreenState extends State<CurrencyListScreen> {
+class _PaymentOptionListScreenState extends State<PaymentOptionListScreen> {
   @override
   void initState() {
     super.initState();
@@ -23,8 +24,8 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
   }
 
   getAll() {
-    BlocProvider.of<CurrencyBloc>(context).add(
-      const CurrencyEvent.getAll(),
+    BlocProvider.of<PaymentOptionBloc>(context).add(
+      const PaymentOptionEvent.getAll(),
     );
   }
 
@@ -35,14 +36,14 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
         onPressed: () => showDialog(
           context: context,
           builder: (BuildContext context) {
-            return const CurrencyDialog(
-              entity: Currency(id: 0, name: ""),
+            return const PaymentOptionDialog(
+              entity: PaymentOption(id: 0, name: ""),
             );
           },
         ),
         child: const Icon(Icons.add),
       ),
-      child: BlocBuilder<CurrencyBloc, CurrencyState>(
+      child: BlocBuilder<PaymentOptionBloc, PaymentOptionState>(
         builder: (context, state) {
           return state.when(
             loading: () {
@@ -70,7 +71,7 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
                   child: Column(
                     children: [
                       const Text(
-                        "Valuták:",
+                        "Fizetési opciók:",
                         style: TextStyle(
                           fontSize: 22,
                         ),
@@ -83,7 +84,7 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: pagedData.totalCount,
                           itemBuilder: (BuildContext context, int index) {
-                            return CurrencyTile(
+                            return PaymentOptionTile(
                               entity: pagedData.data[index],
                             );
                           }),

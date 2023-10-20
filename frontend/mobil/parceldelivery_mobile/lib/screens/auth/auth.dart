@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:parceldelivery_mobile/constants.dart';
 import 'package:pkce/pkce.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,15 +79,18 @@ class Auth {
 
     if (accesToken.isNotEmpty) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('access_token', accesToken);
+      await prefs.setString(Constants.sharedPref.accessTokenTag, accesToken);
       var jwt = JwtDecoder.decode(accesToken);
-      await prefs.setString('user_id', jwt['sub']);
-      await prefs.setString('name', jwt['name']);
-      await prefs.setString('username', jwt['preferred_username']);
-      await prefs.setString('given_name', jwt['given_name']);
-      await prefs.setString('family_name', jwt['family_name']);
-      await prefs.setString('email', jwt['email']);
-      await prefs.setString('role', role);
+      await prefs.setString(Constants.sharedPref.userIdTag, jwt['sub']);
+      await prefs.setString(Constants.sharedPref.nameTag, jwt['name']);
+      await prefs.setString(
+          Constants.sharedPref.usernameTag, jwt['preferred_username']);
+      await prefs.setString(
+          Constants.sharedPref.givenNameTag, jwt['given_name']);
+      await prefs.setString(
+          Constants.sharedPref.familyNameTag, jwt['family_name']);
+      await prefs.setString(Constants.sharedPref.emailTag, jwt['email']);
+      await prefs.setString(Constants.sharedPref.roleTag, role);
       // ignore: use_build_context_synchronously
       await Navigator.of(context).popAndPushNamed(navigateRouteName);
     } else {

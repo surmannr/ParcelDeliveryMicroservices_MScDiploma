@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parceldelivery_mobile/bloc/currency/currency_bloc.dart';
-import 'package:parceldelivery_mobile/models/currency.dart';
+import 'package:parceldelivery_mobile/bloc/shipping_option/shipping_option_bloc.dart';
+import 'package:parceldelivery_mobile/models/shipping_option.dart';
 
-class CurrencyDialog extends StatefulWidget {
-  const CurrencyDialog({required this.entity, super.key});
+class ShippingOptionDialog extends StatefulWidget {
+  const ShippingOptionDialog({required this.entity, super.key});
 
-  final Currency entity;
+  final ShippingOption entity;
 
   @override
-  State<CurrencyDialog> createState() => _CurrencyDialogState();
+  State<ShippingOptionDialog> createState() => _ShippingOptionDialogState();
 }
 
-class _CurrencyDialogState extends State<CurrencyDialog> {
+class _ShippingOptionDialogState extends State<ShippingOptionDialog> {
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     name = widget.entity.name;
+    price = widget.entity.price;
   }
 
   String name = "";
+  int price = 0;
 
   void _tryAdd() {
     final isValid = _formKey.currentState?.validate();
@@ -29,9 +32,10 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
 
     if (isValid != null && isValid) {
       _formKey.currentState?.save();
-      final Currency currency = Currency(id: 0, name: name);
-      BlocProvider.of<CurrencyBloc>(context).add(
-        CurrencyEvent.add(currency),
+      final ShippingOption shippingOption =
+          ShippingOption(id: 0, name: name, price: price);
+      BlocProvider.of<ShippingOptionBloc>(context).add(
+        ShippingOptionEvent.add(shippingOption),
       );
       Navigator.pop(context);
     }
@@ -43,17 +47,18 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
 
     if (isValid != null && isValid) {
       _formKey.currentState?.save();
-      final Currency currency = Currency(id: widget.entity.id, name: name);
-      BlocProvider.of<CurrencyBloc>(context).add(
-        CurrencyEvent.update(currency),
+      final ShippingOption shippingOption =
+          ShippingOption(id: widget.entity.id, name: name, price: price);
+      BlocProvider.of<ShippingOptionBloc>(context).add(
+        ShippingOptionEvent.update(shippingOption),
       );
       Navigator.pop(context);
     }
   }
 
   void _tryDel() {
-    BlocProvider.of<CurrencyBloc>(context).add(
-      CurrencyEvent.delete(widget.entity),
+    BlocProvider.of<ShippingOptionBloc>(context).add(
+      ShippingOptionEvent.delete(widget.entity),
     );
     Navigator.pop(context);
   }
@@ -63,7 +68,7 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
     return SimpleDialog(
       title: widget.entity.id == 0
           ? const Text(
-              "Új valuta hozzáadása",
+              "Új szállítási opció hozzáadása",
               style: TextStyle(
                 fontSize: 25,
               ),
@@ -84,10 +89,11 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
             child: Column(
               children: [
                 TextFormField(
-                  decoration: const InputDecoration(labelText: "Valuta neve"),
+                  decoration:
+                      const InputDecoration(labelText: "Szállítási opció neve"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "A valuta nevét kitölteni kötelező!";
+                      return "A szállítási opció nevét kitölteni kötelező!";
                     }
                     return null;
                   },
@@ -99,6 +105,24 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
                 ),
                 const SizedBox(
                   height: 20,
+                ),
+                TextFormField(
+                  decoration:
+                      const InputDecoration(labelText: "Szállítási opció ára"),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "A szállítási opció árát kitölteni kötelező!";
+                    }
+                    return null;
+                  },
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  keyboardType: TextInputType.number,
+                  onSaved: (value) {
+                    price = int.parse(value!);
+                  },
+                  initialValue: price.toString(),
                 ),
                 widget.entity.id != 0
                     ? Column(

@@ -3,19 +3,30 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parceldelivery_mobile/bloc/currency/currency_bloc.dart';
+import 'package:parceldelivery_mobile/bloc/payment_option/payment_option_bloc.dart';
+import 'package:parceldelivery_mobile/bloc/shipping_option/shipping_option_bloc.dart';
+import 'package:parceldelivery_mobile/constants.dart';
 import 'package:parceldelivery_mobile/screens/auth/employee_auth_screen.dart';
 import 'package:parceldelivery_mobile/screens/auth/role_chooser.dart';
 import 'package:parceldelivery_mobile/screens/currency/currency_list.dart';
+import 'package:parceldelivery_mobile/screens/payment_option/payment_option_list.dart';
+import 'package:parceldelivery_mobile/screens/shipping_option/shipping_option_list.dart';
 import 'package:parceldelivery_mobile/screens/welcome/customer_welcome.dart';
 import 'package:parceldelivery_mobile/screens/welcome/employee_welcome.dart';
 
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/auth/customer_auth_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-  runApp(const MyApp());
+  final preferences = await SharedPreferences.getInstance();
+  final theme = preferences.getString(Constants.sharedPref.themeModeTag);
+  runApp(MyApp(
+    themeModeValue: theme ?? Constants.theme.system,
+  ));
 }
 
 class MyHttpOverrides extends HttpOverrides {
@@ -28,8 +39,9 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({required this.themeModeValue, super.key});
 
+  final String themeModeValue;
   // ignore: library_private_types_in_public_api
   static _MyAppState of(BuildContext context) =>
       context.findAncestorStateOfType<_MyAppState>()!;
@@ -41,10 +53,25 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   ThemeMode themeMode = ThemeMode.system;
 
-  void changeTheme(ThemeMode changedThemeMode) {
+  @override
+  void initState() {
+    super.initState();
+    switch (widget.themeModeValue) {
+      case "dark":
+        themeMode = ThemeMode.dark;
+      case "light":
+        themeMode = ThemeMode.light;
+      default:
+        themeMode = ThemeMode.system;
+    }
+  }
+
+  void changeTheme(ThemeMode changedThemeMode) async {
     setState(() {
       themeMode = changedThemeMode;
     });
+    final preferences = await SharedPreferences.getInstance();
+    preferences.setString(Constants.sharedPref.themeModeTag, themeMode.name);
   }
 
   // This widget is the root of your application.
@@ -55,6 +82,14 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<CurrencyBloc>(
           lazy: false,
           create: (BuildContext context) => CurrencyBloc(),
+        ),
+        BlocProvider<PaymentOptionBloc>(
+          lazy: false,
+          create: (BuildContext context) => PaymentOptionBloc(),
+        ),
+        BlocProvider<ShippingOptionBloc>(
+          lazy: false,
+          create: (BuildContext context) => ShippingOptionBloc(),
         ),
       ],
       child: MaterialApp(
@@ -102,6 +137,10 @@ class _MyAppState extends State<MyApp> {
           CustomerAuthScreen.routeName: (context) => const CustomerAuthScreen(),
           EmployeeAuthScreen.routeName: (context) => const EmployeeAuthScreen(),
           CurrencyListScreen.routeName: (context) => const CurrencyListScreen(),
+          PaymentOptionListScreen.routeName: (context) =>
+              const PaymentOptionListScreen(),
+          ShippingOptionListScreen.routeName: (context) =>
+              const ShippingOptionListScreen(),
         },
       ),
     );

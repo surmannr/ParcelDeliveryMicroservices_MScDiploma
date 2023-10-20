@@ -4,6 +4,8 @@ import 'package:parceldelivery_mobile/components/menu/drawer_tile.dart';
 import 'package:parceldelivery_mobile/components/menu/theme_switch_button.dart';
 import 'package:parceldelivery_mobile/main.dart';
 import 'package:parceldelivery_mobile/screens/currency/currency_list.dart';
+import 'package:parceldelivery_mobile/screens/payment_option/payment_option_list.dart';
+import 'package:parceldelivery_mobile/screens/shipping_option/shipping_option_list.dart';
 
 class CommonMenuParts extends StatefulWidget {
   const CommonMenuParts({
@@ -27,9 +29,18 @@ class _CommonMenuPartsState extends State<CommonMenuParts> {
         const SizedBox(
           height: 20,
         ),
+        const Divider(),
         const DrawerTile(
           title: "Valuták",
           navigateToRouteName: CurrencyListScreen.routeName,
+        ),
+        const DrawerTile(
+          title: "Fizetési opciók",
+          navigateToRouteName: PaymentOptionListScreen.routeName,
+        ),
+        const DrawerTile(
+          title: "Szállítási opciók",
+          navigateToRouteName: ShippingOptionListScreen.routeName,
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),

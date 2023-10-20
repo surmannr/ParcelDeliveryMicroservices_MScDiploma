@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parceldelivery_mobile/bloc/currency/currency_bloc.dart';
+import 'package:parceldelivery_mobile/bloc/shipping_option/shipping_option_bloc.dart';
 import 'package:parceldelivery_mobile/frame.dart';
-import 'package:parceldelivery_mobile/models/currency.dart';
-import 'package:parceldelivery_mobile/screens/currency/currency_dialog.dart';
-import 'package:parceldelivery_mobile/screens/currency/currency_tile.dart';
+import 'package:parceldelivery_mobile/models/shipping_option.dart';
+import 'package:parceldelivery_mobile/screens/shipping_option/shipping_option_dialog.dart';
+import 'package:parceldelivery_mobile/screens/shipping_option/shipping_option_tile.dart';
 
-class CurrencyListScreen extends StatefulWidget {
-  const CurrencyListScreen({super.key});
+class ShippingOptionListScreen extends StatefulWidget {
+  const ShippingOptionListScreen({super.key});
 
-  static const routeName = '/currencies';
+  static const routeName = '/shipping-options';
 
   @override
-  State<CurrencyListScreen> createState() => _CurrencyListScreenState();
+  State<ShippingOptionListScreen> createState() =>
+      _ShippingOptionListScreenState();
 }
 
-class _CurrencyListScreenState extends State<CurrencyListScreen> {
+class _ShippingOptionListScreenState extends State<ShippingOptionListScreen> {
   @override
   void initState() {
     super.initState();
@@ -23,8 +24,8 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
   }
 
   getAll() {
-    BlocProvider.of<CurrencyBloc>(context).add(
-      const CurrencyEvent.getAll(),
+    BlocProvider.of<ShippingOptionBloc>(context).add(
+      const ShippingOptionEvent.getAll(),
     );
   }
 
@@ -35,14 +36,14 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
         onPressed: () => showDialog(
           context: context,
           builder: (BuildContext context) {
-            return const CurrencyDialog(
-              entity: Currency(id: 0, name: ""),
+            return const ShippingOptionDialog(
+              entity: ShippingOption(id: 0, name: "", price: 0),
             );
           },
         ),
         child: const Icon(Icons.add),
       ),
-      child: BlocBuilder<CurrencyBloc, CurrencyState>(
+      child: BlocBuilder<ShippingOptionBloc, ShippingOptionState>(
         builder: (context, state) {
           return state.when(
             loading: () {
@@ -70,7 +71,7 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
                   child: Column(
                     children: [
                       const Text(
-                        "Valuták:",
+                        "Fizetési opciók:",
                         style: TextStyle(
                           fontSize: 22,
                         ),
@@ -83,7 +84,7 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: pagedData.totalCount,
                           itemBuilder: (BuildContext context, int index) {
-                            return CurrencyTile(
+                            return ShippingOptionTile(
                               entity: pagedData.data[index],
                             );
                           }),

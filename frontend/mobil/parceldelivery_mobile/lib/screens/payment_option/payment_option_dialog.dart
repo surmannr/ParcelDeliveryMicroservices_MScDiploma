@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parceldelivery_mobile/bloc/currency/currency_bloc.dart';
-import 'package:parceldelivery_mobile/models/currency.dart';
+import 'package:parceldelivery_mobile/bloc/payment_option/payment_option_bloc.dart';
+import 'package:parceldelivery_mobile/models/payment_option.dart';
 
-class CurrencyDialog extends StatefulWidget {
-  const CurrencyDialog({required this.entity, super.key});
+class PaymentOptionDialog extends StatefulWidget {
+  const PaymentOptionDialog({required this.entity, super.key});
 
-  final Currency entity;
+  final PaymentOption entity;
 
   @override
-  State<CurrencyDialog> createState() => _CurrencyDialogState();
+  State<PaymentOptionDialog> createState() => _PaymentOptionDialogState();
 }
 
-class _CurrencyDialogState extends State<CurrencyDialog> {
+class _PaymentOptionDialogState extends State<PaymentOptionDialog> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -29,9 +29,9 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
 
     if (isValid != null && isValid) {
       _formKey.currentState?.save();
-      final Currency currency = Currency(id: 0, name: name);
-      BlocProvider.of<CurrencyBloc>(context).add(
-        CurrencyEvent.add(currency),
+      final PaymentOption paymentOption = PaymentOption(id: 0, name: name);
+      BlocProvider.of<PaymentOptionBloc>(context).add(
+        PaymentOptionEvent.add(paymentOption),
       );
       Navigator.pop(context);
     }
@@ -43,17 +43,18 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
 
     if (isValid != null && isValid) {
       _formKey.currentState?.save();
-      final Currency currency = Currency(id: widget.entity.id, name: name);
-      BlocProvider.of<CurrencyBloc>(context).add(
-        CurrencyEvent.update(currency),
+      final PaymentOption paymentOption =
+          PaymentOption(id: widget.entity.id, name: name);
+      BlocProvider.of<PaymentOptionBloc>(context).add(
+        PaymentOptionEvent.update(paymentOption),
       );
       Navigator.pop(context);
     }
   }
 
   void _tryDel() {
-    BlocProvider.of<CurrencyBloc>(context).add(
-      CurrencyEvent.delete(widget.entity),
+    BlocProvider.of<PaymentOptionBloc>(context).add(
+      PaymentOptionEvent.delete(widget.entity),
     );
     Navigator.pop(context);
   }
@@ -63,7 +64,7 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
     return SimpleDialog(
       title: widget.entity.id == 0
           ? const Text(
-              "Új valuta hozzáadása",
+              "Új fizetési opció hozzáadása",
               style: TextStyle(
                 fontSize: 25,
               ),
@@ -84,10 +85,11 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
             child: Column(
               children: [
                 TextFormField(
-                  decoration: const InputDecoration(labelText: "Valuta neve"),
+                  decoration:
+                      const InputDecoration(labelText: "Fizetési opció neve"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "A valuta nevét kitölteni kötelező!";
+                      return "A fizetési opció nevét kitölteni kötelező!";
                     }
                     return null;
                   },
