@@ -17,26 +17,47 @@ class FrameScaffold extends StatefulWidget {
 }
 
 class _FrameScaffoldState extends State<FrameScaffold> {
-  @override
-  void initState() {
-    super.initState();
-    _getUserId();
-  }
-
-  String role = "customer";
-  _getUserId() async {
+  Future<String> _getUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    role = prefs.getString(Constants.sharedPref.roleTag) ?? "customer";
+    final storedRole = prefs.getString(Constants.sharedPref.roleTag);
+    return storedRole ?? "customer";
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PackageDeliveryAppBar(),
-      drawer:
-          role == "customer" ? const CustomerDrawer() : const EmployeeDrawer(),
-      body: widget.child,
-      floatingActionButton: widget.floatingActionButton,
+    return FutureBuilder(
+      builder: (ctx, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          // If we got an error
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text(
+                'Hiba történt',
+                style: TextStyle(fontSize: 18),
+              ),
+            );
+          } else if (snapshot.hasData) {
+            final role = snapshot.data as String;
+            return Scaffold(
+              appBar: PackageDeliveryAppBar(),
+              drawer: role == "customer"
+                  ? const CustomerDrawer()
+                  : const EmployeeDrawer(),
+              body: widget.child,
+              floatingActionButton: widget.floatingActionButton,
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+      future: _getUserId(),
     );
   }
 }
