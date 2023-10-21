@@ -1,4 +1,5 @@
 ﻿using Common.Dto;
+using Common.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,11 @@ namespace PackageSending.BL.Dto
         public int PaymentOptionId { get; set; }
         public string BillingId { get; set; }
         public bool IsFinished { get; set; }
+
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public Status Status { get; set; }
+
+        public List<PackageDto> Packages { get; set; }
     }
 }

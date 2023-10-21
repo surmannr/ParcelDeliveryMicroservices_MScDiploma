@@ -124,6 +124,9 @@ class _ShippingOptionDialogState extends State<ShippingOptionDialog> {
                   },
                   initialValue: price.toString(),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 widget.entity.id != 0
                     ? Column(
                         children: [
