@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_guid/flutter_guid.dart';
 import 'package:parceldelivery_mobile/components/common/package_tile.dart';
 import 'package:parceldelivery_mobile/models/package.dart';
 
@@ -32,8 +33,8 @@ class _ShipReqStepTwoPackagesState extends State<ShipReqStepTwoPackages> {
     },
   );
 
-  Package newPackage = const Package(
-    id: "",
+  Package newPackage = Package(
+    id: Guid.newGuid.toString(),
     userId: "",
     sizeX: 0,
     sizeY: 0,
@@ -51,6 +52,8 @@ class _ShipReqStepTwoPackagesState extends State<ShipReqStepTwoPackages> {
         newPackage.weight <= 0) return false;
     return true;
   }
+
+  bool saveable = false;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +93,9 @@ class _ShipReqStepTwoPackagesState extends State<ShipReqStepTwoPackages> {
                 ],
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  newPackage = newPackage.copyWith(sizeX: int.parse(value));
+                  setState(() {
+                    newPackage = newPackage.copyWith(sizeX: int.parse(value));
+                  });
                 },
                 initialValue: newPackage.sizeX.toString(),
               ),
@@ -116,7 +121,9 @@ class _ShipReqStepTwoPackagesState extends State<ShipReqStepTwoPackages> {
                 ],
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  newPackage = newPackage.copyWith(sizeY: int.parse(value));
+                  setState(() {
+                    newPackage = newPackage.copyWith(sizeY: int.parse(value));
+                  });
                 },
                 initialValue: newPackage.sizeY.toString(),
               ),
@@ -142,7 +149,9 @@ class _ShipReqStepTwoPackagesState extends State<ShipReqStepTwoPackages> {
                 ],
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  newPackage = newPackage.copyWith(sizeZ: int.parse(value));
+                  setState(() {
+                    newPackage = newPackage.copyWith(sizeZ: int.parse(value));
+                  });
                 },
                 initialValue: newPackage.sizeZ.toString(),
               ),
@@ -172,7 +181,9 @@ class _ShipReqStepTwoPackagesState extends State<ShipReqStepTwoPackages> {
                 ],
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  newPackage = newPackage.copyWith(weight: int.parse(value));
+                  setState(() {
+                    newPackage = newPackage.copyWith(weight: int.parse(value));
+                  });
                 },
                 initialValue: newPackage.weight.toString(),
               ),
@@ -216,6 +227,9 @@ class _ShipReqStepTwoPackagesState extends State<ShipReqStepTwoPackages> {
           child: ElevatedButton(
             onPressed: checkPackageValid()
                 ? () {
+                    newPackage = newPackage.copyWith(
+                      id: Guid.newGuid.toString(),
+                    );
                     widget.addPackage(newPackage);
                   }
                 : null,

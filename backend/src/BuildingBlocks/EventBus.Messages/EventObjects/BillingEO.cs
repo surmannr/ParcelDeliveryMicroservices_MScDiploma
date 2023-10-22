@@ -10,6 +10,7 @@ namespace EventBus.Messages.EventObjects
     {
         public string Id { get; set; }
         public string UserId { get; set; }
+        public string Name { get; set; }
         public double TotalDistance { get; set; }
         public double TotalAmount { get; set; }
 

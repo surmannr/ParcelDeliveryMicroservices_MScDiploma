@@ -1,5 +1,6 @@
 import 'package:parceldelivery_mobile/models/address.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:parceldelivery_mobile/models/package.dart';
 
 part 'add_new_shipping_request.freezed.dart';
 part 'add_new_shipping_request.g.dart';
@@ -8,6 +9,8 @@ part 'add_new_shipping_request.g.dart';
 class AddNewShippingRequest with _$AddNewShippingRequest {
   const factory AddNewShippingRequest({
     required String userId,
+    required String name,
+    required String email,
     required String courierId,
     required Address addressFrom,
     required Address addressTo,
@@ -16,6 +19,7 @@ class AddNewShippingRequest with _$AddNewShippingRequest {
     required int paymentOptionId,
     required String billingId,
     required bool isFinished,
+    required List<Package> packages,
   }) = _AddNewShippingRequest;
 
   factory AddNewShippingRequest.fromJson(Map<String, Object?> json) =>

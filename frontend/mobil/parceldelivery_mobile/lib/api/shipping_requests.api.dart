@@ -1,4 +1,7 @@
 import 'package:parceldelivery_mobile/api/_connector.dart';
+import 'package:parceldelivery_mobile/models/add_new_billing.dart';
+import 'package:parceldelivery_mobile/models/add_new_shipping_request.dart';
+import 'package:parceldelivery_mobile/models/billing.dart';
 import 'package:parceldelivery_mobile/models/pagedresult.dart';
 import 'package:parceldelivery_mobile/models/shipping_request.dart';
 
@@ -17,9 +20,19 @@ class ShippingRequestsApi {
     }
   }
 
-  static Future<bool> add(ShippingRequest entity) async {
+  static Future<bool> add(
+      AddNewShippingRequest entity, AddNewBilling billing) async {
     final dio = await Connector.createDio();
-    final response = await dio.post("/ShippingRequest", data: entity);
+    final billingResponse = await dio.post("/Billing", data: billing);
+
+    print(billingResponse.data);
+    var newBilling = Billing.fromJson(billingResponse.data);
+    print("newBilling");
+    print(newBilling);
+    var shipReqWithBilling = entity.copyWith(billingId: newBilling.id);
+    print(shipReqWithBilling);
+    final response =
+        await dio.post("/ShippingRequest", data: shipReqWithBilling);
 
     if (response.statusCode == 201) {
       return true;
@@ -28,7 +41,7 @@ class ShippingRequestsApi {
     }
   }
 
-  static Future<bool> update(ShippingRequest entity) async {
+  static Future<bool> update(AddNewShippingRequest entity) async {
     final dio = await Connector.createDio();
     final response = await dio.put("/ShippingRequest", data: entity);
 

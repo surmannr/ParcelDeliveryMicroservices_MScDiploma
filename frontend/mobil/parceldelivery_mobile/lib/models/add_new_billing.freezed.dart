@@ -21,6 +21,7 @@ AddNewBilling _$AddNewBillingFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AddNewBilling {
   String get userId => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   int get totalDistance => throw _privateConstructorUsedError;
   int get totalAmount => throw _privateConstructorUsedError;
   int get currencyId => throw _privateConstructorUsedError;
@@ -38,7 +39,11 @@ abstract class $AddNewBillingCopyWith<$Res> {
       _$AddNewBillingCopyWithImpl<$Res, AddNewBilling>;
   @useResult
   $Res call(
-      {String userId, int totalDistance, int totalAmount, int currencyId});
+      {String userId,
+      String name,
+      int totalDistance,
+      int totalAmount,
+      int currencyId});
 }
 
 /// @nodoc
@@ -55,6 +60,7 @@ class _$AddNewBillingCopyWithImpl<$Res, $Val extends AddNewBilling>
   @override
   $Res call({
     Object? userId = null,
+    Object? name = null,
     Object? totalDistance = null,
     Object? totalAmount = null,
     Object? currencyId = null,
@@ -63,6 +69,10 @@ class _$AddNewBillingCopyWithImpl<$Res, $Val extends AddNewBilling>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       totalDistance: null == totalDistance
           ? _value.totalDistance
@@ -89,7 +99,11 @@ abstract class _$$AddNewBillingImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String userId, int totalDistance, int totalAmount, int currencyId});
+      {String userId,
+      String name,
+      int totalDistance,
+      int totalAmount,
+      int currencyId});
 }
 
 /// @nodoc
@@ -104,6 +118,7 @@ class __$$AddNewBillingImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userId = null,
+    Object? name = null,
     Object? totalDistance = null,
     Object? totalAmount = null,
     Object? currencyId = null,
@@ -112,6 +127,10 @@ class __$$AddNewBillingImplCopyWithImpl<$Res>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       totalDistance: null == totalDistance
           ? _value.totalDistance
@@ -134,6 +153,7 @@ class __$$AddNewBillingImplCopyWithImpl<$Res>
 class _$AddNewBillingImpl implements _AddNewBilling {
   const _$AddNewBillingImpl(
       {required this.userId,
+      required this.name,
       required this.totalDistance,
       required this.totalAmount,
       required this.currencyId});
@@ -144,6 +164,8 @@ class _$AddNewBillingImpl implements _AddNewBilling {
   @override
   final String userId;
   @override
+  final String name;
+  @override
   final int totalDistance;
   @override
   final int totalAmount;
@@ -152,7 +174,7 @@ class _$AddNewBillingImpl implements _AddNewBilling {
 
   @override
   String toString() {
-    return 'AddNewBilling(userId: $userId, totalDistance: $totalDistance, totalAmount: $totalAmount, currencyId: $currencyId)';
+    return 'AddNewBilling(userId: $userId, name: $name, totalDistance: $totalDistance, totalAmount: $totalAmount, currencyId: $currencyId)';
   }
 
   @override
@@ -161,6 +183,7 @@ class _$AddNewBillingImpl implements _AddNewBilling {
         (other.runtimeType == runtimeType &&
             other is _$AddNewBillingImpl &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.totalDistance, totalDistance) ||
                 other.totalDistance == totalDistance) &&
             (identical(other.totalAmount, totalAmount) ||
@@ -171,8 +194,8 @@ class _$AddNewBillingImpl implements _AddNewBilling {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, userId, totalDistance, totalAmount, currencyId);
+  int get hashCode => Object.hash(
+      runtimeType, userId, name, totalDistance, totalAmount, currencyId);
 
   @JsonKey(ignore: true)
   @override
@@ -191,6 +214,7 @@ class _$AddNewBillingImpl implements _AddNewBilling {
 abstract class _AddNewBilling implements AddNewBilling {
   const factory _AddNewBilling(
       {required final String userId,
+      required final String name,
       required final int totalDistance,
       required final int totalAmount,
       required final int currencyId}) = _$AddNewBillingImpl;
@@ -200,6 +224,8 @@ abstract class _AddNewBilling implements AddNewBilling {
 
   @override
   String get userId;
+  @override
+  String get name;
   @override
   int get totalDistance;
   @override

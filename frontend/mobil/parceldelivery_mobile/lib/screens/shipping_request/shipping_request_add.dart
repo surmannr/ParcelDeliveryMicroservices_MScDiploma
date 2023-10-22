@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:parceldelivery_mobile/api/currencies.api.dart';
+import 'package:parceldelivery_mobile/api/payment_options.api.dart';
+import 'package:parceldelivery_mobile/api/shipping_options.api.dart';
 import 'package:parceldelivery_mobile/constants.dart';
 import 'package:parceldelivery_mobile/frame.dart';
+import 'package:parceldelivery_mobile/models/add_new_billing.dart';
 import 'package:parceldelivery_mobile/models/add_new_shipping_request.dart';
 import 'package:parceldelivery_mobile/models/address.dart';
+import 'package:parceldelivery_mobile/models/currency.dart';
 import 'package:parceldelivery_mobile/models/package.dart';
+import 'package:parceldelivery_mobile/models/payment_option.dart';
+import 'package:parceldelivery_mobile/models/shipping_option.dart';
+import 'package:parceldelivery_mobile/screens/shipping_request/sr_stepfour_sum.dart';
 import 'package:parceldelivery_mobile/screens/shipping_request/sr_stepone_address.dart';
 import 'package:parceldelivery_mobile/screens/shipping_request/sr_stepthree_other.dart';
 import 'package:parceldelivery_mobile/screens/shipping_request/sr_steptwo_packages.dart';
@@ -20,10 +28,17 @@ class ShippingRequestAddScreen extends StatefulWidget {
 }
 
 class _ShippingRequestAddScreenState extends State<ShippingRequestAddScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final List<GlobalKey<FormState>> _formKeys = [
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+  ];
 
   AddNewShippingRequest newShippingRequest = const AddNewShippingRequest(
     userId: "",
+    name: "",
+    email: "",
     courierId: "",
     addressFrom: Address(city: "", street: "", country: "", zipCode: 0),
     addressTo: Address(city: "", street: "", country: "", zipCode: 0),
@@ -32,26 +47,85 @@ class _ShippingRequestAddScreenState extends State<ShippingRequestAddScreen> {
     paymentOptionId: 0,
     billingId: "",
     isFinished: false,
+    packages: [],
+  );
+  AddNewBilling newBilling = const AddNewBilling(
+    userId: "",
+    name: "",
+    totalDistance: 0,
+    totalAmount: 0,
+    currencyId: 0,
   );
 
-  void changeAddressFrom(Address address) {
-    newShippingRequest = newShippingRequest.copyWith(addressFrom: address);
+  List<PaymentOption> paymentOptions = [];
+  List<ShippingOption> shippingOptions = [];
+  List<Currency> currencies = [];
+
+  getAll() async {
+    var pagedCurrencies = await CurrenciesApi.get();
+    var pagedPaymentOptions = await PaymentOptionsApi.get();
+    var pagedShippingOptions = await ShippingOptionsApi.get();
+
+    setState(() {
+      currencies = pagedCurrencies.data;
+      paymentOptions = pagedPaymentOptions.data;
+      shippingOptions = pagedShippingOptions.data;
+    });
   }
 
-  void changeAddressTo(Address address) {
-    newShippingRequest = newShippingRequest.copyWith(addressTo: address);
+  @override
+  void initState() {
+    super.initState();
+    getAll();
   }
 
-  List<Package> packages = [];
+  void changeAddressFrom({
+    required String country,
+    required String city,
+    required String street,
+    required int zipCode,
+  }) {
+    newShippingRequest = newShippingRequest.copyWith(
+      addressFrom: Address(
+        city: city,
+        zipCode: zipCode,
+        country: country,
+        street: street,
+      ),
+    );
+  }
+
+  void changeAddressTo({
+    required String country,
+    required String city,
+    required String street,
+    required int zipCode,
+  }) {
+    newShippingRequest = newShippingRequest.copyWith(
+      addressTo: Address(
+        city: city,
+        zipCode: zipCode,
+        country: country,
+        street: street,
+      ),
+    );
+  }
+
   void addPackage(Package package) {
     setState(() {
+      var packages = [...newShippingRequest.packages];
       packages.add(package);
+      newShippingRequest = newShippingRequest.copyWith(packages: packages);
     });
   }
 
   void deletePackage(Package package) {
     setState(() {
-      packages.remove(package);
+      var packages = [...newShippingRequest.packages];
+      packages.removeWhere(
+        (element) => element == package,
+      );
+      newShippingRequest = newShippingRequest.copyWith(packages: packages);
     });
   }
 
@@ -61,6 +135,10 @@ class _ShippingRequestAddScreenState extends State<ShippingRequestAddScreen> {
 
   void changeShippingOption(int value) {
     newShippingRequest = newShippingRequest.copyWith(shippingOptionId: value);
+  }
+
+  void changeCurrency(int value) {
+    newBilling = newBilling.copyWith(currencyId: value);
   }
 
   @override
@@ -81,6 +159,24 @@ class _ShippingRequestAddScreenState extends State<ShippingRequestAddScreen> {
                     ),
                   );
                 } else if (snapshot.hasData) {
+                  newBilling = newBilling.copyWith(
+                      userId: snapshot.data
+                              ?.getString(Constants.sharedPref.userIdTag) ??
+                          "");
+                  newBilling = newBilling.copyWith(
+                      name: snapshot.data
+                              ?.getString(Constants.sharedPref.nameTag) ??
+                          "");
+                  newShippingRequest = newShippingRequest.copyWith(
+                      userId: snapshot.data
+                              ?.getString(Constants.sharedPref.userIdTag) ??
+                          "",
+                      name: snapshot.data
+                              ?.getString(Constants.sharedPref.nameTag) ??
+                          "",
+                      email: snapshot.data
+                              ?.getString(Constants.sharedPref.emailTag) ??
+                          "");
                   return Column(
                     children: [
                       const SizedBox(
@@ -96,75 +192,115 @@ class _ShippingRequestAddScreenState extends State<ShippingRequestAddScreen> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Form(
-                        key: _formKey,
-                        child: Stepper(
-                          physics: const ClampingScrollPhysics(),
-                          controlsBuilder: (context, controller) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                TextButton(
-                                  onPressed: _stepContinue,
-                                  child: const Text('Következő'),
-                                ),
-                                TextButton(
-                                  onPressed: _stepCancel,
-                                  child: const Text('Vissza'),
-                                ),
-                              ],
-                            );
-                          },
-                          steps: <Step>[
-                            Step(
-                              title: const Text('Helyadatok'),
-                              content: Container(
-                                alignment: Alignment.centerLeft,
+                      Stepper(
+                        physics: const ClampingScrollPhysics(),
+                        controlsBuilder: (context, controller) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              TextButton(
+                                onPressed:
+                                    _currentStep != 0 ? _stepCancel : null,
+                                child: const Text('Vissza'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (_formKeys[_currentStep]
+                                            .currentState!
+                                            .validate() &&
+                                        _currentStep != 3) {
+                                      _stepContinue();
+                                    }
+                                  });
+                                },
+                                child: const Text('Következő'),
+                              ),
+                            ],
+                          );
+                        },
+                        steps: <Step>[
+                          Step(
+                            title: const Text('Helyadatok'),
+                            content: Container(
+                              alignment: Alignment.centerLeft,
+                              child: Form(
+                                key: _formKeys[0],
                                 child: ShipReqStepOneAddress(
                                   addressFrom: newShippingRequest.addressFrom,
                                   addressTo: newShippingRequest.addressTo,
                                   addressToChanged: changeAddressTo,
                                   addressFromChanged: changeAddressFrom,
+                                  sharedPreferences: snapshot.data!,
                                 ),
                               ),
-                              isActive: _currentStep == 0,
                             ),
-                            Step(
-                              title: const Text('Csomagok'),
-                              content: Container(
-                                alignment: Alignment.centerLeft,
+                            isActive: _currentStep == 0,
+                          ),
+                          Step(
+                            title: const Text('Csomagok'),
+                            content: Container(
+                              alignment: Alignment.centerLeft,
+                              child: Form(
+                                key: _formKeys[1],
                                 child: ShipReqStepTwoPackages(
                                   userId: snapshot.data!.getString(
                                           Constants.sharedPref.userIdTag) ??
                                       "",
-                                  packages: packages,
+                                  packages: newShippingRequest.packages,
                                   addPackage: addPackage,
                                   deletePackage: deletePackage,
                                 ),
                               ),
-                              isActive: _currentStep == 1,
                             ),
-                            Step(
-                              title: const Text('Egyéb információk'),
-                              content: Container(
-                                alignment: Alignment.centerLeft,
+                            isActive: _currentStep == 1,
+                          ),
+                          Step(
+                            title: const Text('Egyéb információk'),
+                            content: Container(
+                              alignment: Alignment.centerLeft,
+                              child: Form(
+                                key: _formKeys[2],
                                 child: ShipReqStepThreeOther(
-                                  paymentOption:
-                                      newShippingRequest.paymentOptionId,
-                                  shippingOption:
-                                      newShippingRequest.shippingOptionId,
+                                  currencies: currencies,
+                                  shippingOptions: shippingOptions,
+                                  paymentOptions: paymentOptions,
+                                  currencyChanged: changeCurrency,
                                   paymentOptionChanged: changePaymentOption,
                                   shippingOptionChanged: changeShippingOption,
+                                  currencyId: newBilling.currencyId,
+                                  shippingOptionId:
+                                      newShippingRequest.shippingOptionId,
+                                  paymentOptionId:
+                                      newShippingRequest.paymentOptionId,
                                 ),
                               ),
-                              isActive: _currentStep == 2,
                             ),
-                          ],
-                          currentStep: _currentStep,
-                          onStepTapped: (step) => _stepTapped(step),
-                          onStepContinue: _stepContinue,
-                          onStepCancel: _stepCancel,
-                        ),
+                            isActive: _currentStep == 2,
+                          ),
+                          Step(
+                            title: const Text('Összegzés'),
+                            content: Container(
+                              alignment: Alignment.centerLeft,
+                              child: Form(
+                                key: _formKeys[3],
+                                child: ShipReqStepFourSum(
+                                  sharedPreferences: snapshot.data!,
+                                  billing: newBilling,
+                                  shippingRequest: newShippingRequest,
+                                  currencies: currencies,
+                                  shippingOptions: shippingOptions,
+                                  paymentOptions: paymentOptions,
+                                ),
+                              ),
+                            ),
+                            isActive: _currentStep == 3,
+                          ),
+                        ],
+                        currentStep: _currentStep,
+                        onStepTapped: (step) => _stepTapped(step),
+                        onStepContinue: _stepContinue,
+                        onStepCancel: _stepCancel,
                       )
                     ],
                   );

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Dto;
 using Common.Entity;
 using Common.Exceptions;
 using Common.Extension.CQRS;
@@ -12,12 +13,12 @@ namespace PackageSending.BL.Features._Billing.Commands
 {
     public static class AddNewBilling
     {
-        public class Command : ICommand<string>
+        public class Command : ICommand<BillingDto>
         {
             public NewBillingDto NewBilling { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command, string>
+        public class Handler : IRequestHandler<Command, BillingDto>
         {
             private readonly IMapper _mapper;
             private readonly PackageSendingDbContext _dbContext;
@@ -28,7 +29,7 @@ namespace PackageSending.BL.Features._Billing.Commands
                 _dbContext = dbContext;
             }
 
-            public async Task<string> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<BillingDto> Handle(Command request, CancellationToken cancellationToken)
             {
                 var currency = await _dbContext.Currencies
                     .FirstOrDefaultAsync(x => x.Id == request.NewBilling.CurrencyId);
@@ -41,7 +42,7 @@ namespace PackageSending.BL.Features._Billing.Commands
                 var result = _dbContext.Billings.Add(newBilling);
                 await _dbContext.SaveChangesAsync();
 
-                return result.Entity.Id;
+                return _mapper.Map<BillingDto>(result.Entity);
             }
         }
 

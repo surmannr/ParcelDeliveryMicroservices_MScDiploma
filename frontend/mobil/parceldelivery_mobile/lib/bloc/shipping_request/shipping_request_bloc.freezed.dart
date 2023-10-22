@@ -19,24 +19,26 @@ mixin _$ShippingRequestEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAll,
-    required TResult Function(ShippingRequest entity) add,
-    required TResult Function(ShippingRequest entity) update,
+    required TResult Function(
+            AddNewShippingRequest entity, AddNewBilling billing)
+        add,
+    required TResult Function(AddNewShippingRequest entity) update,
     required TResult Function(String id) track,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAll,
-    TResult? Function(ShippingRequest entity)? add,
-    TResult? Function(ShippingRequest entity)? update,
+    TResult? Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult? Function(AddNewShippingRequest entity)? update,
     TResult? Function(String id)? track,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAll,
-    TResult Function(ShippingRequest entity)? add,
-    TResult Function(ShippingRequest entity)? update,
+    TResult Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult Function(AddNewShippingRequest entity)? update,
     TResult Function(String id)? track,
     required TResult orElse(),
   }) =>
@@ -126,8 +128,10 @@ class _$GetAllImpl implements _GetAll {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAll,
-    required TResult Function(ShippingRequest entity) add,
-    required TResult Function(ShippingRequest entity) update,
+    required TResult Function(
+            AddNewShippingRequest entity, AddNewBilling billing)
+        add,
+    required TResult Function(AddNewShippingRequest entity) update,
     required TResult Function(String id) track,
   }) {
     return getAll();
@@ -137,8 +141,8 @@ class _$GetAllImpl implements _GetAll {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAll,
-    TResult? Function(ShippingRequest entity)? add,
-    TResult? Function(ShippingRequest entity)? update,
+    TResult? Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult? Function(AddNewShippingRequest entity)? update,
     TResult? Function(String id)? track,
   }) {
     return getAll?.call();
@@ -148,8 +152,8 @@ class _$GetAllImpl implements _GetAll {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAll,
-    TResult Function(ShippingRequest entity)? add,
-    TResult Function(ShippingRequest entity)? update,
+    TResult Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult Function(AddNewShippingRequest entity)? update,
     TResult Function(String id)? track,
     required TResult orElse(),
   }) {
@@ -206,9 +210,10 @@ abstract class _$$AddImplCopyWith<$Res> {
   factory _$$AddImplCopyWith(_$AddImpl value, $Res Function(_$AddImpl) then) =
       __$$AddImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ShippingRequest entity});
+  $Res call({AddNewShippingRequest entity, AddNewBilling billing});
 
-  $ShippingRequestCopyWith<$Res> get entity;
+  $AddNewShippingRequestCopyWith<$Res> get entity;
+  $AddNewBillingCopyWith<$Res> get billing;
 }
 
 /// @nodoc
@@ -222,20 +227,33 @@ class __$$AddImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? entity = null,
+    Object? billing = null,
   }) {
     return _then(_$AddImpl(
       null == entity
           ? _value.entity
           : entity // ignore: cast_nullable_to_non_nullable
-              as ShippingRequest,
+              as AddNewShippingRequest,
+      null == billing
+          ? _value.billing
+          : billing // ignore: cast_nullable_to_non_nullable
+              as AddNewBilling,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ShippingRequestCopyWith<$Res> get entity {
-    return $ShippingRequestCopyWith<$Res>(_value.entity, (value) {
+  $AddNewShippingRequestCopyWith<$Res> get entity {
+    return $AddNewShippingRequestCopyWith<$Res>(_value.entity, (value) {
       return _then(_value.copyWith(entity: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddNewBillingCopyWith<$Res> get billing {
+    return $AddNewBillingCopyWith<$Res>(_value.billing, (value) {
+      return _then(_value.copyWith(billing: value));
     });
   }
 }
@@ -243,14 +261,16 @@ class __$$AddImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddImpl implements _Add {
-  const _$AddImpl(this.entity);
+  const _$AddImpl(this.entity, this.billing);
 
   @override
-  final ShippingRequest entity;
+  final AddNewShippingRequest entity;
+  @override
+  final AddNewBilling billing;
 
   @override
   String toString() {
-    return 'ShippingRequestEvent.add(entity: $entity)';
+    return 'ShippingRequestEvent.add(entity: $entity, billing: $billing)';
   }
 
   @override
@@ -258,11 +278,12 @@ class _$AddImpl implements _Add {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddImpl &&
-            (identical(other.entity, entity) || other.entity == entity));
+            (identical(other.entity, entity) || other.entity == entity) &&
+            (identical(other.billing, billing) || other.billing == billing));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, entity);
+  int get hashCode => Object.hash(runtimeType, entity, billing);
 
   @JsonKey(ignore: true)
   @override
@@ -274,35 +295,37 @@ class _$AddImpl implements _Add {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAll,
-    required TResult Function(ShippingRequest entity) add,
-    required TResult Function(ShippingRequest entity) update,
+    required TResult Function(
+            AddNewShippingRequest entity, AddNewBilling billing)
+        add,
+    required TResult Function(AddNewShippingRequest entity) update,
     required TResult Function(String id) track,
   }) {
-    return add(entity);
+    return add(entity, billing);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAll,
-    TResult? Function(ShippingRequest entity)? add,
-    TResult? Function(ShippingRequest entity)? update,
+    TResult? Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult? Function(AddNewShippingRequest entity)? update,
     TResult? Function(String id)? track,
   }) {
-    return add?.call(entity);
+    return add?.call(entity, billing);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAll,
-    TResult Function(ShippingRequest entity)? add,
-    TResult Function(ShippingRequest entity)? update,
+    TResult Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult Function(AddNewShippingRequest entity)? update,
     TResult Function(String id)? track,
     required TResult orElse(),
   }) {
     if (add != null) {
-      return add(entity);
+      return add(entity, billing);
     }
     return orElse();
   }
@@ -346,9 +369,12 @@ class _$AddImpl implements _Add {
 }
 
 abstract class _Add implements ShippingRequestEvent {
-  const factory _Add(final ShippingRequest entity) = _$AddImpl;
+  const factory _Add(
+          final AddNewShippingRequest entity, final AddNewBilling billing) =
+      _$AddImpl;
 
-  ShippingRequest get entity;
+  AddNewShippingRequest get entity;
+  AddNewBilling get billing;
   @JsonKey(ignore: true)
   _$$AddImplCopyWith<_$AddImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -360,9 +386,9 @@ abstract class _$$UpdateImplCopyWith<$Res> {
           _$UpdateImpl value, $Res Function(_$UpdateImpl) then) =
       __$$UpdateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ShippingRequest entity});
+  $Res call({AddNewShippingRequest entity});
 
-  $ShippingRequestCopyWith<$Res> get entity;
+  $AddNewShippingRequestCopyWith<$Res> get entity;
 }
 
 /// @nodoc
@@ -382,14 +408,14 @@ class __$$UpdateImplCopyWithImpl<$Res>
       null == entity
           ? _value.entity
           : entity // ignore: cast_nullable_to_non_nullable
-              as ShippingRequest,
+              as AddNewShippingRequest,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ShippingRequestCopyWith<$Res> get entity {
-    return $ShippingRequestCopyWith<$Res>(_value.entity, (value) {
+  $AddNewShippingRequestCopyWith<$Res> get entity {
+    return $AddNewShippingRequestCopyWith<$Res>(_value.entity, (value) {
       return _then(_value.copyWith(entity: value));
     });
   }
@@ -401,7 +427,7 @@ class _$UpdateImpl implements _Update {
   const _$UpdateImpl(this.entity);
 
   @override
-  final ShippingRequest entity;
+  final AddNewShippingRequest entity;
 
   @override
   String toString() {
@@ -429,8 +455,10 @@ class _$UpdateImpl implements _Update {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAll,
-    required TResult Function(ShippingRequest entity) add,
-    required TResult Function(ShippingRequest entity) update,
+    required TResult Function(
+            AddNewShippingRequest entity, AddNewBilling billing)
+        add,
+    required TResult Function(AddNewShippingRequest entity) update,
     required TResult Function(String id) track,
   }) {
     return update(entity);
@@ -440,8 +468,8 @@ class _$UpdateImpl implements _Update {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAll,
-    TResult? Function(ShippingRequest entity)? add,
-    TResult? Function(ShippingRequest entity)? update,
+    TResult? Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult? Function(AddNewShippingRequest entity)? update,
     TResult? Function(String id)? track,
   }) {
     return update?.call(entity);
@@ -451,8 +479,8 @@ class _$UpdateImpl implements _Update {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAll,
-    TResult Function(ShippingRequest entity)? add,
-    TResult Function(ShippingRequest entity)? update,
+    TResult Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult Function(AddNewShippingRequest entity)? update,
     TResult Function(String id)? track,
     required TResult orElse(),
   }) {
@@ -501,9 +529,9 @@ class _$UpdateImpl implements _Update {
 }
 
 abstract class _Update implements ShippingRequestEvent {
-  const factory _Update(final ShippingRequest entity) = _$UpdateImpl;
+  const factory _Update(final AddNewShippingRequest entity) = _$UpdateImpl;
 
-  ShippingRequest get entity;
+  AddNewShippingRequest get entity;
   @JsonKey(ignore: true)
   _$$UpdateImplCopyWith<_$UpdateImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -574,8 +602,10 @@ class _$TrackImpl implements _Track {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAll,
-    required TResult Function(ShippingRequest entity) add,
-    required TResult Function(ShippingRequest entity) update,
+    required TResult Function(
+            AddNewShippingRequest entity, AddNewBilling billing)
+        add,
+    required TResult Function(AddNewShippingRequest entity) update,
     required TResult Function(String id) track,
   }) {
     return track(id);
@@ -585,8 +615,8 @@ class _$TrackImpl implements _Track {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAll,
-    TResult? Function(ShippingRequest entity)? add,
-    TResult? Function(ShippingRequest entity)? update,
+    TResult? Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult? Function(AddNewShippingRequest entity)? update,
     TResult? Function(String id)? track,
   }) {
     return track?.call(id);
@@ -596,8 +626,8 @@ class _$TrackImpl implements _Track {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAll,
-    TResult Function(ShippingRequest entity)? add,
-    TResult Function(ShippingRequest entity)? update,
+    TResult Function(AddNewShippingRequest entity, AddNewBilling billing)? add,
+    TResult Function(AddNewShippingRequest entity)? update,
     TResult Function(String id)? track,
     required TResult orElse(),
   }) {

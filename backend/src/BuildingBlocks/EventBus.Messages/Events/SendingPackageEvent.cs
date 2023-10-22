@@ -7,6 +7,8 @@ namespace EventBus.Messages.Events
     {
         public string ShippingRequestId { get; set; }
         public string UserId { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
         public string CourierId { get; set; }
         public AddressEO AddressFrom { get; set; }
         public AddressEO AddressTo { get; set; }

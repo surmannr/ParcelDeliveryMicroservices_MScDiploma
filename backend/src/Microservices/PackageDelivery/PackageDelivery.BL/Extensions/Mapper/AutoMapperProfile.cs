@@ -2,6 +2,8 @@
 using Common.Dto;
 using Common.Entity;
 using Common.Entity.Filters;
+using EventBus.Messages.EventObjects;
+using EventBus.Messages.Events;
 using PackageDelivery.BL.Dto;
 using PackageDelivery.BL.Features._AcceptedShipRequest.Queries;
 using PackageDelivery.BL.Features._ShippingRequest.Queries;
@@ -25,8 +27,7 @@ namespace PackageDelivery.BL.Extensions.Mapper
             CreateMap<ShippingOption, ShippingOptionDto>().ReverseMap();
             CreateMap<Billing, BillingDto>().ReverseMap();
             CreateMap<Currency, CurrencyDto>().ReverseMap();
-            CreateMap<ShippingRequest, ShippingRequestDto>()
-                .ReverseMap();
+            CreateMap<ShippingRequest, ShippingRequestDto>().ReverseMap();
             CreateMap<AcceptedShippingRequest, AcceptedShippingRequestDto>().ReverseMap();
 
             CreateMap<ShippingRequestFilter, GetAllShippingRequests.Query>().ReverseMap();
@@ -35,6 +36,14 @@ namespace PackageDelivery.BL.Extensions.Mapper
             CreateMap<AcceptedShippingRequestFilter, GetAllAcceptedShipRequestByEmployeeId.Query>().ReverseMap();
             CreateMap<VehicleUsageFilter, GetAllVehicleUsages.Query>().ReverseMap();
             CreateMap<VehicleUsageFilter, GetVehicleUsagesByEmployeeId.Query>().ReverseMap();
+
+            CreateMap<ShippingRequestDto, SendingPackageEvent>().ReverseMap();
+            CreateMap<PackageDto, PackageEO>().ReverseMap();
+            CreateMap<BillingDto, BillingEO>().ReverseMap();
+            CreateMap<PaymentOptionDto, PaymentOptionEO>().ReverseMap();
+            CreateMap<ShippingOptionDto, ShippingOptionEO>().ReverseMap();
+            CreateMap<AddressDto, AddressEO>().ReverseMap();
+            CreateMap<CurrencyDto, CurrencyEO>().ReverseMap();
         }
     }
 }

@@ -7,6 +7,7 @@ part 'add_new_billing.g.dart';
 class AddNewBilling with _$AddNewBilling {
   const factory AddNewBilling({
     required String userId,
+    required String name,
     required int totalDistance,
     required int totalAmount,
     required int currencyId,

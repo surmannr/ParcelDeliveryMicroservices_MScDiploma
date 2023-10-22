@@ -10,13 +10,32 @@ class AddressForm extends StatefulWidget {
   });
 
   final Address address;
-  final void Function(Address address) addressChanged;
+  final void Function({
+    required String country,
+    required String city,
+    required String street,
+    required int zipCode,
+  }) addressChanged;
 
   @override
   State<AddressForm> createState() => _AddressFormState();
 }
 
 class _AddressFormState extends State<AddressForm> {
+  String country = "";
+  String city = "";
+  String street = "";
+  int zipCode = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    country = widget.address.country;
+    street = widget.address.street;
+    city = widget.address.city;
+    zipCode = widget.address.zipCode;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,16 +54,17 @@ class _AddressFormState extends State<AddressForm> {
                 },
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
-                  widget.addressChanged(
-                    Address(
-                      street: widget.address.street,
-                      city: widget.address.city,
-                      zipCode: widget.address.zipCode,
+                  setState(() {
+                    country = value;
+                    widget.addressChanged(
+                      street: street,
+                      city: city,
+                      zipCode: zipCode,
                       country: value,
-                    ),
-                  );
+                    );
+                  });
                 },
-                initialValue: widget.address.country,
+                initialValue: country,
               ),
             ),
             const SizedBox(
@@ -62,16 +82,17 @@ class _AddressFormState extends State<AddressForm> {
                 },
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
-                  widget.addressChanged(
-                    Address(
-                      street: widget.address.street,
+                  setState(() {
+                    city = value;
+                    widget.addressChanged(
+                      street: street,
                       city: value,
-                      zipCode: widget.address.zipCode,
-                      country: widget.address.country,
-                    ),
-                  );
+                      zipCode: zipCode,
+                      country: country,
+                    );
+                  });
                 },
-                initialValue: widget.address.country,
+                initialValue: city,
               ),
             ),
           ],
@@ -96,16 +117,17 @@ class _AddressFormState extends State<AddressForm> {
                 ],
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  widget.addressChanged(
-                    Address(
-                      street: widget.address.street,
-                      city: widget.address.city,
+                  setState(() {
+                    zipCode = int.parse(value);
+                    widget.addressChanged(
+                      street: street,
+                      city: city,
                       zipCode: int.parse(value),
-                      country: widget.address.country,
-                    ),
-                  );
+                      country: country,
+                    );
+                  });
                 },
-                initialValue: widget.address.zipCode.toString(),
+                initialValue: zipCode.toString(),
               ),
             ),
             const SizedBox(
@@ -123,16 +145,17 @@ class _AddressFormState extends State<AddressForm> {
                 },
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
-                  widget.addressChanged(
-                    Address(
+                  setState(() {
+                    street = value;
+                    widget.addressChanged(
                       street: value,
-                      city: widget.address.city,
-                      zipCode: widget.address.zipCode,
-                      country: widget.address.country,
-                    ),
-                  );
+                      city: city,
+                      zipCode: zipCode,
+                      country: country,
+                    );
+                  });
                 },
-                initialValue: widget.address.street,
+                initialValue: street,
               ),
             ),
           ],

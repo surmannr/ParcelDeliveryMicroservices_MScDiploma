@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:parceldelivery_mobile/api/shipping_requests.api.dart';
 import 'package:parceldelivery_mobile/constants.dart';
+import 'package:parceldelivery_mobile/models/add_new_billing.dart';
+import 'package:parceldelivery_mobile/models/add_new_shipping_request.dart';
 import 'package:parceldelivery_mobile/models/pagedresult.dart';
 import 'package:parceldelivery_mobile/models/shipping_request.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +40,8 @@ class ShippingRequestBloc
 
     on<_Add>((event, emit) async {
       try {
-        final result = await ShippingRequestsApi.add(event.entity);
+        final result =
+            await ShippingRequestsApi.add(event.entity, event.billing);
         emit(_Modified(result));
       } catch (e) {
         emit(const _Error("Hiba a hozzáadás során."));

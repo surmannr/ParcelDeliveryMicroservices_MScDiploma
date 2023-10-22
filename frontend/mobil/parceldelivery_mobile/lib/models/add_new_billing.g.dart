@@ -9,6 +9,7 @@ part of 'add_new_billing.dart';
 _$AddNewBillingImpl _$$AddNewBillingImplFromJson(Map<String, dynamic> json) =>
     _$AddNewBillingImpl(
       userId: json['userId'] as String,
+      name: json['name'] as String,
       totalDistance: json['totalDistance'] as int,
       totalAmount: json['totalAmount'] as int,
       currencyId: json['currencyId'] as int,
@@ -17,6 +18,7 @@ _$AddNewBillingImpl _$$AddNewBillingImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$AddNewBillingImplToJson(_$AddNewBillingImpl instance) =>
     <String, dynamic>{
       'userId': instance.userId,
+      'name': instance.name,
       'totalDistance': instance.totalDistance,
       'totalAmount': instance.totalAmount,
       'currencyId': instance.currencyId,

@@ -58,11 +58,11 @@ namespace PackageSending.API.Controllers
         [ProducesResponseType(typeof(BillingDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<BillingDto>> CreateBilling([FromBody] NewBillingDto billing)
         {
-            var id = await _mediator.Send(new AddNewBilling.Command()
+            var result = await _mediator.Send(new AddNewBilling.Command()
             {
                 NewBilling = billing
             });
-            return CreatedAtRoute("GetBillingById", new { id = id }, billing);
+            return CreatedAtRoute("GetBillingById", new { id = result.Id }, result);
         }
 
         [HttpPut("{id}")]
