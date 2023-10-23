@@ -61,7 +61,9 @@ class _CustomerAuthScreenState extends State<CustomerAuthScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () async {},
+                  onPressed: () async {
+                    await Auth.register();
+                  },
                   clipBehavior: Clip.hardEdge,
                   child: const Text('Regisztráció'),
                 ),

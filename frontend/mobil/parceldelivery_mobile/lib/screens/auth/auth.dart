@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:parceldelivery_mobile/config.dart';
 import 'package:parceldelivery_mobile/constants.dart';
 import 'package:pkce/pkce.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Auth {
   static final redirectUrl = Uri.parse("com.example.flutterapp://callback");
@@ -16,6 +18,22 @@ class Auth {
 
   static const employeeApiScope = "employeeApi";
   static const customerApiScope = "customersApi";
+
+  static register() async {
+    final config = await Config.forEnvironment();
+    final Uri url =
+        Uri.parse("${config.protocol}${config.customerBaseUrl}/register");
+    // if (await canLaunchUrl(url)) {
+    //   await launchUrl(url, mode: LaunchMode.externalApplication);
+    // } else {
+    //   // can't launch url
+    //   print("Nem lehet megnyitni a weboldalt. $url");
+    // }
+
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      print("Nem lehet megnyitni a weboldalt. $url");
+    }
+  }
 
   static Future<String> getAccessToken(
       String protocol, String baseUrl, bool isEmployee) async {
