@@ -9,6 +9,7 @@ import 'package:parceldelivery_mobile/bloc/shipping_option/shipping_option_bloc.
 import 'package:parceldelivery_mobile/bloc/shipping_request/shipping_request_bloc.dart';
 import 'package:parceldelivery_mobile/bloc/vehicle_usage/vehicle_usage_bloc.dart';
 import 'package:parceldelivery_mobile/constants.dart';
+import 'package:parceldelivery_mobile/screens/accepted_shipping_request/accepted_shipping_request_list.dart';
 import 'package:parceldelivery_mobile/screens/auth/employee_auth_screen.dart';
 import 'package:parceldelivery_mobile/screens/auth/role_chooser.dart';
 import 'package:parceldelivery_mobile/screens/currency/currency_list.dart';
@@ -167,6 +168,8 @@ class _MyAppState extends State<MyApp> {
               const ShippingRequestAddScreen(),
           ShippingRequestListScreen.routeName: (context) =>
               const ShippingRequestListScreen(),
+          AcceptedShippingRequestListScreen.routeName: (context) =>
+              const AcceptedShippingRequestListScreen(),
         },
       ),
     );

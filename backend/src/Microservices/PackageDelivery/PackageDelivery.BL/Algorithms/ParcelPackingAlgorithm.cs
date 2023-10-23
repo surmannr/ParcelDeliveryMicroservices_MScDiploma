@@ -88,7 +88,7 @@ namespace PackageDelivery.BL.Algorithms
                 partialResults.Add(
                     new ResultPair()
                     {
-                        Vehicle = selectedVehicle,
+                        Vehicle = vehicles.First(x => x.Id == selectedVehicle.Id),
                         VehicleId= selectedVehicle.Id,
                         Package = package,
                         ShippingRequest = shipReq,
