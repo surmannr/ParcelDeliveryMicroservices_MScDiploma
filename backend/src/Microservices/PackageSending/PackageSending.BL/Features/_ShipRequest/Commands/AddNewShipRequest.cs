@@ -50,11 +50,15 @@ namespace PackageSending.BL.Features._ShipRequest.Commands
                 if (shippingOption == null) throw new BadRequestException("Nincs ilyen szállítási mód!");
 
                 var newShipRequest = _mapper.Map<ShippingRequest>(request.NewShipRequest);
-                newShipRequest.Id = Guid.NewGuid().ToString();
                 newShipRequest.Status = Status.Processing;
 
                 var result = _dbContext.ShippingRequests.Add(newShipRequest);
                 await _dbContext.SaveChangesAsync();
+
+                result.Reference(x => x.Billing)
+                    .Query()
+                    .Include(x => x.Currency)
+                    .Load();
 
                 // Event
                 var eventMessage = _mapper.Map<SendingPackageEvent>(result.Entity);

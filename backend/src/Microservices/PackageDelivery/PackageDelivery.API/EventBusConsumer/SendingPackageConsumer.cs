@@ -18,8 +18,9 @@ namespace PackageDelivery.API.EventBusConsumer
         }
         public async Task Consume(ConsumeContext<SendingPackageEvent> context)
         {
-            var shipping = _mapper.Map<ShippingRequestDto>(context);
+            var shipping = _mapper.Map<ShippingRequestDto>(context.Message);
             shipping.Id = context.Message.ShippingRequestId;
+            shipping.Billing.Currency = _mapper.Map<CurrencyDto>(context.Message.Billing.Currency);
             await _mediator.Send(new AddNewShippingRequest.Command()
             { 
                 NewShippingRequest = shipping,

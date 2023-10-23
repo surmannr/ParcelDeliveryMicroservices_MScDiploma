@@ -8,7 +8,7 @@ import 'package:parceldelivery_mobile/models/shipping_request.dart';
 class ShippingRequestsApi {
   static Future<PagedResult<ShippingRequest>> getByUserId(String id) async {
     final dio = await Connector.createDio();
-    final response = await dio.get("/ShippingRequest/$id");
+    final response = await dio.get("/ShippingRequest/user/$id");
 
     var pagedData = PagedResult.fromJson(response.data,
         (json) => ShippingRequest.fromJson(json as Map<String, dynamic>));
@@ -23,14 +23,11 @@ class ShippingRequestsApi {
   static Future<bool> add(
       AddNewShippingRequest entity, AddNewBilling billing) async {
     final dio = await Connector.createDio();
+    print(billing);
     final billingResponse = await dio.post("/Billing", data: billing);
 
-    print(billingResponse.data);
     var newBilling = Billing.fromJson(billingResponse.data);
-    print("newBilling");
-    print(newBilling);
     var shipReqWithBilling = entity.copyWith(billingId: newBilling.id);
-    print(shipReqWithBilling);
     final response =
         await dio.post("/ShippingRequest", data: shipReqWithBilling);
 

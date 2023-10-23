@@ -16,6 +16,7 @@ import 'package:parceldelivery_mobile/screens/shipping_request/sr_stepone_addres
 import 'package:parceldelivery_mobile/screens/shipping_request/sr_stepthree_other.dart';
 import 'package:parceldelivery_mobile/screens/shipping_request/sr_steptwo_packages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:objectid/objectid.dart';
 
 class ShippingRequestAddScreen extends StatefulWidget {
   const ShippingRequestAddScreen({super.key});
@@ -36,6 +37,7 @@ class _ShippingRequestAddScreenState extends State<ShippingRequestAddScreen> {
   ];
 
   AddNewShippingRequest newShippingRequest = const AddNewShippingRequest(
+    id: "",
     userId: "",
     name: "",
     email: "",
@@ -162,12 +164,12 @@ class _ShippingRequestAddScreenState extends State<ShippingRequestAddScreen> {
                   newBilling = newBilling.copyWith(
                       userId: snapshot.data
                               ?.getString(Constants.sharedPref.userIdTag) ??
-                          "");
-                  newBilling = newBilling.copyWith(
+                          "",
                       name: snapshot.data
                               ?.getString(Constants.sharedPref.nameTag) ??
                           "");
                   newShippingRequest = newShippingRequest.copyWith(
+                      id: ObjectId().hexString,
                       userId: snapshot.data
                               ?.getString(Constants.sharedPref.userIdTag) ??
                           "",

@@ -9,6 +9,7 @@ part of 'add_new_shipping_request.dart';
 _$AddNewShippingRequestImpl _$$AddNewShippingRequestImplFromJson(
         Map<String, dynamic> json) =>
     _$AddNewShippingRequestImpl(
+      id: json['id'] as String,
       userId: json['userId'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
@@ -29,6 +30,7 @@ _$AddNewShippingRequestImpl _$$AddNewShippingRequestImplFromJson(
 Map<String, dynamic> _$$AddNewShippingRequestImplToJson(
         _$AddNewShippingRequestImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'userId': instance.userId,
       'name': instance.name,
       'email': instance.email,

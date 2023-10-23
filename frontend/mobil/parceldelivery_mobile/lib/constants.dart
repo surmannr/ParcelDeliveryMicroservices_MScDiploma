@@ -1,6 +1,7 @@
 class Constants {
   static SharedPref sharedPref = SharedPref();
   static Theme theme = Theme();
+  static Status status = Status();
 }
 
 class Theme {
@@ -20,4 +21,25 @@ class SharedPref {
   String roleTag = "role";
 
   String themeModeTag = "theme_mode";
+}
+
+class Status {
+  String getStatusName(int status) {
+    switch (status) {
+      case 0:
+        return "Feldolgozás";
+      case 1:
+        return "Összecsomagolás alatt";
+      case 2:
+        return "Futár felvételére vár";
+      case 3:
+        return "Kézbesítés alatt";
+      case 4:
+        return "Kiszállítva";
+      case 5:
+        return "Visszavont";
+      default:
+        return "Feldolgozás";
+    }
+  }
 }

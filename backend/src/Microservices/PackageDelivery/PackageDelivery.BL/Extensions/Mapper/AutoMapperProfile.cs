@@ -37,7 +37,11 @@ namespace PackageDelivery.BL.Extensions.Mapper
             CreateMap<VehicleUsageFilter, GetAllVehicleUsages.Query>().ReverseMap();
             CreateMap<VehicleUsageFilter, GetVehicleUsagesByEmployeeId.Query>().ReverseMap();
 
-            CreateMap<ShippingRequestDto, SendingPackageEvent>().ReverseMap();
+            CreateMap<ShippingRequestDto, SendingPackageEvent>()
+                .ForMember(dest => dest.Id, act => act.Ignore())
+                .ForMember(dest => dest.CreationDate, act => act.Ignore())
+                .ForMember(dest => dest.ShippingRequestId, act => act.MapFrom(x => x.Id))
+                .ReverseMap();
             CreateMap<PackageDto, PackageEO>().ReverseMap();
             CreateMap<BillingDto, BillingEO>().ReverseMap();
             CreateMap<PaymentOptionDto, PaymentOptionEO>().ReverseMap();

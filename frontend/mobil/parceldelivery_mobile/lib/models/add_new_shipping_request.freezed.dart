@@ -21,6 +21,7 @@ AddNewShippingRequest _$AddNewShippingRequestFromJson(
 
 /// @nodoc
 mixin _$AddNewShippingRequest {
+  String get id => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -47,7 +48,8 @@ abstract class $AddNewShippingRequestCopyWith<$Res> {
       _$AddNewShippingRequestCopyWithImpl<$Res, AddNewShippingRequest>;
   @useResult
   $Res call(
-      {String userId,
+      {String id,
+      String userId,
       String name,
       String email,
       String courierId,
@@ -78,6 +80,7 @@ class _$AddNewShippingRequestCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? userId = null,
     Object? name = null,
     Object? email = null,
@@ -92,6 +95,10 @@ class _$AddNewShippingRequestCopyWithImpl<$Res,
     Object? packages = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -170,7 +177,8 @@ abstract class _$$AddNewShippingRequestImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String userId,
+      {String id,
+      String userId,
       String name,
       String email,
       String courierId,
@@ -201,6 +209,7 @@ class __$$AddNewShippingRequestImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? userId = null,
     Object? name = null,
     Object? email = null,
@@ -215,6 +224,10 @@ class __$$AddNewShippingRequestImplCopyWithImpl<$Res>
     Object? packages = null,
   }) {
     return _then(_$AddNewShippingRequestImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -271,7 +284,8 @@ class __$$AddNewShippingRequestImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AddNewShippingRequestImpl implements _AddNewShippingRequest {
   const _$AddNewShippingRequestImpl(
-      {required this.userId,
+      {required this.id,
+      required this.userId,
       required this.name,
       required this.email,
       required this.courierId,
@@ -288,6 +302,8 @@ class _$AddNewShippingRequestImpl implements _AddNewShippingRequest {
   factory _$AddNewShippingRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddNewShippingRequestImplFromJson(json);
 
+  @override
+  final String id;
   @override
   final String userId;
   @override
@@ -320,7 +336,7 @@ class _$AddNewShippingRequestImpl implements _AddNewShippingRequest {
 
   @override
   String toString() {
-    return 'AddNewShippingRequest(userId: $userId, name: $name, email: $email, courierId: $courierId, addressFrom: $addressFrom, addressTo: $addressTo, isExpress: $isExpress, shippingOptionId: $shippingOptionId, paymentOptionId: $paymentOptionId, billingId: $billingId, isFinished: $isFinished, packages: $packages)';
+    return 'AddNewShippingRequest(id: $id, userId: $userId, name: $name, email: $email, courierId: $courierId, addressFrom: $addressFrom, addressTo: $addressTo, isExpress: $isExpress, shippingOptionId: $shippingOptionId, paymentOptionId: $paymentOptionId, billingId: $billingId, isFinished: $isFinished, packages: $packages)';
   }
 
   @override
@@ -328,6 +344,7 @@ class _$AddNewShippingRequestImpl implements _AddNewShippingRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddNewShippingRequestImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
@@ -354,6 +371,7 @@ class _$AddNewShippingRequestImpl implements _AddNewShippingRequest {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       userId,
       name,
       email,
@@ -384,7 +402,8 @@ class _$AddNewShippingRequestImpl implements _AddNewShippingRequest {
 
 abstract class _AddNewShippingRequest implements AddNewShippingRequest {
   const factory _AddNewShippingRequest(
-      {required final String userId,
+      {required final String id,
+      required final String userId,
       required final String name,
       required final String email,
       required final String courierId,
@@ -400,6 +419,8 @@ abstract class _AddNewShippingRequest implements AddNewShippingRequest {
   factory _AddNewShippingRequest.fromJson(Map<String, dynamic> json) =
       _$AddNewShippingRequestImpl.fromJson;
 
+  @override
+  String get id;
   @override
   String get userId;
   @override

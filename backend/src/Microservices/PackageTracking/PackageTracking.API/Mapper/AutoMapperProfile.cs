@@ -19,15 +19,19 @@ namespace PackageTracking.API.Mapper
             CreateMap<PaymentOption, PaymentOptionEO>().ReverseMap();
             CreateMap<ShippingOption, ShippingOptionEO>().ReverseMap();
             CreateMap<ShippingRequest, SendingPackageEvent>().ReverseMap();
-            CreateMap<ShippingRequestDto, SendingPackageEvent>().ReverseMap();
             CreateMap<Address, AddressEO>().ReverseMap();
             CreateMap<Currency, CurrencyEO>().ReverseMap();
 
+            CreateMap<ShippingRequestDto, SendingPackageEvent>()
+                .ForMember(dest => dest.Id, act => act.Ignore())
+                .ForMember(dest => dest.CreationDate, act => act.Ignore())
+                .ForMember(dest => dest.ShippingRequestId, act => act.MapFrom(x => x.Id))
+                .ReverseMap();
             CreateMap<PackageDto, PackageEO>().ReverseMap();
+            CreateMap<BillingDto, BillingEO>().ReverseMap();
             CreateMap<PaymentOptionDto, PaymentOptionEO>().ReverseMap();
             CreateMap<ShippingOptionDto, ShippingOptionEO>().ReverseMap();
             CreateMap<AddressDto, AddressEO>().ReverseMap();
-            CreateMap<BillingDto, BillingEO>().ReverseMap();
             CreateMap<CurrencyDto, CurrencyEO>().ReverseMap();
         }
     }

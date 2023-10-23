@@ -125,7 +125,7 @@ builder.Services.AddMassTransit(config =>
             c.ConfigureConsumer<AssignEmployeesConsumer>(ctx);
         });
 
-        cfg.ReceiveEndpoint(EventBusConstants.SendingPackageQueue, c =>
+        cfg.ReceiveEndpoint(EventBusConstants.SendingPackageDeliveryQueue, c =>
         {
             c.ConfigureConsumer<SendingPackageConsumer>(ctx);
         });

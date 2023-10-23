@@ -19,6 +19,7 @@ namespace PackageTracking.API.EventBusConsumer
         public async Task Consume(ConsumeContext<SendingPackageEvent> context)
         {
             var shipping = _mapper.Map<ShippingRequestDto>(context.Message);
+            shipping.Billing.Currency = _mapper.Map<CurrencyDto>(context.Message.Billing.Currency);
             shipping.Id = context.Message.ShippingRequestId;
             await _repository.UpdateShipping(shipping);
         }

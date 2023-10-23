@@ -31,7 +31,11 @@ namespace PackageSending.BL.Extensions.Mapper
             CreateMap<Package, PackageEO>().ReverseMap();
             CreateMap<PaymentOption, PaymentOptionEO>().ReverseMap();
             CreateMap<ShippingOption, ShippingOptionEO>().ReverseMap();
-            CreateMap<ShippingRequest, SendingPackageEvent>().ReverseMap();
+            CreateMap<ShippingRequest, SendingPackageEvent>()
+                .ForMember(dest => dest.Id, act => act.Ignore())
+                .ForMember(dest => dest.CreationDate, act => act.Ignore())
+                .ForMember(dest => dest.ShippingRequestId, act => act.MapFrom(x => x.Id))
+                .ReverseMap();
             CreateMap<Address, AddressEO>().ReverseMap();
             CreateMap<Billing, BillingEO>().ReverseMap();
             CreateMap<Currency, CurrencyEO>().ReverseMap();

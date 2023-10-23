@@ -10,6 +10,7 @@ namespace PackageSending.BL.Dto
 {
     public class NewShippingRequestDto
     {
+        public string Id { get; set; }
         public string UserId { get; set; }
         public string CourierId { get; set; }
         public AddressDto AddressFrom { get; set; }

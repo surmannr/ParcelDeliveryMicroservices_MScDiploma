@@ -8,6 +8,8 @@ import 'package:parceldelivery_mobile/models/add_new_shipping_request.dart';
 import 'package:parceldelivery_mobile/models/currency.dart';
 import 'package:parceldelivery_mobile/models/payment_option.dart';
 import 'package:parceldelivery_mobile/models/shipping_option.dart';
+import 'package:parceldelivery_mobile/screens/shipping_request/shipping_request_list.dart';
+import 'package:parceldelivery_mobile/screens/welcome/customer_welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShipReqStepFourSum extends StatelessWidget {
@@ -202,9 +204,8 @@ class ShipReqStepFourSum extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
-              print(shippingRequest);
-              print(newBilling);
               ShippingRequestsApi.add(shippingRequest, newBilling);
+              Navigator.of(context).pushNamed(WelcomeCustomer.routeName);
             },
             clipBehavior: Clip.hardEdge,
             child: const Text('Új csomagfeladás'),

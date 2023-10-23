@@ -15,6 +15,7 @@ import 'package:parceldelivery_mobile/screens/currency/currency_list.dart';
 import 'package:parceldelivery_mobile/screens/payment_option/payment_option_list.dart';
 import 'package:parceldelivery_mobile/screens/shipping_option/shipping_option_list.dart';
 import 'package:parceldelivery_mobile/screens/shipping_request/shipping_request_add.dart';
+import 'package:parceldelivery_mobile/screens/shipping_request/shipping_request_list.dart';
 import 'package:parceldelivery_mobile/screens/track/track_detail.dart';
 import 'package:parceldelivery_mobile/screens/vehicle_usage/vehicle_usage_list.dart';
 import 'package:parceldelivery_mobile/screens/welcome/customer_welcome.dart';
@@ -164,6 +165,8 @@ class _MyAppState extends State<MyApp> {
           TrackDetailScreen.routeName: (context) => const TrackDetailScreen(),
           ShippingRequestAddScreen.routeName: (context) =>
               const ShippingRequestAddScreen(),
+          ShippingRequestListScreen.routeName: (context) =>
+              const ShippingRequestListScreen(),
         },
       ),
     );

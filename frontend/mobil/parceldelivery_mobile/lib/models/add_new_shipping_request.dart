@@ -8,6 +8,7 @@ part 'add_new_shipping_request.g.dart';
 @freezed
 class AddNewShippingRequest with _$AddNewShippingRequest {
   const factory AddNewShippingRequest({
+    required String id,
     required String userId,
     required String name,
     required String email,
