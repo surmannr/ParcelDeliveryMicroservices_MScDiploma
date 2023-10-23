@@ -51,14 +51,18 @@ class ShippingRequestBloc
     on<_Track>((event, emit) async {
       try {
         final result = await ShippingRequestsApi.track(event.id);
-
         PagedResult<ShippingRequest> pagedData = PagedResult(
             totalCount: 1,
             totalPages: 1,
             pageNumber: 1,
             pageSize: 1,
             data: [result]);
-        emit(_Loaded(pagedData));
+
+        if (pagedData.data.isEmpty) {
+          emit(const _Modified(true));
+        } else {
+          emit(_Loaded(pagedData));
+        }
       } catch (e) {
         emit(const _Error("Hiba a nyomkövetés során."));
       }

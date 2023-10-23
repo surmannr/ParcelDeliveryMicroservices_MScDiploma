@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parceldelivery_mobile/constants.dart';
 import 'package:parceldelivery_mobile/models/shipping_request.dart';
+import 'package:parceldelivery_mobile/screens/track/track_detail.dart';
 
 class ShippingRequestTile extends StatelessWidget {
   const ShippingRequestTile({
@@ -17,6 +18,15 @@ class ShippingRequestTile extends StatelessWidget {
       child: Card(
         elevation: 4,
         child: ListTile(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => TrackDetailScreen(
+                  id: entity.id,
+                ),
+              ),
+            );
+          },
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

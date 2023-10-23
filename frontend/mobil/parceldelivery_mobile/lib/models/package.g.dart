@@ -15,7 +15,7 @@ _$PackageImpl _$$PackageImplFromJson(Map<String, dynamic> json) =>
       sizeZ: json['sizeZ'] as int,
       weight: json['weight'] as int,
       isFragile: json['isFragile'] as bool,
-      shippingRequestId: json['shippingRequestId'] as String,
+      shippingRequestId: json['shippingRequestId'] as String?,
     );
 
 Map<String, dynamic> _$$PackageImplToJson(_$PackageImpl instance) =>

@@ -4,6 +4,7 @@ import 'package:parceldelivery_mobile/components/menu/common_menu_parts.dart';
 import 'package:parceldelivery_mobile/components/menu/drawer_tile.dart';
 import 'package:parceldelivery_mobile/screens/shipping_request/shipping_request_add.dart';
 import 'package:parceldelivery_mobile/screens/shipping_request/shipping_request_list.dart';
+import 'package:parceldelivery_mobile/screens/track/track_detail.dart';
 
 class CustomerDrawer extends Drawer {
   const CustomerDrawer({super.key})
@@ -24,6 +25,10 @@ class CustomerDrawer extends Drawer {
                 DrawerTile(
                   title: "Csomagok feladása",
                   navigateToRouteName: ShippingRequestAddScreen.routeName,
+                ),
+                DrawerTile(
+                  title: "Csomagom nyomonkövetése",
+                  navigateToRouteName: TrackDetailScreen.routeName,
                 ),
                 CommonMenuParts()
               ],

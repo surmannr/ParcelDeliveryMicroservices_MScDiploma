@@ -27,7 +27,7 @@ mixin _$Package {
   int get sizeZ => throw _privateConstructorUsedError;
   int get weight => throw _privateConstructorUsedError;
   bool get isFragile => throw _privateConstructorUsedError;
-  String get shippingRequestId => throw _privateConstructorUsedError;
+  String? get shippingRequestId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +47,7 @@ abstract class $PackageCopyWith<$Res> {
       int sizeZ,
       int weight,
       bool isFragile,
-      String shippingRequestId});
+      String? shippingRequestId});
 }
 
 /// @nodoc
@@ -70,7 +70,7 @@ class _$PackageCopyWithImpl<$Res, $Val extends Package>
     Object? sizeZ = null,
     Object? weight = null,
     Object? isFragile = null,
-    Object? shippingRequestId = null,
+    Object? shippingRequestId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,10 +101,10 @@ class _$PackageCopyWithImpl<$Res, $Val extends Package>
           ? _value.isFragile
           : isFragile // ignore: cast_nullable_to_non_nullable
               as bool,
-      shippingRequestId: null == shippingRequestId
+      shippingRequestId: freezed == shippingRequestId
           ? _value.shippingRequestId
           : shippingRequestId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -124,7 +124,7 @@ abstract class _$$PackageImplCopyWith<$Res> implements $PackageCopyWith<$Res> {
       int sizeZ,
       int weight,
       bool isFragile,
-      String shippingRequestId});
+      String? shippingRequestId});
 }
 
 /// @nodoc
@@ -145,7 +145,7 @@ class __$$PackageImplCopyWithImpl<$Res>
     Object? sizeZ = null,
     Object? weight = null,
     Object? isFragile = null,
-    Object? shippingRequestId = null,
+    Object? shippingRequestId = freezed,
   }) {
     return _then(_$PackageImpl(
       id: null == id
@@ -176,10 +176,10 @@ class __$$PackageImplCopyWithImpl<$Res>
           ? _value.isFragile
           : isFragile // ignore: cast_nullable_to_non_nullable
               as bool,
-      shippingRequestId: null == shippingRequestId
+      shippingRequestId: freezed == shippingRequestId
           ? _value.shippingRequestId
           : shippingRequestId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -195,7 +195,7 @@ class _$PackageImpl implements _Package {
       required this.sizeZ,
       required this.weight,
       required this.isFragile,
-      required this.shippingRequestId});
+      this.shippingRequestId});
 
   factory _$PackageImpl.fromJson(Map<String, dynamic> json) =>
       _$$PackageImplFromJson(json);
@@ -215,7 +215,7 @@ class _$PackageImpl implements _Package {
   @override
   final bool isFragile;
   @override
-  final String shippingRequestId;
+  final String? shippingRequestId;
 
   @override
   String toString() {
@@ -267,7 +267,7 @@ abstract class _Package implements Package {
       required final int sizeZ,
       required final int weight,
       required final bool isFragile,
-      required final String shippingRequestId}) = _$PackageImpl;
+      final String? shippingRequestId}) = _$PackageImpl;
 
   factory _Package.fromJson(Map<String, dynamic> json) = _$PackageImpl.fromJson;
 
@@ -286,7 +286,7 @@ abstract class _Package implements Package {
   @override
   bool get isFragile;
   @override
-  String get shippingRequestId;
+  String? get shippingRequestId;
   @override
   @JsonKey(ignore: true)
   _$$PackageImplCopyWith<_$PackageImpl> get copyWith =>

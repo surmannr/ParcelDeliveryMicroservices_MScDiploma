@@ -13,7 +13,7 @@ class Package with _$Package {
     required int sizeZ,
     required int weight,
     required bool isFragile,
-    required String shippingRequestId,
+    String? shippingRequestId,
   }) = _Package;
 
   factory Package.fromJson(Map<String, Object?> json) =>
