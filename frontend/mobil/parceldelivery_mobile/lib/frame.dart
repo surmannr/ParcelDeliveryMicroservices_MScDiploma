@@ -5,18 +5,13 @@ import 'package:parceldelivery_mobile/components/menu/employee_drawer.dart';
 import 'package:parceldelivery_mobile/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FrameScaffold extends StatefulWidget {
+class FrameScaffold extends StatelessWidget {
   const FrameScaffold(
       {required this.child, super.key, this.floatingActionButton});
 
   final Widget child;
   final Widget? floatingActionButton;
 
-  @override
-  State<FrameScaffold> createState() => _FrameScaffoldState();
-}
-
-class _FrameScaffoldState extends State<FrameScaffold> {
   Future<String> _getUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final storedRole = prefs.getString(Constants.sharedPref.roleTag);
@@ -43,8 +38,8 @@ class _FrameScaffoldState extends State<FrameScaffold> {
               drawer: role == "customer"
                   ? const CustomerDrawer()
                   : const EmployeeDrawer(),
-              body: widget.child,
-              floatingActionButton: widget.floatingActionButton,
+              body: child,
+              floatingActionButton: floatingActionButton,
             );
           } else {
             return const Center(

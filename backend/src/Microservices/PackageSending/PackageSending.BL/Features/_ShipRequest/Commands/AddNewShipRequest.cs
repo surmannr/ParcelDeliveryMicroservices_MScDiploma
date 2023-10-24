@@ -17,6 +17,7 @@ namespace PackageSending.BL.Features._ShipRequest.Commands
         public class Command : ICommand<string>
         {
             public NewShippingRequestDto NewShipRequest { get; set; }
+            public bool Test { get; set; } = false;
         }
 
         public class Handler : IRequestHandler<Command, string>
@@ -55,10 +56,13 @@ namespace PackageSending.BL.Features._ShipRequest.Commands
                 var result = _dbContext.ShippingRequests.Add(newShipRequest);
                 await _dbContext.SaveChangesAsync();
 
-                result.Reference(x => x.Billing)
+                if (!request.Test)
+                {
+                    result.Reference(x => x.Billing)
                     .Query()
                     .Include(x => x.Currency)
                     .Load();
+                }
 
                 // Event
                 var eventMessage = _mapper.Map<SendingPackageEvent>(result.Entity);

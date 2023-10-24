@@ -25,6 +25,7 @@ namespace PackageSending.Tests.UnitTests
             Status = Status.Delivered,
             AddressFrom = new Address(),
             AddressTo = new Address(),
+            Billing = new Billing() { Currency = new Currency(),},
             BillingId = "bid1",
             DateOfDispatch = DateTime.Now,
             IsExpress = false,
@@ -119,7 +120,7 @@ namespace PackageSending.Tests.UnitTests
         {
             // Arrange
             Mock<IPublishEndpoint> mockedEndpoint = new Mock<IPublishEndpoint>();
-            var query = new AddNewShipRequest.Command() { NewShipRequest = _mapper.Map<NewShippingRequestDto>(element) };
+            var query = new AddNewShipRequest.Command() { NewShipRequest = _mapper.Map<NewShippingRequestDto>(element), Test = true };
             var handler = new AddNewShipRequest.Handler(_mapper, _dbContext.Object, mockedEndpoint.Object);
 
             // Act

@@ -31,6 +31,10 @@ spec:
               value: amqp://guest:guest@rabbitmq-service
             - name: CacheSettings__ConnectionString
               value: redis-service
+            - name: EmployeeIdentity__Authority
+              value: http://employee-server.k8s.arcter
+            - name: CustomerIdentity__Authority
+              value: http://customer-server.k8s.arcter
           resources:
             requests:
               memory: "64Mi"

@@ -107,7 +107,7 @@ namespace PackageSending.Tests.UnitTests
             var result = await handler.Handle(query, default);
 
             // Assert
-            result.ShouldBeOfType<string>();
+            result.ShouldBeOfType<BillingDto?>();
 
             var elements = _dbContext.Object.Billings.ToList();
             elements.Count.ShouldBe(3);

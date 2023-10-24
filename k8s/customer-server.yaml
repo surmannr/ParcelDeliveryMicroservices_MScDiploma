@@ -27,6 +27,10 @@ spec:
               value: Development
             - name: ASPNETCORE_URLS
               value: http://+:80
+            - name: EventBusSettings__HostAddress
+              value: amqp://guest:guest@rabbitmq-service
+            - name: IssueUri
+              value: http://customer-server.k8s.arcter
             - name: ConnectionStrings__DefaultConnection
               value: "Server=mssql-service;Database=ParcelDelivery_CustomersDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true"
           resources:
