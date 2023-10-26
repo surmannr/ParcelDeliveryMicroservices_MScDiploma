@@ -35,6 +35,6 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
-        buildContext: $(Build.SourcesDirectory)/backend/src/ApiGateways/OcelotApiGateway
+        buildContext: $(Build.SourcesDirectory)/backend/src/
         tags: |
           $(tag)
