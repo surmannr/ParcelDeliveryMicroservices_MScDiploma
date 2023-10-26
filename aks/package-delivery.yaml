@@ -32,13 +32,13 @@ spec:
             - name: EventBusSettings__HostAddress
               value: amqp://guest:guest@rabbitmq-service
             - name: EmployeeIdentity__Authority
-              value: http://employeeidentityapi-service.rudii.svc.cluster.local
+              value: http://40.114.180.13
             - name: CustomerIdentity__Authority
-              value: http://customeridentityapi-service.rudii.svc.cluster.local
+              value: http://10.224.0.5
             - name: ConnectionStrings__HangfireConnection
-              value: "Server=mssql-service;Database=ParcelDelivery_SchedulerDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true"
+              value: "Server=mssql-deployment;Database=ParcelDelivery_SchedulerDb;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true"
             - name: ConnectionStrings__HangfireConnectionCreateDb
-              value: "Server=mssql-service;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true"
+              value: "Server=mssql-deployment;User Id=sa;Password=Password?123@;Encrypt=False;TrustServerCertificate=true"
             - name: DatabaseSettings__ConnectionString
               valueFrom:
                 configMapKeyRef:

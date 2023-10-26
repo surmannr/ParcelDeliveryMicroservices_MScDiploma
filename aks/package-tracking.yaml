@@ -34,9 +34,9 @@ spec:
             - name: CacheSettings__ConnectionString
               value: redis-service
             - name: EmployeeIdentity__Authority
-              value: http://employeeidentityapi-service.rudii.svc.cluster.local
+              value: http://40.114.180.13
             - name: CustomerIdentity__Authority
-              value: http://customeridentityapi-service.rudii.svc.cluster.local
+              value: http://10.224.0.5
           resources:
             requests:
               memory: "64Mi"

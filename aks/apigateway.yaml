@@ -40,6 +40,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
   namespace: rudii
   name: apigateway-service
 spec:

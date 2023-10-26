@@ -59,6 +59,15 @@
                 }
               ],
               "outputHashing": "all"
+            },
+            "azure": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.azure.ts"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
@@ -76,6 +85,10 @@
             },
             "kubernetes": {
               "browserTarget": "parceldelivery-admin-app:build:kubernetes",
+              "proxyConfig": "src/proxy.conf.json"
+            },
+            "azure": {
+              "browserTarget": "parceldelivery-admin-app:build:azure",
               "proxyConfig": "src/proxy.conf.json"
             }
           },
