@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: ocelotapigateway 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ocelotapigateway
+  template:
+    metadata:
+      labels:
+        app: ocelotapigateway 
+    spec:
+      containers:
+        - name: ocelotapigateway 
+          image: diptervacr.azurecr.io/ocelotapigateway
+          ports:
+          - containerPort: 80
