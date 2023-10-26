@@ -19,7 +19,7 @@ variables:
   dockerRegistryServiceConnection: "b0514680-9387-4797-8b48-6d28ef6cf896"
   imageRepository: "webfrontend"
   containerRegistry: "diptervacr.azurecr.io"
-  dockerfilePath: "**/Dockerfile"
+  dockerfilePath: "$(Build.SourcesDirectory)/frontend/web/parceldelivery-admin-app/Dockerfile"
   buildContextPath: "$(Build.SourcesDirectory)/frontend/web/parceldelivery-admin-app"
   tag: "$(Build.BuildId)"
   imagePullSecret: "diptervacr201974e6-auth"

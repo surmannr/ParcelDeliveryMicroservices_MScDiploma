@@ -19,7 +19,7 @@ variables:
   dockerRegistryServiceConnection: "b0514680-9387-4797-8b48-6d28ef6cf896"
   imageRepository: "employeeserver"
   containerRegistry: "diptervacr.azurecr.io"
-  dockerfilePath: "**/Dockerfile"
+  dockerfilePath: "$(Build.SourcesDirectory)/backend/src/Microservices/Employees/Employees.API/Dockerfile"
   buildContextPath: "$(Build.SourcesDirectory)/backend/src/"
   tag: "$(Build.BuildId)"
   imagePullSecret: "diptervacr201974e6-auth"
