@@ -72,7 +72,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/aks/apigateway.yml
+                $(Pipeline.Workspace)/manifest/apigateway.yml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
