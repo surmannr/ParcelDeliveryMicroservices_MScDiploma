@@ -12,7 +12,7 @@ COPY . .
 # Install all the dependencies
 RUN npm ci
 
-ARG configuration=kubernetes
+ARG configuration=azure
 
 # Generate the build of the application
 RUN npm run ng build -- --configuration=$configuration
