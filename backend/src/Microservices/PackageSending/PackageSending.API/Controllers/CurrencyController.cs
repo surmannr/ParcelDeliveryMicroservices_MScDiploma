@@ -44,6 +44,7 @@ namespace PackageSending.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(CurrencyDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<CurrencyDto>> CreateVehicle([FromBody] CurrencyDto currency)
         {
             var id = await _mediator.Send(new AddNewCurrency.Command()
@@ -56,6 +57,7 @@ namespace PackageSending.API.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(CurrencyDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<bool>> UpdateCurrency([FromBody] CurrencyDto currency)
         {
             var result = await _mediator.Send(new EditCurrency.Command()
@@ -67,6 +69,7 @@ namespace PackageSending.API.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(CurrencyDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<bool>> DeleteCurrency(int id)
         {
             var result = await _mediator.Send(new DeleteCurrency.Command()

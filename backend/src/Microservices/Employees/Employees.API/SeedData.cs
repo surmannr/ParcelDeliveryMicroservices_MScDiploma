@@ -1,4 +1,4 @@
-﻿using Employees.API.Constants;
+﻿using Common.Constants;
 using Employees.API.Data;
 using Employees.API.Models;
 using IdentityModel;
@@ -22,16 +22,6 @@ namespace Employees.API
                 {
                     courierRole = new IdentityRole(Roles.Courier);
                     var result = roleMgr.CreateAsync(courierRole).Result;
-                    if (!result.Succeeded)
-                    {
-                        throw new Exception(result.Errors.First().Description);
-                    }
-                }
-                var adminRole = roleMgr.Roles.FirstOrDefault(x => x.Name.Equals(Roles.Admin));
-                if (adminRole == null)
-                {
-                    adminRole = new IdentityRole(Roles.Admin);
-                    var result = roleMgr.CreateAsync(adminRole).Result;
                     if (!result.Succeeded)
                     {
                         throw new Exception(result.Errors.First().Description);
@@ -77,13 +67,13 @@ namespace Employees.API
                     {
                         throw new Exception(result.Errors.First().Description);
                     }
-
+                    userMgr.AddToRoleAsync(alice, Roles.OfficeAssistant);
                     result = userMgr.AddClaimsAsync(alice, new Claim[]{
                             new Claim(JwtClaimTypes.Name, "Alice Smith"),
                             new Claim(JwtClaimTypes.GivenName, "Alice"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
                             new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-                            new Claim(JwtClaimTypes.Role, Roles.Admin),
+                            new Claim(JwtClaimTypes.Role, Roles.OfficeAssistant),
                         }).Result;
                     if (!result.Succeeded)
                     {
@@ -114,7 +104,7 @@ namespace Employees.API
                     {
                         throw new Exception(result.Errors.First().Description);
                     }
-
+                    userMgr.AddToRoleAsync(alice, Roles.Courier);
                     result = userMgr.AddClaimsAsync(bob, new Claim[]{
                             new Claim(JwtClaimTypes.Name, "Bob Smith"),
                             new Claim(JwtClaimTypes.GivenName, "Bob"),

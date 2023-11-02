@@ -78,6 +78,7 @@ namespace PackageDelivery.API.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(AcceptedShippingRequestDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<bool>> DeleteAcceptedShipRequest(string id)
         {
             var result = await _mediator.Send(new DeleteAcceptedShipRequest.Command()

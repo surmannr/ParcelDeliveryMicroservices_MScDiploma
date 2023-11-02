@@ -44,6 +44,7 @@ namespace PackageSending.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(ShippingOptionDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<ShippingOptionDto>> CreateShippingOption([FromBody] ShippingOptionDto shippingOption)
         {
             var id = await _mediator.Send(new AddNewShippingOption.Command()
@@ -56,6 +57,7 @@ namespace PackageSending.API.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(ShippingOptionDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<bool>> UpdateShippingOption([FromBody] ShippingOptionDto shippingOption)
         {
             var result = await _mediator.Send(new EditShippingOption.Command()
@@ -67,6 +69,7 @@ namespace PackageSending.API.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ShippingOptionDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<bool>> DeleteShippingOption(int id)
         {
             var result = await _mediator.Send(new DeleteShippingOption.Command()

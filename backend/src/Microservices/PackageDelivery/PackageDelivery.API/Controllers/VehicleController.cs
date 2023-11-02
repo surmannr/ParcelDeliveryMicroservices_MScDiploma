@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Constants;
 using Common.Paging;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -46,6 +47,7 @@ namespace PackageDelivery.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(VehicleDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<VehicleDto>> CreateVehicle([FromBody] VehicleDto vehicle)
         {
             var id = await _mediator.Send(new AddNewVehicle.Command()
@@ -58,6 +60,7 @@ namespace PackageDelivery.API.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(VehicleDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<bool>> UpdateVehicle([FromBody] VehicleDto vehicle)
         {
             var result = await _mediator.Send(new EditVehicle.Command()
@@ -69,6 +72,7 @@ namespace PackageDelivery.API.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(VehicleDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<bool>> DeleteVehicleUsage(string id)
         {
             var result = await _mediator.Send(new DeleteVehicle.Command()

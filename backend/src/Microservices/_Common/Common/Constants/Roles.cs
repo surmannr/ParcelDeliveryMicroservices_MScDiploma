@@ -1,8 +1,7 @@
-﻿namespace Employees.API.Constants
+﻿namespace Common.Constants
 {
     public static class Roles
     {
-        public static string Admin = "Admin";
         public static string OfficeAssistant = "Office assistant";
         public static string Courier = "Courier";
     }

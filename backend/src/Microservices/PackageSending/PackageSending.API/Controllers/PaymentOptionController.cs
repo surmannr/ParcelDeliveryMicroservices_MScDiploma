@@ -44,6 +44,7 @@ namespace PackageSending.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(PaymentOptionDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<PaymentOptionDto>> CreatePaymentOption([FromBody] PaymentOptionDto paymentOption)
         {
             var id = await _mediator.Send(new AddNewPaymentOption.Command()
@@ -56,6 +57,7 @@ namespace PackageSending.API.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(PaymentOptionDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<bool>> UpdatePackage([FromBody] PaymentOptionDto paymentOption)
         {
             var result = await _mediator.Send(new EditPaymentOption.Command()
@@ -67,6 +69,7 @@ namespace PackageSending.API.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(PaymentOptionDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Office assistant")]
         public async Task<ActionResult<bool>> DeletePackage(int id)
         {
             var result = await _mediator.Send(new DeletePaymentOption.Command()
